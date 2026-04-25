@@ -59,18 +59,18 @@ async def favicon():
 DIST_DIR = Path(__file__).parent.parent / "dist"
 
 if DIST_DIR.exists():
-    # Serve static assets (JS, CSS, images)
-    app.mount("/assets", StaticFiles(directory=DIST_DIR / "assets"), name="assets")
-
-    # SPA fallback — all non-API routes return index.html
     @app.get("/{full_path:path}", include_in_schema=False)
     async def serve_spa(full_path: str):
+        # Try to serve the exact file requested
+        file_path = DIST_DIR / full_path
+        if file_path.exists() and file_path.is_file():
+            return FileResponse(file_path)
+        # Fallback to index.html for client-side routing
         return FileResponse(DIST_DIR / "index.html")
 else:
     @app.get("/")
     def root():
         return {"status": "ok", "note": "Frontend not built yet. Run: npm run build"}
-
 
 if __name__ == "__main__":
     import uvicorn
