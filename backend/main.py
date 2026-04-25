@@ -8,8 +8,13 @@ Run with:
     uvicorn backend.main:app --reload --port 8000
 """
 
+import os
+from pathlib import Path
+
 from fastapi import FastAPI, Response
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 
 from backend.routes import articles, videos, chat
 
@@ -20,10 +25,6 @@ app = FastAPI(
 )
 
 # ── CORS ─────────────────────────────────────────────────────────────────────
-# Allow the Vite dev server and any localhost port.
-# Replace your current CORS middleware with this:
-import os
-
 ALLOWED_ORIGINS = os.environ.get(
     "ALLOWED_ORIGINS",
     "http://localhost:3000,http://localhost:5173"
@@ -43,7 +44,7 @@ app.include_router(videos.router,   prefix="/api")
 app.include_router(chat.router,     prefix="/api")
 
 
-@app.get("/")
+@app.get("/api/health")
 def health_check():
     return {"status": "ok", "app": "Auti-Aura API"}
 
@@ -54,7 +55,22 @@ async def favicon():
     return Response(status_code=204)
 
 
-import os
+# ── Serve React frontend (production build) ───────────────────────────────────
+DIST_DIR = Path(__file__).parent.parent / "dist"
+
+if DIST_DIR.exists():
+    # Serve static assets (JS, CSS, images)
+    app.mount("/assets", StaticFiles(directory=DIST_DIR / "assets"), name="assets")
+
+    # SPA fallback — all non-API routes return index.html
+    @app.get("/{full_path:path}", include_in_schema=False)
+    async def serve_spa(full_path: str):
+        return FileResponse(DIST_DIR / "index.html")
+else:
+    @app.get("/")
+    def root():
+        return {"status": "ok", "note": "Frontend not built yet. Run: npm run build"}
+
 
 if __name__ == "__main__":
     import uvicorn

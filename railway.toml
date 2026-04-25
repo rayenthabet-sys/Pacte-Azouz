@@ -1,0 +1,11 @@
+[build]
+# 1. Install Python deps
+# 2. Install Node deps & build the React frontend
+buildCommand = "pip install -r requirements.txt && npm ci && npm run build"
+
+[deploy]
+# Railway injects $PORT — uvicorn must listen on it
+startCommand = "uvicorn backend.main:app --host 0.0.0.0 --port $PORT"
+healthcheckPath = "/api/health"
+healthcheckTimeout = 30
+restartPolicyType = "on_failure"
