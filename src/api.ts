@@ -303,7 +303,7 @@ Tu ne dois JAMAIS poser de diagnostic. Oriente toujours vers un professionnel de
 
 export async function fetchArticles(axis?: string): Promise<Article[]> {
   try {
-    const url = axis ? `${BASE}/articles?axis=${axis}` : `${BASE}/articles`;
+    const url = axis ? `${BASE_URL}/articles?axis=${axis}` : `${BASE_URL}/articles`;
     const res = await fetch(url);
     if (!res.ok) throw new Error();
     return await res.json();
@@ -314,7 +314,7 @@ export async function fetchArticles(axis?: string): Promise<Article[]> {
 
 export async function fetchArticle(id: string): Promise<Article> {
   try {
-    const res = await fetch(`${BASE}/articles/${id}`);
+    const res = await fetch(`${BASE_URL}/articles/${id}`);
     if (!res.ok) throw new Error();
     return await res.json();
   } catch {
@@ -326,7 +326,7 @@ export async function fetchArticle(id: string): Promise<Article> {
 
 export async function fetchVideos(): Promise<Video[]> {
   try {
-    const res = await fetch(`${BASE}/videos`);
+    const res = await fetch(`${BASE_URL}/videos`);
     if (!res.ok) throw new Error();
     return await res.json();
   } catch {
@@ -340,7 +340,7 @@ export async function sendChatMessage(
 ): Promise<string> {
   // Try backend first
   try {
-    const res = await fetch(`${BASE}/chat`, {
+    const res = await fetch(`${BASE_URL}/chat`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ message, history }),
