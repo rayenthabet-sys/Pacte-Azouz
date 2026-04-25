@@ -202,7 +202,7 @@ par une équipe spécialisée via observation clinique.
         title="Structurer l'espace et le temps",
         title_ar="هيكلة الفضاء والوقت",
         excerpt="Un environnement structuré réduit l'anxiété et favorise l'apprentissage.",
-        content="""Heistructurer l'espace en zones d'activités claires et instaurer un planning visuel
+        content="""Structurer l'espace en zones d'activités claires et instaurer un planning visuel
 quotidien réduit considérablement l'anxiété de l'enfant.
 
 ### Conseils pratiques

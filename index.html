@@ -35,8 +35,17 @@
     line-height: 1.7;
     min-height: 100vh;
   }
+  body[data-theme="light"] {
+    --dark:   #eff6ff;
+    --dark2:  #ffffff;
+    --surface:#e2e8f0;
+    --card:   #ffffff;
+    --text:   #0f172a;
+    --muted:  #475569;
+    --border: rgba(0,0,0,0.1);
+  }
+  body[data-theme="light"] .navbar { background: rgba(255,255,255,0.85); }
   body[lang="ar"], body[lang="ar"] * { font-family: var(--font-ar) !important; direction: rtl; }
-  body[lang="ar"] .navbar-links { flex-direction: row-reverse; }
   body[lang="ar"] .footer-grid { direction: rtl; }
 
   a { color: inherit; text-decoration: none; }
@@ -369,6 +378,31 @@
     font-weight: 700; font-size: 0.9rem; cursor: pointer; transition: all 0.2s;
   }
   .chat-send:hover { background: #1976d2; }
+  .chat-send:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  /* ===== FLOATING AI BUTTON ===== */
+  .fab-ai {
+    position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 999;
+    width: 60px; height: 60px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--blue), #1976d2);
+    color: #fff; border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 6px 24px rgba(21,101,192,0.45);
+    font-size: 1.6rem; transition: all 0.25s;
+    animation: fab-pulse 2.5s infinite;
+  }
+  .fab-ai:hover { transform: scale(1.1); box-shadow: 0 8px 32px rgba(21,101,192,0.6); }
+  @keyframes fab-pulse {
+    0%,100% { box-shadow: 0 6px 24px rgba(21,101,192,0.45); }
+    50% { box-shadow: 0 6px 32px rgba(21,101,192,0.7); }
+  }
+  /* Hide FAB when on chat page */
+  .page-chat-active .fab-ai { display: none; }
+
+  /* Make chat input row sticky at bottom of viewport */
+  .chat-wrap { display: flex; flex-direction: column; height: calc(100vh - 64px); }
+  .chat-box { flex: 1; }
+  .chat-input-row { position: sticky; bottom: 0; background: var(--dark); padding-bottom: 1rem; }
 
   /* ===== FOOTER ===== */
   .footer {
@@ -496,6 +530,7 @@
     <button class="nav-btn" onclick="showPage('chat')" data-i18n="nav-chat">Assistant IA</button>
   </div>
   <div class="navbar-right">
+    <button class="theme-btn" onclick="toggleTheme()" id="theme-btn">☀️</button>
     <button class="lang-btn" onclick="toggleLang()" id="lang-btn">AR</button>
   </div>
 </nav>
@@ -713,11 +748,11 @@
       <p class="footer-desc" data-i18n="footer-mission">Notre mission est de sensibiliser, éduquer et soutenir les familles touchées par l'autisme pour une société plus inclusive.</p>
       <div class="social-row">
         <!-- Facebook -->
-        <a class="social-btn" href="https://www.facebook.com/autiaura" target="_blank" rel="noopener" title="Facebook Auti-Aura">
+        <a class="social-btn" href="https://www.facebook.com/profile.php?id=61587332244018" target="_blank" rel="noopener" title="Facebook Auti-Aura">
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
         </a>
         <!-- Instagram -->
-        <a class="social-btn" href="https://www.instagram.com/autiaura" target="_blank" rel="noopener" title="Instagram Auti-Aura">
+        <a class="social-btn" href="https://www.instagram.com/auti_aura/" target="_blank" rel="noopener" title="Instagram Auti-Aura">
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
         </a>
       </div>
@@ -755,6 +790,9 @@
     <span data-i18n="footer-made">Fait avec ❤️ pour les familles tunisiennes</span>
   </div>
 </footer>
+
+<!-- FLOATING AI BUTTON -->
+<button class="fab-ai" id="fab-ai" onclick="showPage('chat')" title="Assistant IA">🤖</button>
 
 <script>
 // ===== TRANSLATIONS =====
@@ -942,15 +980,25 @@ function toggleLang() {
   applyTranslations();
 }
 
+let currentTheme = 'dark';
+function toggleTheme() {
+  currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
+  document.body.setAttribute('data-theme', currentTheme);
+  document.getElementById('theme-btn').textContent = currentTheme === 'dark' ? '☀️' : '🌙';
+}
+
 // ===== PAGE ROUTING =====
 function showPage(id) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('page-' + id).classList.add('active');
-  document.querySelectorAll('.nav-btn').forEach(b => {
-    if (b.textContent.trim() === document.querySelector(`[onclick="showPage('${id}')"].nav-btn`)?.textContent.trim()) b.classList.add('active');
-  });
-  document.getElementById('main-footer').style.display = id === 'article' ? 'none' : '';
+  // Highlight the correct nav button
+  const navMap = { home:0, inform:1, educate:2, videos:3, game:4, chat:5 };
+  const btns = document.querySelectorAll('.navbar-links .nav-btn');
+  if (navMap[id] !== undefined && btns[navMap[id]]) btns[navMap[id]].classList.add('active');
+  document.getElementById('main-footer').style.display = (id === 'article' || id === 'chat') ? 'none' : '';
+  // Toggle FAB visibility
+  document.getElementById('fab-ai').style.display = id === 'chat' ? 'none' : '';
   window.scrollTo(0, 0);
 }
 
@@ -974,11 +1022,10 @@ const articlesEducate = [
 ];
 
 const videos = [
-  { icon:'🎬', tag:'Sensibilisation', title:{fr:"Comprendre l'autisme en 3 minutes", ar:"فهم التوحد في 3 دقائق"}, desc:{fr:"Une présentation simple et claire du TSA pour les parents.", ar:"عرض بسيط وواضح لاضطراب طيف التوحد للآباء."} },
-  { icon:'💬', tag:'Communication', title:{fr:"La communication alternative (CAA)", ar:"التواصل البديل والمعزز"}, desc:{fr:"Pictogrammes, tablettes et gestes pour aider l'enfant.", ar:"رموز صورية وأجهزة لوحية وإيماءات لمساعدة الطفل."} },
-  { icon:'👨‍👩‍👧', tag:'Témoignages', title:{fr:"Parcours d'un enfant autiste à l'école inclusive", ar:"مسيرة طفل توحدي في المدرسة الجامعة"}, desc:{fr:"Une famille tunisienne partage son expérience.", ar:"عائلة تونسية تشارك تجربتها."} },
-  { icon:'🔬', tag:'Thérapies', title:{fr:"Les thérapies comportementales : ABA et TEACCH", ar:"العلاجات السلوكية: ABA وTEACCH"}, desc:{fr:"Présentation des approches thérapeutiques les plus utilisées.", ar:"عرض لأكثر المناهج العلاجية استخداماً مع أطفال التوحد."} },
-  { icon:'🏫', tag:'Inclusion', title:{fr:"L'école inclusive en Tunisie", ar:"المدرسة الجامعة في تونس"}, desc:{fr:"Droits, réalités et défis de l'inclusion scolaire.", ar:"حقوق وواقع وتحديات الدمج المدرسي."} },
+  { ytId:'TG6riOWCsA0', icon:'🎬', tag:'Sensibilisation', title:{fr:"Comprendre l'autisme en 3 minutes", ar:"فهم التوحد في 3 دقائق"}, desc:{fr:"Une présentation simple et claire du TSA pour les parents.", ar:"عرض بسيط وواضح لاضطراب طيف التوحد للآباء."} },
+  { ytId:'hcC2BU_0NGg', icon:'💬', tag:'Communication', title:{fr:"La communication alternative (CAA)", ar:"التواصل البديل والمعزز"}, desc:{fr:"Pictogrammes, tablettes et gestes pour aider l'enfant.", ar:"رموز صورية وأجهزة لوحية وإيماءات لمساعدة الطفل."} },
+  { ytId:'sqcrAJzIpZU', icon:'👨‍👩‍👧', tag:'Témoignages', title:{fr:"Parcours d'un enfant autiste à l'école inclusive", ar:"مسيرة طفل توحدي في المدرسة الجامعة"}, desc:{fr:"Une famille tunisienne partage son expérience.", ar:"عائلة تونسية تشارك تجربتها."} },
+  { ytId:'b9_n1kVciY4', icon:'🔬', tag:'Thérapies', title:{fr:"Les thérapies comportementales : ABA et TEACCH", ar:"العلاجات السلوكية: ABA وTEACCH"}, desc:{fr:"Présentation des approches thérapeutiques les plus utilisées.", ar:"عرض لأكثر المناهج العلاجية استخداماً مع أطفال التوحد."} },
 ];
 
 // ===== RENDER ARTICLES =====
@@ -1009,9 +1056,8 @@ function renderEducateArticles(filter='all') {
 function renderVideos() {
   const lang = currentLang;
   document.getElementById('videos-grid').innerHTML = videos.map(v => `
-    <div class="video-card">
-      <div class="video-thumb">
-        <span style="font-size:3rem;">${v.icon}</span>
+    <div class="video-card" onclick="openVideo('${v.ytId}')">
+      <div class="video-thumb" style="background:url('https://img.youtube.com/vi/${v.ytId}/hqdefault.jpg') center/cover no-repeat;">
         <div class="play-btn">▶</div>
       </div>
       <div class="video-info">
@@ -1020,6 +1066,20 @@ function renderVideos() {
         <p>${v.desc[lang]}</p>
       </div>
     </div>`).join('');
+}
+
+// ===== VIDEO MODAL =====
+function openVideo(ytId) {
+  const overlay = document.createElement('div');
+  overlay.style.cssText = 'position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.85);display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px);';
+  overlay.onclick = e => { if (e.target === overlay) { overlay.remove(); } };
+  overlay.innerHTML = `<div style="width:90%;max-width:800px;position:relative;">
+    <button onclick="this.closest('div').parentElement.remove()" style="position:absolute;top:-40px;right:0;background:none;border:none;color:#fff;font-size:2rem;cursor:pointer;">✕</button>
+    <div style="position:relative;padding-bottom:56.25%;height:0;border-radius:12px;overflow:hidden;">
+      <iframe src="https://www.youtube.com/embed/${ytId}?autoplay=1" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;"></iframe>
+    </div>
+  </div>`;
+  document.body.appendChild(overlay);
 }
 
 function filterArticles(btn, page) {
@@ -1191,44 +1251,46 @@ function showGameComplete() {
 
 function restartGame() { startGame(); }
 
-// ===== CHAT =====
-const chatResponses = {
-  fr: [
-    "Le Trouble du Spectre de l'Autisme (TSA) est un trouble neurodéveloppemental qui affecte la communication sociale et les comportements. Chaque enfant autiste est unique, avec ses propres forces et difficultés.",
-    "Les crises sensorielles surviennent quand l'enfant est submergé par des stimuli — sons forts, lumières vives, textures. Il est utile d'identifier les déclencheurs et de créer un environnement plus calme.",
-    "Les signes précoces incluent : absence de pointage du doigt vers 12 mois, peu de contact visuel, pas de réponse au prénom, langage qui régresse, jeu répétitif.",
-    "Je vous encourage à consulter un professionnel de santé pour un bilan approfondi. Auti-Aura vous offre des ressources pour accompagner cette démarche.",
-  ],
-  ar: [
-    "اضطراب طيف التوحد (TSA) هو اضطراب عصبي نمائي يؤثر على التواصل الاجتماعي والسلوكيات. كل طفل توحدي فريد، بنقاط قوة وصعوبات خاصة به.",
-    "تحدث الأزمات الحسية عندما يتعرض الطفل لفيض من المحفزات — أصوات عالية، أضواء ساطعة، ملمس معين. من المفيد تحديد المحفزات وخلق بيئة أهدأ.",
-    "العلامات المبكرة تشمل: غياب الإشارة بالإصبع نحو 12 شهراً، قليل من التواصل البصري، عدم الاستجابة للاسم، تراجع اللغة، اللعب المتكرر.",
-    "أشجعكم على استشارة متخصص صحي لإجراء تقييم شامل. تقدم أوتي-أورا موارد لدعم هذه الخطوة.",
-  ]
-};
-let chatIdx = 0;
+// ===== CHAT (real API calls — no hardcoded responses) =====
+let chatHistory = [];
 
-function sendChatMessage() {
+async function sendChatMessage() {
   const input = document.getElementById('chat-input');
+  const sendBtn = document.querySelector('.chat-send');
   const msg = input.value.trim();
   if (!msg) return;
+
   addChatMsg(msg, 'user');
+  chatHistory.push({ role: 'user', content: msg });
   input.value = '';
-  setTimeout(() => {
-    const resp = chatResponses[currentLang][chatIdx % chatResponses[currentLang].length];
-    chatIdx++;
-    addChatMsg(resp, 'bot');
-  }, 800);
+  sendBtn.disabled = true;
+
+  // Show typing indicator
+  const typingDiv = addChatMsg('...', 'bot');
+
+  try {
+    const res = await fetch('/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: msg, history: chatHistory })
+    });
+    if (!res.ok) throw new Error('Server error');
+    const data = await res.json();
+    typingDiv.querySelector('.chat-bubble').innerHTML = data.reply.replace(/\n/g, '<br>').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+    chatHistory.push({ role: 'assistant', content: data.reply });
+  } catch (e) {
+    typingDiv.querySelector('.chat-bubble').textContent = currentLang === 'ar'
+      ? 'عذراً، حدث خطأ في الاتصال. يرجى المحاولة لاحقاً.'
+      : 'Erreur de connexion au serveur. Veuillez réessayer.';
+  }
+
+  sendBtn.disabled = false;
+  document.getElementById('chat-box').scrollTop = document.getElementById('chat-box').scrollHeight;
 }
 
 function sendSuggestion(btn) {
-  const msg = btn.textContent;
-  addChatMsg(msg, 'user');
-  setTimeout(() => {
-    const resp = chatResponses[currentLang][chatIdx % chatResponses[currentLang].length];
-    chatIdx++;
-    addChatMsg(resp, 'bot');
-  }, 800);
+  document.getElementById('chat-input').value = btn.textContent;
+  sendChatMessage();
 }
 
 function addChatMsg(text, type) {
@@ -1238,6 +1300,7 @@ function addChatMsg(text, type) {
   div.innerHTML = `<div class="chat-bubble">${text}</div>`;
   box.appendChild(div);
   box.scrollTop = box.scrollHeight;
+  return div;
 }
 
 document.getElementById('chat-input').addEventListener('keydown', e => { if (e.key === 'Enter') sendChatMessage(); });

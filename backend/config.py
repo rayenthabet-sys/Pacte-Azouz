@@ -3,15 +3,13 @@ config.py — Loads and validates environment variables.
 
 Usage anywhere in the backend:
     from backend.config import settings
-    key = settings.gemini_api_key
+    key = settings.groq_api_key
 """
 
 from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
-    openrouter_api_key: str = ""
-    
     groq_api_key: str = ""
 
     class Config:

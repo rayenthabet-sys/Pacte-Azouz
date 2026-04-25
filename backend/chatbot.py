@@ -1,10 +1,18 @@
-# Replace your existing chatbot.py with this
+"""
+chatbot.py — Wraps Groq to power the Auti-Aura assistant.
+
+The chatbot is specialised in autism awareness for parents and educators.
+It always replies in the same language the user writes in (French or Arabic).
+"""
 
 import os
-import httpx
-from backend.config import settings
+from dotenv import load_dotenv
+load_dotenv()
+from groq import Groq
+
 from backend.models import ChatMessage
 
+# ── System prompt ─────────────────────────────────────────────────────────────
 SYSTEM_PROMPT = """
 Tu es l'assistant virtuel d'Auti-Aura, une plateforme dédiée à la sensibilisation
 à l'autisme chez les enfants en Tunisie.
@@ -19,27 +27,42 @@ Règles importantes :
 - Reste positif, empathique et non-stigmatisant.
 - Si tu ne sais pas, dis-le clairement.
 - Limite tes réponses à 300 mots maximum.
+
+أنت المساعد الافتراضي لمنصة أوتي-أورا، المخصصة للتوعية بالتوحد عند الأطفال في تونس.
+دورك هو مساعدة الآباء والمربين بمعلومات واضحة وعلمية حول طيف اضطراب التوحد.
+
+قواعد مهمّة:
+أجب دائمًا باللغة التي كُتب بها السؤال (الفرنسية أو العربية).
+لا تقدّم أي تشخيص أبدًا؛ وجّه المستخدم إلى مختصّ صحي عند الحاجة.
+حافظ على نبرة إيجابية، متعاطفة، وغير مُوصِمة.
+إذا لم تكن تعرف الإجابة، فصرّح بذلك بوضوح.
+اجعل إجاباتك لا تتجاوز 300 كلمة كحد أقصى.
 """
 
+def build_history_groq(history: list[ChatMessage]) -> list[dict]:
+    """Convert our internal ChatMessage list to the format Groq expects."""
+    return [
+        {"role": "assistant" if msg.role == "model" else msg.role, "content": msg.content}
+        for msg in history
+    ]
+
 async def ask_chatbot(message: str, history: list[ChatMessage]) -> str:
+    """
+    Send a user message to Groq LLM and return the reply.
+    Raises ValueError if GROQ_API_KEY is not configured.
+    """
+    groq_key = os.environ.get("GROQ_API_KEY")
+
+    if not groq_key:
+        raise ValueError("GROQ_API_KEY is not found in the environment. Please add it via Railway variables or .env file.")
+
+    client = Groq(api_key=groq_key)
     messages = [{"role": "system", "content": SYSTEM_PROMPT}]
-    for msg in history:
-        messages.append({"role": msg.role, "content": msg.content})
+    messages.extend(build_history_groq(history))
     messages.append({"role": "user", "content": message})
 
-    async with httpx.AsyncClient(timeout=30) as client:
-        response = await client.post(
-            "https://openrouter.ai/api/v1/chat/completions",
-            headers={
-                "Authorization": f"Bearer {settings.openrouter_api_key}",
-                "HTTP-Referer": "https://auti-aura.up.railway.app",  # your Railway URL
-                "X-Title": "Auti-Aura",
-            },
-            json={
-                "model": "meta-llama/llama-3.3-70b-instruct:free",
-                "messages": messages,
-                "max_tokens": 500,
-            },
-        )
-        data = response.json()
-        return data["choices"][0]["message"]["content"]
+    chat_completion = client.chat.completions.create(
+        messages=messages,
+        model="llama-3.1-8b-instant",
+    )
+    return chat_completion.choices[0].message.content
