@@ -10,7 +10,8 @@ from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
-    gemini_api_key: str = ""
+    openrouter_api_key: str = ""
+    
     groq_api_key: str = ""
 
     class Config:
