@@ -1,0 +1,2859 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Auti-Aura — Prototype UI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Tajawal:wght@400;500;700;800&display=swap"
+    rel="stylesheet" />
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --cream: #FFF8F0;
+      --cream-dark: #F5EBD9;
+      --purple: #7B5EA7;
+      --purple-lt: #EDE5F8;
+      --purple-mid: #C5A8E8;
+      --gold: #F5A623;
+      --gold-lt: #FEF3DC;
+      --teal: #3BBDBD;
+      --teal-lt: #DCF5F5;
+      --rose: #F07070;
+      --rose-lt: #FDEAEA;
+      --green: #5CB88A;
+      --green-lt: #E3F7EE;
+      --text: #2D1B4E;
+      --text-mid: #6B5B8A;
+      --text-light: #A89CC0;
+      --radius-xl: 28px;
+      --radius-lg: 20px;
+      --radius-md: 14px;
+      --radius-sm: 10px;
+      --shadow: 0 4px 24px rgba(123, 94, 167, 0.10);
+      --shadow-sm: 0 2px 12px rgba(123, 94, 167, 0.08);
+      font-size: 16px;
+    }
+
+    [data-theme="dark"] {
+      --cream: #2C2C2C;
+      --cream-dark: #3A3A3A;
+      --purple: #B59CDA;
+      --purple-lt: #45375A;
+      --purple-mid: #8872B0;
+      --gold: #FFC46B;
+      --gold-lt: #56442A;
+      --teal: #6CE0E0;
+      --teal-lt: #2B4E4E;
+      --rose: #F9A4A4;
+      --rose-lt: #5A3535;
+      --green: #88DCAE;
+      --green-lt: #2F4D3C;
+      --text: #F5F5F5;
+      --text-mid: #D0D0D0;
+      --text-light: #A3A3A3;
+      --shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+      --shadow-sm: 0 2px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* ─── SIDEBAR (Now Topbar) ──────────────────────────────── */
+    .sidebar {
+      width: 100%;
+      height: 80px;
+      min-height: auto;
+      background: var(--cream);
+      border-bottom: 1px solid var(--cream-dark);
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      padding: 0 40px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      box-shadow: 0 2px 20px rgba(123, 94, 167, 0.07);
+      z-index: 100;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-right: 40px;
+    }
+
+    .logo-bubble {
+      width: 42px;
+      height: 42px;
+      background: var(--purple);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .logo-bubble svg {
+      width: 22px;
+      height: 22px;
+      fill: white;
+    }
+
+    .logo-text {
+      font-size: 1.35rem;
+      font-weight: 900;
+      color: var(--purple);
+      letter-spacing: -0.5px;
+      line-height: 1;
+    }
+
+    .logo-text span {
+      color: var(--gold);
+    }
+
+    .nav-label {
+      display: none;
+    }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border-radius: 50px;
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text-mid);
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.18s ease;
+      margin-right: 8px;
+    }
+
+    .nav-link:hover {
+      background: var(--purple-lt);
+      color: var(--purple);
+    }
+
+    .nav-link.active {
+      background: var(--purple);
+      color: white;
+    }
+
+    .nav-icon {
+      display: none;
+    }
+
+    .nav-link:not(.active) .nav-icon {
+      background: var(--cream-dark);
+    }
+
+    .nav-divider {
+      width: 1px;
+      height: 24px;
+      background: var(--cream-dark);
+      margin: 0 16px;
+    }
+
+    .lang-toggle {
+      margin-left: 16px;
+      display: flex;
+      flex-direction: row;
+      background: var(--cream-dark);
+      border-radius: var(--radius-lg);
+      padding: 4px;
+      width: 120px;
+    }
+
+    .lang-btn {
+      flex: 1;
+      padding: 6px 0;
+      border: none;
+      background: transparent;
+      border-radius: var(--radius-md);
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: var(--text-mid);
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+
+    .lang-btn.active {
+      background: var(--cream);
+      color: var(--purple);
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* ─── MAIN CONTENT ─────────────────────────── */
+    .main {
+      margin-top: 80px;
+      margin-left: 0;
+      flex: 1;
+      padding: 40px 44px;
+      max-width: 100vw;
+    }
+
+    /* ─── TOP BAR ──────────────────────────────── */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 40px;
+    }
+
+    .topbar-title {
+      font-size: 1.65rem;
+      font-weight: 900;
+      color: var(--text);
+    }
+
+    .topbar-sub {
+      font-size: 0.88rem;
+      color: var(--text-light);
+      margin-top: 2px;
+    }
+
+    .search-bar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: white;
+      border: 2px solid var(--cream-dark);
+      border-radius: 50px;
+      padding: 10px 18px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.9rem;
+      color: var(--text-mid);
+      width: 240px;
+      transition: border-color 0.18s;
+      cursor: pointer;
+    }
+
+    .search-bar:focus-within {
+      border-color: var(--purple-mid);
+    }
+
+    .search-bar input {
+      border: none;
+      outline: none;
+      flex: 1;
+      font-family: 'Nunito', sans-serif;
+      background: transparent;
+    }
+
+    /* ─── HERO CARD ────────────────────────────── */
+    .hero {
+      background: var(--purple);
+      border-radius: var(--radius-xl);
+      padding: 44px 48px;
+      margin-bottom: 36px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -60px;
+      right: -60px;
+      width: 260px;
+      height: 260px;
+      background: rgba(255, 255, 255, 0.07);
+      border-radius: 50%;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -80px;
+      right: 80px;
+      width: 200px;
+      height: 200px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 50%;
+    }
+
+    .hero-content {
+      flex: 1;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.18);
+      color: rgba(255, 255, 255, 0.9);
+      border-radius: 50px;
+      padding: 5px 14px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .hero-badge-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--gold);
+      border-radius: 50%;
+    }
+
+    .hero h1 {
+      font-size: 2.1rem;
+      font-weight: 900;
+      color: white;
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+
+    .hero h1 span {
+      color: var(--gold);
+    }
+
+    .hero p {
+      color: rgba(255, 255, 255, 0.78);
+      font-size: 0.97rem;
+      line-height: 1.65;
+      max-width: 440px;
+      margin-bottom: 28px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 22px;
+      border-radius: 50px;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: 0.88rem;
+      cursor: pointer;
+      border: none;
+      transition: all 0.18s ease;
+      text-decoration: none;
+    }
+
+    .btn-white {
+      background: white;
+      color: var(--purple);
+    }
+
+    .btn-white:hover {
+      background: var(--cream);
+    }
+
+    .btn-outline {
+      background: rgba(255, 255, 255, 0.12);
+      color: white;
+      border: 2px solid rgba(255, 255, 255, 0.35);
+    }
+
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.22);
+    }
+
+    .btn-purple {
+      background: var(--purple);
+      color: white;
+    }
+
+    .btn-purple:hover {
+      background: #6A4F92;
+    }
+
+    .btn-teal {
+      background: var(--teal);
+      color: white;
+    }
+
+    .hero-visual {
+      width: 200px;
+      height: 200px;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ─── STATS ROW ────────────────────────────── */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 36px;
+    }
+
+    .stat-card {
+      background: white;
+      border-radius: var(--radius-lg);
+      padding: 20px 22px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .stat-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+
+    .stat-icon.purple {
+      background: var(--purple-lt);
+    }
+
+    .stat-icon.gold {
+      background: var(--gold-lt);
+    }
+
+    .stat-icon.teal {
+      background: var(--teal-lt);
+    }
+
+    .stat-icon.rose {
+      background: var(--rose-lt);
+    }
+
+    .stat-n {
+      font-size: 1.55rem;
+      font-weight: 900;
+      color: var(--text);
+      line-height: 1;
+    }
+
+    .stat-l {
+      font-size: 0.78rem;
+      color: var(--text-light);
+      margin-top: 2px;
+      font-weight: 600;
+    }
+
+    /* ─── SECTION HEADER ───────────────────────── */
+    .section-hd {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+    }
+
+    .section-hd h2 {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    .see-all {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--purple);
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      font-family: 'Nunito', sans-serif;
+      padding: 6px 14px;
+      border-radius: 50px;
+      background: var(--purple-lt);
+      transition: background 0.15s;
+    }
+
+    .see-all:hover {
+      background: var(--purple-mid);
+      color: white;
+    }
+
+    /* ─── ARTICLE CARDS ────────────────────────── */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-bottom: 36px;
+    }
+
+    .article-card {
+      background: white;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .article-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow);
+    }
+
+    .card-img {
+      height: 130px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 56px;
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .card-img svg {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .card-body {
+      padding: 18px 20px 22px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      border-radius: 50px;
+      padding: 3px 10px;
+      margin-bottom: 8px;
+    }
+
+    .tag-purple {
+      background: var(--purple-lt);
+      color: var(--purple);
+    }
+
+    .tag-teal {
+      background: var(--teal-lt);
+      color: #267878;
+    }
+
+    .tag-gold {
+      background: var(--gold-lt);
+      color: #8B5E0A;
+    }
+
+    .tag-rose {
+      background: var(--rose-lt);
+      color: #C04040;
+    }
+
+    .tag-green {
+      background: var(--green-lt);
+      color: #2E7D55;
+    }
+
+    .card-title {
+      font-size: 0.97rem;
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1.35;
+      margin-bottom: 8px;
+    }
+
+    .card-excerpt {
+      font-size: 0.82rem;
+      color: var(--text-light);
+      line-height: 1.55;
+      flex: 1;
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px solid var(--cream-dark);
+    }
+
+    .card-read {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--purple);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    /* ─── FEATURED ARTICLE ─────────────────────── */
+    .featured {
+      background: white;
+      border-radius: var(--radius-xl);
+      padding: 32px 36px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      gap: 32px;
+      align-items: stretch;
+      margin-bottom: 36px;
+    }
+
+    .featured-visual {
+      width: 200px;
+      flex-shrink: 0;
+      border-radius: var(--radius-lg);
+      background: var(--purple-lt);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 72px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .featured-visual svg {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .featured-content {
+      flex: 1;
+    }
+
+    .featured-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.7rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+
+    .featured-title {
+      font-size: 1.35rem;
+      font-weight: 900;
+      color: var(--text);
+      line-height: 1.3;
+      margin-bottom: 12px;
+    }
+
+    .featured-text {
+      font-size: 0.9rem;
+      color: var(--text-mid);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    /* ─── VIDEO CARDS ──────────────────────────── */
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+      margin-bottom: 36px;
+    }
+
+    .video-card {
+      background: white;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .video-card:hover {
+      transform: translateY(-3px);
+    }
+
+    .video-thumb {
+      height: 160px;
+      background: var(--teal-lt);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .play-btn {
+      width: 54px;
+      height: 54px;
+      background: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.15);
+      position: relative;
+      z-index: 1;
+    }
+
+    .play-btn svg {
+      width: 20px;
+      height: 20px;
+      fill: var(--purple);
+      margin-left: 3px;
+    }
+
+    .video-body {
+      padding: 16px 18px 20px;
+    }
+
+    .video-title {
+      font-size: 0.93rem;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 6px;
+      line-height: 1.35;
+    }
+
+    .video-desc {
+      font-size: 0.8rem;
+      color: var(--text-light);
+      line-height: 1.5;
+    }
+
+    /* ─── CHAT UI ──────────────────────────────── */
+    .chat-container {
+      background: white;
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      height: 520px;
+      margin-bottom: 36px;
+    }
+
+    .chat-header {
+      background: var(--purple);
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-shrink: 0;
+    }
+
+    .chat-avatar {
+      width: 42px;
+      height: 42px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .chat-avatar svg {
+      width: 22px;
+      height: 22px;
+      fill: white;
+    }
+
+    .chat-header-info {
+      flex: 1;
+    }
+
+    .chat-header-name {
+      font-size: 0.97rem;
+      font-weight: 800;
+      color: white;
+    }
+
+    .chat-header-status {
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.7);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      background: #6EFCD0;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.4;
+      }
+    }
+
+    .chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      background: var(--cream);
+    }
+
+    .msg {
+      display: flex;
+      gap: 10px;
+      max-width: 78%;
+    }
+
+    .msg.user {
+      align-self: flex-end;
+      flex-direction: row-reverse;
+    }
+
+    .msg-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+
+    .msg.bot .msg-avatar {
+      background: var(--purple);
+      color: white;
+    }
+
+    .msg.user .msg-avatar {
+      background: var(--gold);
+      color: white;
+    }
+
+    .msg-bubble {
+      padding: 12px 16px;
+      border-radius: var(--radius-lg);
+      font-size: 0.88rem;
+      line-height: 1.6;
+    }
+
+    .msg.bot .msg-bubble {
+      background: white;
+      color: var(--text);
+      border-bottom-left-radius: 6px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .msg.user .msg-bubble {
+      background: var(--purple);
+      color: white;
+      border-bottom-right-radius: 6px;
+    }
+
+    .msg-time {
+      font-size: 0.7rem;
+      color: var(--text-light);
+      margin-top: 5px;
+      text-align: right;
+    }
+
+    .msg.bot .msg-time {
+      text-align: left;
+    }
+
+    .chat-quick-replies {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 4px;
+    }
+
+    .quick-reply {
+      padding: 6px 14px;
+      border-radius: 50px;
+      background: var(--purple-lt);
+      color: var(--purple);
+      font-size: 0.78rem;
+      font-weight: 700;
+      border: 1.5px solid var(--purple-mid);
+      cursor: pointer;
+      font-family: 'Nunito', sans-serif;
+      transition: all 0.15s;
+    }
+
+    .quick-reply:hover {
+      background: var(--purple);
+      color: white;
+    }
+
+    .chat-input-row {
+      padding: 16px 20px;
+      background: white;
+      border-top: 1px solid var(--cream-dark);
+      display: flex;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    .chat-input {
+      flex: 1;
+      background: var(--cream);
+      border: 2px solid var(--cream-dark);
+      border-radius: 50px;
+      padding: 11px 18px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.9rem;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.18s;
+    }
+
+    .chat-input:focus {
+      border-color: var(--purple-mid);
+    }
+
+    .chat-input::placeholder {
+      color: var(--text-light);
+    }
+
+    .send-btn {
+      width: 46px;
+      height: 46px;
+      background: var(--purple);
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.18s;
+      flex-shrink: 0;
+    }
+
+    .send-btn:hover {
+      background: #6A4F92;
+    }
+
+    .send-btn svg {
+      width: 18px;
+      height: 18px;
+      fill: white;
+    }
+
+    /* ─── ARTICLE DETAIL ───────────────────────── */
+    .article-detail {
+      background: white;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 36px;
+    }
+
+    .article-hero-img {
+      height: 200px;
+      background: var(--purple);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 72px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .article-hero-img svg {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .article-detail-body {
+      padding: 36px 40px;
+    }
+
+    .article-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .article-detail-title {
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: var(--text);
+      line-height: 1.25;
+      margin-bottom: 8px;
+    }
+
+    .article-detail-sub {
+      font-size: 1rem;
+      color: var(--text-mid);
+      line-height: 1.5;
+      margin-bottom: 28px;
+    }
+
+    .article-content h3 {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--text);
+      margin: 22px 0 10px;
+    }
+
+    .article-content p {
+      font-size: 0.92rem;
+      color: var(--text-mid);
+      line-height: 1.75;
+      margin-bottom: 12px;
+    }
+
+    .tip-card {
+      background: var(--purple-lt);
+      border-radius: var(--radius-lg);
+      padding: 16px 20px;
+      margin: 8px 0;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .tip-icon {
+      width: 32px;
+      height: 32px;
+      background: var(--purple);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .tip-icon svg {
+      width: 16px;
+      height: 16px;
+      fill: white;
+    }
+
+    .tip-text {
+      font-size: 0.88rem;
+      color: var(--purple);
+      line-height: 1.6;
+      font-weight: 600;
+    }
+
+    .tip-text strong {
+      font-weight: 800;
+    }
+
+    /* ─── LANG TOGGLE SECTION ──────────────────── */
+    .lang-switch-bar {
+      display: inline-flex;
+      align-items: center;
+      background: var(--cream-dark);
+      border-radius: 50px;
+      padding: 4px;
+      gap: 4px;
+      margin-bottom: 20px;
+    }
+
+    .lang-switch-btn {
+      padding: 7px 22px;
+      border-radius: 50px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-mid);
+      border: none;
+      cursor: pointer;
+      background: transparent;
+      transition: all 0.18s;
+    }
+
+    .lang-switch-btn.active {
+      background: white;
+      color: var(--purple);
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* ─── TABS ─────────────────────────────────── */
+    .tabs {
+      display: flex;
+      gap: 4px;
+      background: var(--cream-dark);
+      border-radius: 50px;
+      padding: 4px;
+      margin-bottom: 28px;
+      width: fit-content;
+    }
+
+    .tab {
+      padding: 8px 22px;
+      border-radius: 50px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text-mid);
+      border: none;
+      cursor: pointer;
+      background: transparent;
+      transition: all 0.18s;
+    }
+
+    .tab.active {
+      background: var(--purple);
+      color: white;
+    }
+
+    /* ─── DECORATIVE BLOBS ─────────────────────── */
+    .blob-bg {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.35;
+      pointer-events: none;
+    }
+
+    /* ─── PAGE SECTIONS ────────────────────────── */
+    .page {
+      display: none;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    /* ─── FOOTER ───────────────────────────────── */
+    .footer-strip {
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--text-light);
+      padding-top: 8px;
+      padding-bottom: 36px;
+      font-weight: 600;
+    }
+
+    /* ─── QUIZ STYLES ──────────────────────────── */
+    .quiz-section {
+      background: white;
+      border-radius: var(--radius-xl);
+      padding: 32px 36px;
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 36px;
+      margin-top: 36px;
+    }
+
+    .quiz-title {
+      font-size: 1.35rem;
+      font-weight: 900;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+
+    .quiz-question {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--text-mid);
+      margin-bottom: 20px;
+    }
+
+    .quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .quiz-option {
+      background: var(--cream);
+      border: 2px solid var(--cream-dark);
+      padding: 14px 20px;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text);
+      transition: all 0.2s;
+      text-align: left;
+    }
+
+    .quiz-option:hover {
+      border-color: var(--purple-mid);
+      background: var(--purple-lt);
+    }
+
+    .quiz-option.correct {
+      background: var(--green-lt);
+      border-color: var(--green);
+      color: #2E7D55;
+    }
+
+    .quiz-option.incorrect {
+      background: var(--rose-lt);
+      border-color: var(--rose);
+      color: #C04040;
+    }
+
+    .quiz-feedback {
+      margin-top: 16px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      display: none;
+    }
+
+    .quiz-feedback.success {
+      color: var(--green);
+      display: block;
+    }
+
+    .quiz-feedback.error {
+      color: var(--rose);
+      display: block;
+    }
+
+    /* ─── ANIMATIONS ───────────────────────────── */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(16px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-up {
+      animation: fadeUp 0.4s ease forwards;
+    }
+
+    .fade-up-1 {
+      animation-delay: 0.05s;
+      opacity: 0;
+    }
+
+    .fade-up-2 {
+      animation-delay: 0.12s;
+      opacity: 0;
+    }
+
+    .fade-up-3 {
+      animation-delay: 0.19s;
+      opacity: 0;
+    }
+
+    .fade-up-4 {
+      animation-delay: 0.26s;
+      opacity: 0;
+    }
+
+    /* Scrollbar */
+    .chat-messages::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    .chat-messages::-webkit-scrollbar-thumb {
+      background: var(--purple-mid);
+      border-radius: 4px;
+    }
+
+    /* ─── VIDEO MODAL ──────────────────────────── */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(4px);
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .modal-content {
+      width: 90%;
+      max-width: 800px;
+      background: var(--cream);
+      border-radius: var(--radius-xl);
+      padding: 24px;
+      position: relative;
+      transform: translateY(20px);
+      transition: transform 0.3s ease;
+    }
+
+    .modal-overlay.active .modal-content {
+      transform: translateY(0);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: -40px;
+      right: 0;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 2rem;
+      cursor: pointer;
+    }
+
+    .modal-video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      /* 16:9 */
+      height: 0;
+      overflow: hidden;
+      border-radius: var(--radius-md);
+    }
+
+    .modal-video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* ─── GAME STYLES ──────────────────────────── */
+    .game-container {
+      background: var(--cream);
+      border: 2px solid var(--cream-dark);
+      border-radius: var(--radius-xl);
+      padding: 40px;
+      text-align: center;
+      margin-top: 24px;
+    }
+
+    .game-title {
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+
+    .game-prompt {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--purple);
+      margin-bottom: 32px;
+    }
+
+    .game-faces {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+    }
+
+    .game-face {
+      width: 100px;
+      height: 100px;
+      background: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      cursor: pointer;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .game-face:hover {
+      transform: scale(1.1);
+      box-shadow: var(--shadow);
+    }
+
+    .game-face.success {
+      background: var(--green-lt);
+      animation: pop 0.4s ease;
+    }
+
+    .game-face.error {
+      background: var(--rose-lt);
+      animation: shake 0.4s ease;
+    }
+
+    @keyframes pop {
+      0% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.2);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    @keyframes shake {
+
+      0%,
+      100% {
+        transform: translateX(0);
+      }
+
+      25% {
+        transform: translateX(-10px);
+      }
+
+      50% {
+        transform: translateX(10px);
+      }
+
+      75% {
+        transform: translateX(-10px);
+      }
+    }
+
+    .theme-toggle {
+      margin-left: auto;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ═══════════════ SIDEBAR ═══════════════ -->
+  <aside class="sidebar">
+    <div class="logo">
+      <div class="logo-bubble">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 2a5 5 0 1 1 0 10A5 5 0 0 1 12 2zm0 12c5.33 0 8 2.67 8 4v2H4v-2c0-1.33 2.67-4 8-4z" />
+        </svg>
+      </div>
+      <div>
+        <div class="logo-text">Auti<span>-Aura</span></div>
+        <div style="font-size:0.65rem;color:var(--text-light);font-weight:700;letter-spacing:.5px;margin-top:1px;">
+          Plateforme inclusive</div>
+      </div>
+    </div>
+
+    <div class="nav-label">Navigation</div>
+
+    <a class="nav-link active" onclick="showPage('home')">
+      <div class="nav-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+        </svg>
+      </div>
+      <span data-i18n="nav-home">Accueil</span>
+    </a>
+
+    <a class="nav-link" onclick="showPage('informe')">
+      <div class="nav-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+          <path
+            d="M11 7h2v2h-2zm0 4h2v6h-2zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" />
+        </svg>
+      </div>
+      <span data-i18n="nav-inform">S'informer</span>
+    </a>
+
+    <a class="nav-link" onclick="showPage('educate')">
+      <div class="nav-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z" />
+        </svg>
+      </div>
+      <span data-i18n="nav-educators">Éducateurs</span>
+    </a>
+
+    <a class="nav-link" onclick="showPage('videos')">
+      <div class="nav-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+          <path
+            d="M10 16.5l6-4.5-6-4.5v9zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" />
+        </svg>
+      </div>
+      <span data-i18n="nav-videos">Vidéos</span>
+    </a>
+
+    <div class="nav-divider"></div>
+
+    <a class="nav-link" onclick="showPage('game')">
+      <div class="nav-icon">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+          <path
+            d="M21.58 16.09l-1.09-7.66C20.21 6.46 18.52 5 16.53 5H7.47C5.48 5 3.79 6.46 3.51 8.43l-1.09 7.66C2.2 17.63 3.39 19 4.94 19c.68 0 1.32-.27 1.8-.75L9 16h6l2.25 2.25c.48.48 1.13.75 1.8.75 1.56 0 2.75-1.37 2.53-2.91zM11 11H9v2H8v-2H6v-1h2V8h1v2h2v1zm4-1c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm2 3c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z" />
+        </svg>
+      </div>
+      <span data-i18n="nav-games">Jeux</span>
+    </a>
+
+    <div class="nav-divider"></div>
+
+    <a class="nav-link" onclick="showPage('chat')" style="background:var(--teal-lt);color:#267878;">
+      <div class="nav-icon" style="background:var(--teal);color:white;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z" />
+        </svg>
+      </div>
+      <span data-i18n="nav-ai">Assistant IA</span>
+    </a>
+
+    <div class="nav-divider"></div>
+
+    <div class="lang-toggle">
+      <button class="lang-btn active" id="btn-fr" onclick="setLang('fr')">FR</button>
+      <button class="lang-btn" id="btn-ar" onclick="setLang('ar')">AR</button>
+    </div>
+
+    <button class="theme-toggle" id="theme-toggle-btn" onclick="toggleTheme()">☀️</button>
+  </aside>
+
+  <!-- ═══════════════ MAIN ═══════════════ -->
+  <main class="main">
+
+    <!-- ─── HOME PAGE ─── -->
+    <div id="page-home" class="page active">
+
+      <div class="topbar fade-up">
+        <div>
+          <div class="topbar-title" data-i18n="hero-hello">Bonjour 👋</div>
+          <div class="topbar-sub" data-i18n="hero-sub">Voici les ressources pour vous accompagner aujourd'hui</div>
+        </div>
+        <div class="search-bar">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <circle cx="11" cy="11" r="8" />
+            <path d="m21 21-4.35-4.35" />
+          </svg>
+          <input type="text" placeholder="Rechercher…" />
+        </div>
+      </div>
+
+      <!-- Hero -->
+      <div class="hero fade-up fade-up-1">
+        <div class="hero-content">
+          <div class="hero-badge">
+            <div class="hero-badge-dot"></div> Plateforme inclusive · Tunisie
+          </div>
+          <h1>Chaque enfant mérite<br><span>d'être compris</span></h1>
+          <p>Ressources éducatives, vidéos et assistant IA pour accompagner les parents et éducateurs d'enfants
+            autistes.</p>
+          <div class="hero-actions">
+            <button class="btn btn-white" onclick="showPage('informe')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M11 7h2v2h-2zm0 4h2v6h-2zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" />
+              </svg>
+              S'informer
+            </button>
+            <button class="btn btn-outline" onclick="showPage('chat')">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z" />
+              </svg>
+              Parler à l'assistant
+            </button>
+          </div>
+        </div>
+        <!-- decorative blob SVG -->
+        <div class="hero-visual">
+          <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <clipPath id="blob1">
+                <path
+                  d="M44.8,-56.2C57,-47.7,65,-31.9,68.1,-14.8C71.2,2.3,69.3,20.8,61.1,36.5C52.9,52.2,38.5,65.1,21.2,72.1C4,79.1,-16.1,80.2,-33,72.9C-49.9,65.7,-63.7,50.2,-70.1,32.2C-76.5,14.2,-75.5,-6.3,-67.2,-22.5C-58.9,-38.7,-43.3,-50.6,-27.5,-58C-11.7,-65.4,4.4,-68.2,20.3,-66.2C36.1,-64.2,52.8,-57.5,57,-56.2Z"
+                  transform="translate(100 100)" />
+              </clipPath>
+            </defs>
+            <rect width="200" height="200" fill="rgba(255,255,255,0.12)" clip-path="url(#blob1)" rx="0" />
+            <!-- Stars / sparkles -->
+            <circle cx="60" cy="50" r="5" fill="rgba(245,166,35,0.8)" />
+            <circle cx="140" cy="80" r="3.5" fill="rgba(255,255,255,0.6)" />
+            <circle cx="100" cy="140" r="4" fill="rgba(59,189,189,0.7)" />
+            <circle cx="35" cy="120" r="3" fill="rgba(255,255,255,0.5)" />
+            <circle cx="155" cy="40" r="4.5" fill="rgba(245,166,35,0.5)" />
+            <!-- Main figure: simple child -->
+            <circle cx="100" cy="75" r="28" fill="rgba(255,255,255,0.22)" />
+            <circle cx="100" cy="72" r="20" fill="rgba(255,255,255,0.35)" />
+            <!-- face dots -->
+            <circle cx="93" cy="70" r="2.5" fill="rgba(123,94,167,0.9)" />
+            <circle cx="107" cy="70" r="2.5" fill="rgba(123,94,167,0.9)" />
+            <path d="M94 78 Q100 84 106 78" stroke="rgba(123,94,167,0.9)" stroke-width="2" fill="none"
+              stroke-linecap="round" />
+            <!-- heart -->
+            <path d="M100 120 C100 120 115 108 115 100 A8 8 0 0 0 100 96 A8 8 0 0 0 85 100 C85 108 100 120 100 120Z"
+              fill="rgba(245,166,35,0.7)" />
+          </svg>
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div class="stats fade-up fade-up-2">
+        <div class="stat-card">
+          <div class="stat-icon purple">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="var(--purple)">
+              <path
+                d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z" />
+            </svg>
+          </div>
+          <div>
+            <div class="stat-n">22</div>
+            <div class="stat-l">Articles éducatifs</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon gold">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="var(--gold)">
+              <path
+                d="M10 16.5l6-4.5-6-4.5v9zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" />
+            </svg>
+          </div>
+          <div>
+            <div class="stat-n">5</div>
+            <div class="stat-l">Vidéos inspirantes</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon teal">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="var(--teal)">
+              <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z" />
+            </svg>
+          </div>
+          <div>
+            <div class="stat-n">IA</div>
+            <div class="stat-l">Assistant 24/7</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon rose">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="var(--rose)">
+              <path
+                d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
+            </svg>
+          </div>
+          <div>
+            <div class="stat-n">FR&nbsp;/&nbsp;AR</div>
+            <div class="stat-l">Bilingue</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Featured article -->
+      <div class="section-hd fade-up fade-up-3">
+        <h2>Article à la une</h2>
+        <button class="see-all" onclick="showPage('informe')">Voir tout</button>
+      </div>
+
+      <div class="featured fade-up fade-up-3" onclick="showPage('article')">
+        <div class="featured-visual">
+          <svg viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg">
+            <rect width="200" height="240" fill="var(--purple-lt)" />
+            <circle cx="100" cy="80" r="55" fill="var(--purple-mid)" opacity=".35" />
+            <circle cx="100" cy="78" r="36" fill="var(--purple)" opacity=".7" />
+            <circle cx="90" cy="74" r="4" fill="white" />
+            <circle cx="110" cy="74" r="4" fill="white" />
+            <path d="M90 86 Q100 96 110 86" stroke="white" stroke-width="3" fill="none" stroke-linecap="round" />
+            <!-- brain waves -->
+            <path d="M50 155 Q65 145 80 155 Q95 165 110 155 Q125 145 140 155 Q155 165 160 155" stroke="var(--purple)"
+              stroke-width="2.5" fill="none" stroke-linecap="round" opacity=".5" />
+            <path d="M40 170 Q60 158 80 170 Q100 182 120 170 Q140 158 160 170" stroke="var(--purple)" stroke-width="2"
+              fill="none" stroke-linecap="round" opacity=".35" />
+          </svg>
+        </div>
+        <div class="featured-content">
+          <div class="featured-label">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm4.24 16L12 15.45 7.77 18l1.12-4.81-3.73-3.23 4.92-.42L12 5l1.92 4.53 4.92.42-3.73 3.23L16.23 18z" />
+            </svg>
+            Article vedette · Comprendre
+          </div>
+          <div class="featured-title">L'autisme : une différence de<br>traitement de l'information</div>
+          <div class="featured-text">
+            L'autisme n'est pas une maladie mentale — c'est un fonctionnement neurologique différent. Découvrez comment
+            votre enfant perçoit le monde à travers ses propres « lunettes » et comment l'accompagner avec
+            bienveillance.
+          </div>
+          <div style="display:flex;gap:10px;align-items:center;">
+            <button class="btn btn-purple" style="font-size:0.82rem;padding:9px 18px;">Lire l'article →</button>
+            <span style="font-size:0.78rem;color:var(--text-light);font-weight:600;">5 min de lecture</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent articles -->
+      <div class="section-hd fade-up fade-up-4">
+        <h2>Articles récents</h2>
+        <button class="see-all" onclick="showPage('informe')">Voir tout</button>
+      </div>
+
+      <div class="cards-grid fade-up fade-up-4">
+        <div class="article-card" onclick="showPage('article')">
+          <div class="card-img" style="background:var(--teal-lt);">
+            <svg viewBox="0 0 300 130" xmlns="http://www.w3.org/2000/svg">
+              <rect width="300" height="130" fill="var(--teal-lt)" />
+              <circle cx="150" cy="65" r="42" fill="var(--teal)" opacity=".18" />
+              <circle cx="100" cy="55" r="28" fill="var(--teal)" opacity=".13" />
+              <circle cx="200" cy="75" r="22" fill="var(--teal)" opacity=".13" />
+              <path d="M90 65 Q105 50 120 65 Q135 80 150 65 Q165 50 180 65 Q195 80 210 65" stroke="var(--teal)"
+                stroke-width="3" fill="none" stroke-linecap="round" opacity=".7" />
+            </svg>
+          </div>
+          <div class="card-body">
+            <div class="card-tag tag-teal">Sensoriel</div>
+            <div class="card-title">L'hypersensibilité sensorielle expliquée</div>
+            <div class="card-excerpt">Comprendre pourquoi certains sons, textures ou lumières peuvent être douloureux
+              pour votre enfant.</div>
+            <div class="card-footer">
+              <div class="card-read">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" />
+                </svg>
+                Lire
+              </div>
+              <span style="font-size:0.72rem;color:var(--text-light);font-weight:600;">4 min</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="article-card" onclick="showPage('article')">
+          <div class="card-img" style="background:var(--gold-lt);">
+            <svg viewBox="0 0 300 130" xmlns="http://www.w3.org/2000/svg">
+              <rect width="300" height="130" fill="var(--gold-lt)" />
+              <circle cx="150" cy="65" r="38" fill="var(--gold)" opacity=".2" />
+              <path d="M110 65 L130 35 L150 65 L170 35 L190 65" stroke="var(--gold)" stroke-width="3.5" fill="none"
+                stroke-linecap="round" stroke-linejoin="round" opacity=".7" />
+              <circle cx="110" cy="65" r="5" fill="var(--gold)" opacity=".6" />
+              <circle cx="150" cy="65" r="5" fill="var(--gold)" opacity=".6" />
+              <circle cx="190" cy="65" r="5" fill="var(--gold)" opacity=".6" />
+            </svg>
+          </div>
+          <div class="card-body">
+            <div class="card-tag tag-gold">Dépistage</div>
+            <div class="card-title">Les signes précoces à observer</div>
+            <div class="card-excerpt">Quels comportements surveiller dès 18 mois ? Le guide pour parents vigilants.
+            </div>
+            <div class="card-footer">
+              <div class="card-read">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" />
+                </svg>
+                Lire
+              </div>
+              <span style="font-size:0.72rem;color:var(--text-light);font-weight:600;">6 min</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="article-card" onclick="showPage('article')">
+          <div class="card-img" style="background:var(--rose-lt);">
+            <svg viewBox="0 0 300 130" xmlns="http://www.w3.org/2000/svg">
+              <rect width="300" height="130" fill="var(--rose-lt)" />
+              <circle cx="150" cy="65" r="40" fill="var(--rose)" opacity=".14" />
+              <!-- heart -->
+              <path d="M150 85 C150 85 115 65 115 48 A20 20 0 0 1 150 40 A20 20 0 0 1 185 48 C185 65 150 85 150 85Z"
+                fill="var(--rose)" opacity=".5" />
+            </svg>
+          </div>
+          <div class="card-body">
+            <div class="card-tag tag-rose">Talents</div>
+            <div class="card-title">Les forces souvent ignorées</div>
+            <div class="card-excerpt">Mémoire exceptionnelle, concentration intense, honnêteté : des atouts remarquables
+              à valoriser.</div>
+            <div class="card-footer">
+              <div class="card-read">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" />
+                </svg>
+                Lire
+              </div>
+              <span style="font-size:0.72rem;color:var(--text-light);font-weight:600;">3 min</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-strip">Auti-Aura · Plateforme inclusive · Tunisie 🇹🇳 · 2025</div>
+    </div>
+
+    <!-- ─── ARTICLE DETAIL PAGE ─── -->
+    <div id="page-article" class="page">
+      <div class="topbar" style="margin-bottom:24px;">
+        <button onclick="showPage('informe')" class="btn btn-purple"
+          style="background:var(--purple-lt);color:var(--purple);font-size:0.82rem;padding:8px 16px;">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" />
+          </svg>
+          Retour
+        </button>
+        <div class="lang-switch-bar">
+          <button class="lang-switch-btn active" id="art-btn-fr" onclick="setArticleLang('fr')">Français</button>
+          <button class="lang-switch-btn" id="art-btn-ar" onclick="setArticleLang('ar')">العربية</button>
+        </div>
+      </div>
+
+      <div class="article-detail">
+        <div class="article-hero-img">
+          <svg viewBox="0 0 900 200" xmlns="http://www.w3.org/2000/svg">
+            <rect width="900" height="200" fill="var(--purple)" />
+            <circle cx="100" cy="100" r="120" fill="rgba(255,255,255,0.05)" />
+            <circle cx="800" cy="50" r="90" fill="rgba(255,255,255,0.05)" />
+            <circle cx="450" cy="180" r="70" fill="rgba(245,166,35,0.15)" />
+            <!-- brain outline -->
+            <ellipse cx="450" cy="95" rx="65" ry="55" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,0.25)"
+              stroke-width="2" />
+            <path
+              d="M415 75 Q430 55 450 65 Q470 55 485 75 Q500 95 485 115 Q470 130 450 125 Q430 130 415 115 Q400 95 415 75Z"
+              fill="rgba(255,255,255,0.15)" />
+            <circle cx="300" cy="60" r="6" fill="rgba(245,166,35,0.6)" />
+            <circle cx="600" cy="140" r="5" fill="rgba(59,189,189,0.6)" />
+            <circle cx="200" cy="160" r="4" fill="rgba(255,255,255,0.35)" />
+            <circle cx="700" cy="40" r="7" fill="rgba(245,166,35,0.4)" />
+          </svg>
+        </div>
+
+        <div class="article-detail-body" id="article-body-fr">
+          <div class="article-meta">
+            <div class="card-tag tag-purple">Comprendre</div>
+            <span style="font-size:0.78rem;color:var(--text-light);font-weight:600;">5 min de lecture</span>
+          </div>
+          <div class="article-detail-title">L'autisme, une différence de traitement de l'information</div>
+          <div class="article-detail-sub">Comprendre le fonctionnement neurologique unique de votre enfant pour mieux
+            l'accompagner.</div>
+
+          <div class="article-content">
+            <p>L'autisme n'est pas une maladie mentale, mais un <strong>fonctionnement neurologique différent</strong>.
+              Le cerveau de l'enfant autiste traite les informations différemment, souvent avec une attention aux
+              détails que d'autres personnes ne remarquent pas.</p>
+
+            <p>Imaginez regarder le monde à travers des « lunettes » différentes : chaque son, chaque texture, chaque
+              interaction sociale est perçue d'une manière unique. Ce n'est pas un déficit, c'est une différence.</p>
+
+            <h3>Vrai ou Faux ?</h3>
+
+            <div class="tip-card" style="background:var(--rose-lt);">
+              <div class="tip-icon" style="background:var(--rose);">
+                <svg viewBox="0 0 24 24" fill="white">
+                  <path
+                    d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+                </svg>
+              </div>
+              <div class="tip-text"><strong>Faux :</strong> L'autisme est une maladie mentale. → C'est un trouble
+                neurodéveloppemental, pas une maladie.</div>
+            </div>
+
+            <div class="tip-card" style="background:var(--green-lt);margin-top:8px;">
+              <div class="tip-icon" style="background:var(--green);">
+                <svg viewBox="0 0 24 24" fill="white">
+                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+                </svg>
+              </div>
+              <div class="tip-text" style="color:var(--green);"><strong>Vrai :</strong> Chaque enfant autiste est unique
+                et a son propre profil de forces et de difficultés.</div>
+            </div>
+
+            <h3>Conseils pratiques pour l'éducateur</h3>
+
+            <div class="tip-card">
+              <div class="tip-icon">
+                <svg viewBox="0 0 24 24" fill="white">
+                  <path
+                    d="M11 7h2v2h-2zm0 4h2v6h-2zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" />
+                </svg>
+              </div>
+              <div class="tip-text"><strong>Évitez les jugements hâtifs :</strong> Les comportements ne sont pas de
+                l'entêtement — c'est une façon différente de traduire les sensations et les informations.</div>
+            </div>
+
+            <div class="tip-card" style="margin-top:8px;">
+              <div class="tip-icon">
+                <svg viewBox="0 0 24 24" fill="white">
+                  <path
+                    d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z" />
+                </svg>
+              </div>
+              <div class="tip-text"><strong>Utilisez des supports visuels :</strong> Les tableaux, images et
+                pictogrammes aident l'enfant à organiser et comprendre les tâches du quotidien.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Arabic version (hidden by default) -->
+        <div class="article-detail-body" id="article-body-ar"
+          style="display:none;direction:rtl;font-family:'Tajawal',sans-serif;">
+          <div class="article-meta">
+            <div class="card-tag tag-purple">فهم</div>
+            <span style="font-size:0.78rem;color:var(--text-light);font-weight:600;">5 دقائق قراءة</span>
+          </div>
+          <div class="article-detail-title" style="font-size:1.5rem;">التوحد، اختلاف في معالجة المعلومات</div>
+          <div class="article-detail-sub">فهم الطريقة العصبية الفريدة لطفلك لمرافقته بشكل أفضل.</div>
+          <div class="article-content">
+            <p>التوحد ليس مرضاً نفسياً، بل هو <strong>اختلاف في طريقة عمل الدماغ</strong>. يعالج دماغ الطفل التوحدي
+              المعلومات بطريقة مختلفة، مع انتباه استثنائي للتفاصيل الدقيقة.</p>
+            <p>تخيل أنك ترى العالم من خلال "نظارات" مختلفة: كل صوت، وكل ملمس، وكل تفاعل اجتماعي يُدرَك بطريقة فريدة. هذا
+              ليس نقصاً، بل هو اختلاف.</p>
+            <h3>صحيح أم خطأ؟</h3>
+            <div class="tip-card" style="background:var(--rose-lt);">
+              <div class="tip-icon" style="background:var(--rose);">
+                <svg viewBox="0 0 24 24" fill="white">
+                  <path
+                    d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+                </svg>
+              </div>
+              <div class="tip-text"><strong>خطأ:</strong> التوحد مرض نفسي. ← هو اضطراب نمائي عصبي، وليس مرضاً.</div>
+            </div>
+            <div class="tip-card" style="background:var(--green-lt);margin-top:8px;">
+              <div class="tip-icon" style="background:var(--green);">
+                <svg viewBox="0 0 24 24" fill="white">
+                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+                </svg>
+              </div>
+              <div class="tip-text" style="color:var(--green);"><strong>صحيح:</strong> كل طفل توحدي فريد ولديه ملف خاص
+                به من نقاط القوة والصعوبات.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-strip">Auti-Aura · Plateforme inclusive · Tunisie 🇹🇳 · 2025</div>
+    </div>
+
+    <!-- ─── INFORME PAGE ─── -->
+    <div id="page-informe" class="page">
+      <div class="topbar" style="margin-bottom:24px;">
+        <div>
+          <div class="topbar-title">S'informer sur l'autisme</div>
+          <div class="topbar-sub">Articles de sensibilisation pour le grand public</div>
+        </div>
+      </div>
+
+      <div class="tabs">
+        <button class="tab active" onclick="filterArticles('all', this)">Tous</button>
+        <button class="tab" onclick="filterArticles('Comprendre', this)">Comprendre</button>
+        <button class="tab" onclick="filterArticles('Dépistage', this)">Dépistage</button>
+        <button class="tab" onclick="filterArticles('Droits', this)">Droits</button>
+        <button class="tab" onclick="filterArticles('Sensoriel', this)">Sensoriel</button>
+      </div>
+
+      <div class="cards-grid">
+        <div class="article-card" onclick="showPage('article')">
+          <div class="card-img" style="background:var(--purple-lt);">
+            <svg viewBox="0 0 300 130" xmlns="http://www.w3.org/2000/svg">
+              <rect width="300" height="130" fill="var(--purple-lt)" />
+              <circle cx="150" cy="65" r="42" fill="var(--purple)" opacity=".15" />
+              <ellipse cx="150" cy="63" rx="30" ry="26" fill="var(--purple)" opacity=".4" />
+              <circle cx="138" cy="59" r="4" fill="white" />
+              <circle cx="162" cy="59" r="4" fill="white" />
+              <path d="M140 72 Q150 80 160 72" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round" />
+            </svg>
+          </div>
+          <div class="card-body">
+            <div class="card-tag tag-purple">Comprendre</div>
+            <div class="card-title">L'autisme, une différence de traitement de l'information</div>
+            <div class="card-excerpt">Les « lunettes » à travers lesquelles l'enfant voit le monde : détails vs
+              globalité.</div>
+            <div class="card-footer">
+              <div class="card-read">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" />
+                </svg>
+                Lire
+              </div>
+              <span style="font-size:0.72rem;color:var(--text-light);font-weight:600;">5 min</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="article-card" onclick="showPage('article')">
+          <div class="card-img" style="background:var(--gold-lt);">
+            <svg viewBox="0 0 300 130" xmlns="http://www.w3.org/2000/svg">
+              <rect width="300" height="130" fill="var(--gold-lt)" />
+              <path d="M150 85 C150 85 115 60 115 42 A35 35 0 0 1 185 42 C185 60 150 85 150 85Z" fill="var(--gold)"
+                opacity=".45" />
+              <circle cx="150" cy="40" r="18" fill="var(--gold)" opacity=".6" />
+            </svg>
+          </div>
+          <div class="card-body">
+            <div class="card-tag tag-gold">Histoire</div>
+            <div class="card-title">Histoire et évolution du concept d'autisme</div>
+            <div class="card-excerpt">Du terme « maladie » au Trouble du Spectre de l'Autisme : comprendre le spectre.
+            </div>
+            <div class="card-footer">
+              <div class="card-read">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" />
+                </svg>
+                Lire
+              </div>
+              <span style="font-size:0.72rem;color:var(--text-light);font-weight:600;">4 min</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="article-card" onclick="showPage('article')">
+          <div class="card-img" style="background:var(--teal-lt);">
+            <svg viewBox="0 0 300 130" xmlns="http://www.w3.org/2000/svg">
+              <rect width="300" height="130" fill="var(--teal-lt)" />
+              <path d="M90 65 Q105 50 120 65 Q135 80 150 65 Q165 50 180 65 Q195 80 210 65" stroke="var(--teal)"
+                stroke-width="3.5" fill="none" stroke-linecap="round" opacity=".7" />
+              <circle cx="90" cy="65" r="6" fill="var(--teal)" opacity=".5" />
+              <circle cx="150" cy="65" r="6" fill="var(--teal)" opacity=".5" />
+              <circle cx="210" cy="65" r="6" fill="var(--teal)" opacity=".5" />
+            </svg>
+          </div>
+          <div class="card-body">
+            <div class="card-tag tag-teal">Sensoriel</div>
+            <div class="card-title">L'hypersensibilité sensorielle expliquée</div>
+            <div class="card-excerpt">Réactions intenses aux sons, textures et lumières — comprendre la surcharge
+              sensorielle.</div>
+            <div class="card-footer">
+              <div class="card-read">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" />
+                </svg>
+                Lire
+              </div>
+              <span style="font-size:0.72rem;color:var(--text-light);font-weight:600;">4 min</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="article-card" onclick="showPage('article')">
+          <div class="card-img" style="background:var(--rose-lt);">
+            <svg viewBox="0 0 300 130" xmlns="http://www.w3.org/2000/svg">
+              <rect width="300" height="130" fill="var(--rose-lt)" />
+              <path d="M150 90 C150 90 108 68 108 48 A42 42 0 0 1 192 48 C192 68 150 90 150 90Z" fill="var(--rose)"
+                opacity=".4" />
+            </svg>
+          </div>
+          <div class="card-body">
+            <div class="card-tag tag-rose">Talents</div>
+            <div class="card-title">Les forces et talents souvent ignorés</div>
+            <div class="card-excerpt">Mémoire exceptionnelle, concentration intense : des atouts remarquables à
+              valoriser.</div>
+            <div class="card-footer">
+              <div class="card-read">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" />
+                </svg>
+                Lire
+              </div>
+              <span style="font-size:0.72rem;color:var(--text-light);font-weight:600;">3 min</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="article-card" onclick="showPage('article')">
+          <div class="card-img" style="background:var(--green-lt);">
+            <svg viewBox="0 0 300 130" xmlns="http://www.w3.org/2000/svg">
+              <rect width="300" height="130" fill="var(--green-lt)" />
+              <rect x="110" y="40" width="14" height="50" rx="7" fill="var(--green)" opacity=".5" />
+              <rect x="135" y="55" width="14" height="35" rx="7" fill="var(--green)" opacity=".5" />
+              <rect x="160" y="30" width="14" height="60" rx="7" fill="var(--green)" opacity=".5" />
+              <rect x="185" y="48" width="14" height="42" rx="7" fill="var(--green)" opacity=".5" />
+            </svg>
+          </div>
+          <div class="card-body">
+            <div class="card-tag tag-green">Droits</div>
+            <div class="card-title">Le droit à l'éducation : un cadre mondial</div>
+            <div class="card-excerpt">Déclaration universelle et constitution tunisienne : ce que dit la loi pour votre
+              enfant.</div>
+            <div class="card-footer">
+              <div class="card-read">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" />
+                </svg>
+                Lire
+              </div>
+              <span style="font-size:0.72rem;color:var(--text-light);font-weight:600;">5 min</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="article-card" onclick="showPage('article')">
+          <div class="card-img" style="background:var(--gold-lt);">
+            <svg viewBox="0 0 300 130" xmlns="http://www.w3.org/2000/svg">
+              <rect width="300" height="130" fill="var(--gold-lt)" />
+              <circle cx="150" cy="60" r="35" fill="var(--gold)" opacity=".2" />
+              <path d="M130 55 L150 35 L170 55 L162 55 L162 80 L138 80 L138 55Z" fill="var(--gold)" opacity=".5" />
+            </svg>
+          </div>
+          <div class="card-body">
+            <div class="card-tag tag-gold">Dépistage</div>
+            <div class="card-title">Les signes qui doivent alerter</div>
+            <div class="card-excerpt">Retard du pointage, absence de réponse au prénom, écholalie : le guide de
+              dépistage précoce.</div>
+            <div class="card-footer">
+              <div class="card-read">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" />
+                </svg>
+                Lire
+              </div>
+              <span style="font-size:0.72rem;color:var(--text-light);font-weight:600;">6 min</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- NEW ARTICLE -->
+        <div class="article-card" onclick="showPage('article')">
+          <div class="card-img" style="background:var(--purple-lt);">
+            <svg viewBox="0 0 300 130" xmlns="http://www.w3.org/2000/svg">
+              <rect width="300" height="130" fill="var(--purple-lt)" />
+              <circle cx="150" cy="65" r="30" fill="var(--purple)" opacity=".3" />
+            </svg>
+          </div>
+          <div class="card-body">
+            <div class="card-tag tag-purple">Comprendre</div>
+            <div class="card-title">Mythes et réalités sur l'autisme</div>
+            <div class="card-excerpt">Démêler le vrai du faux concernant les stéréotypes les plus courants sur le TSA.
+            </div>
+            <div class="card-footer">
+              <div class="card-read">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" />
+                </svg>
+                Lire
+              </div>
+              <span style="font-size:0.72rem;color:var(--text-light);font-weight:600;">4 min</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- NEW ARTICLE 2 -->
+        <div class="article-card" onclick="showPage('article')">
+          <div class="card-img" style="background:var(--teal-lt);">
+            <svg viewBox="0 0 300 130" xmlns="http://www.w3.org/2000/svg">
+              <rect width="300" height="130" fill="var(--teal-lt)" />
+              <path d="M120 80 L150 40 L180 80 Z" fill="var(--teal)" opacity=".5" />
+            </svg>
+          </div>
+          <div class="card-body">
+            <div class="card-tag tag-teal">Droits</div>
+            <div class="card-title">Démarches administratives en Tunisie</div>
+            <div class="card-excerpt">Comment obtenir la carte d'handicap et les aides sociales pour votre enfant.</div>
+            <div class="card-footer">
+              <div class="card-read">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" />
+                </svg>
+                Lire
+              </div>
+              <span style="font-size:0.72rem;color:var(--text-light);font-weight:600;">7 min</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Interactive Quiz -->
+      <div class="quiz-section">
+        <div class="quiz-title">Testez vos connaissances</div>
+        <div class="quiz-question" id="q-text">Le trouble du spectre autistique est...</div>
+        <div class="quiz-options">
+          <button class="quiz-option" onclick="checkQuiz(0, this)">Une maladie mentale</button>
+          <button class="quiz-option" onclick="checkQuiz(1, this)">Un trouble neurologique du développement</button>
+          <button class="quiz-option" onclick="checkQuiz(2, this)">Une phase passagère</button>
+        </div>
+        <div id="quiz-feedback" class="quiz-feedback"></div>
+      </div>
+
+      <div class="footer-strip">Auti-Aura · Plateforme inclusive · Tunisie 🇹🇳 · 2025</div>
+    </div>
+
+    <!-- ─── EDUCATE PAGE ─── -->
+    <div id="page-educate" class="page">
+      <div class="topbar" style="margin-bottom:24px;">
+        <div>
+          <div class="topbar-title">Ressources pour éducateurs</div>
+          <div class="topbar-sub">Conseils pratiques et stratégies pédagogiques adaptées</div>
+        </div>
+      </div>
+
+      <!-- Educator hero banner -->
+      <div class="hero" style="background:var(--teal);margin-bottom:28px;padding:30px 36px;">
+        <div class="hero-content">
+          <div class="hero-badge">
+            <div class="hero-badge-dot"></div> Pour les professionnels
+          </div>
+          <h1 style="font-size:1.7rem;">Outils pour mieux<br><span>accompagner</span></h1>
+          <p style="margin-bottom:16px;">Stratégies validées, conseils pratiques et ressources pour inclure chaque
+            enfant avec bienveillance.</p>
+        </div>
+      </div>
+
+      <div class="cards-grid">
+        <div class="article-card" onclick="showPage('article')">
+          <div class="card-img" style="background:var(--purple-lt);">
+            <svg viewBox="0 0 300 130" xmlns="http://www.w3.org/2000/svg">
+              <rect width="300" height="130" fill="var(--purple-lt)" />
+              <rect x="90" y="45" width="120" height="14" rx="7" fill="var(--purple)" opacity=".25" />
+              <rect x="90" y="67" width="90" height="14" rx="7" fill="var(--purple)" opacity=".25" />
+              <rect x="90" y="89" width="105" height="14" rx="7" fill="var(--purple)" opacity=".25" />
+            </svg>
+          </div>
+          <div class="card-body">
+            <div class="card-tag tag-purple">Pédagogie</div>
+            <div class="card-title">Adapter ses consignes et son langage</div>
+            <div class="card-excerpt">Consignes courtes, une à la fois, avec support visuel permanent.</div>
+            <div class="card-footer">
+              <div class="card-read">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" />
+                </svg>
+                Lire
+              </div>
+              <span style="font-size:0.72rem;color:var(--text-light);font-weight:600;">5 min</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="article-card" onclick="showPage('article')">
+          <div class="card-img" style="background:var(--teal-lt);">
+            <svg viewBox="0 0 300 130" xmlns="http://www.w3.org/2000/svg">
+              <rect width="300" height="130" fill="var(--teal-lt)" />
+              <circle cx="150" cy="55" r="28" fill="var(--teal)" opacity=".3" />
+              <path d="M140 52 Q150 62 160 52" stroke="var(--teal)" stroke-width="3" fill="none"
+                stroke-linecap="round" />
+              <circle cx="143" cy="49" r="3.5" fill="var(--teal)" opacity=".8" />
+              <circle cx="157" cy="49" r="3.5" fill="var(--teal)" opacity=".8" />
+              <path d="M100 95 L200 95" stroke="var(--teal)" stroke-width="2" stroke-dasharray="6 4" opacity=".4"
+                stroke-linecap="round" />
+            </svg>
+          </div>
+          <div class="card-body">
+            <div class="card-tag tag-teal">Émotions</div>
+            <div class="card-title">Gérer les émotions et les crises</div>
+            <div class="card-excerpt">Le baromètre des émotions, le coin calme et les stratégies de désescalade.</div>
+            <div class="card-footer">
+              <div class="card-read">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" />
+                </svg>
+                Lire
+              </div>
+              <span style="font-size:0.72rem;color:var(--text-light);font-weight:600;">4 min</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="article-card" onclick="showPage('article')">
+          <div class="card-img" style="background:var(--gold-lt);">
+            <svg viewBox="0 0 300 130" xmlns="http://www.w3.org/2000/svg">
+              <rect width="300" height="130" fill="var(--gold-lt)" />
+              <rect x="95" y="38" width="50" height="55" rx="8" fill="var(--gold)" opacity=".25" />
+              <rect x="158" y="50" width="50" height="43" rx="8" fill="var(--gold)" opacity=".25" />
+              <path d="M120 68 L158 68" stroke="var(--gold)" stroke-width="2.5" stroke-dasharray="5 3" opacity=".6"
+                stroke-linecap="round" />
+              <circle cx="158" cy="68" r="4" fill="var(--gold)" opacity=".6" />
+            </svg>
+          </div>
+          <div class="card-body">
+            <div class="card-tag tag-gold">Partenariat</div>
+            <div class="card-title">Collaborer avec la famille et les spécialistes</div>
+            <div class="card-excerpt">Le cahier de communication, la coordination avec l'orthophoniste et
+              l'ergothérapeute.</div>
+            <div class="card-footer">
+              <div class="card-read">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" />
+                </svg>
+                Lire
+              </div>
+              <span style="font-size:0.72rem;color:var(--text-light);font-weight:600;">5 min</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- NEW ARTICLE EDUC -->
+        <div class="article-card" onclick="showPage('article')">
+          <div class="card-img" style="background:var(--rose-lt);">
+            <svg viewBox="0 0 300 130" xmlns="http://www.w3.org/2000/svg">
+              <rect width="300" height="130" fill="var(--rose-lt)" />
+              <circle cx="150" cy="65" r="25" fill="var(--rose)" opacity=".4" />
+            </svg>
+          </div>
+          <div class="card-body">
+            <div class="card-tag tag-rose">Pédagogie</div>
+            <div class="card-title">L'apprentissage par le jeu</div>
+            <div class="card-excerpt">Comment utiliser les intérêts spécifiques de l'enfant pour stimuler
+              l'apprentissage.</div>
+            <div class="card-footer">
+              <div class="card-read">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" />
+                </svg>
+                Lire
+              </div>
+              <span style="font-size:0.72rem;color:var(--text-light);font-weight:600;">3 min</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer-strip">Auti-Aura · Plateforme inclusive · Tunisie 🇹🇳 · 2025</div>
+    </div>
+
+    <!-- ─── VIDEOS PAGE ─── -->
+    <div id="page-videos" class="page">
+      <div class="topbar" style="margin-bottom:24px;">
+        <div>
+          <div class="topbar-title">Vidéos inspirantes</div>
+          <div class="topbar-sub">Témoignages, explications et guides pratiques en vidéo</div>
+        </div>
+      </div>
+
+      <div class="video-grid">
+        <div class="video-card" onclick="openVideo('TG6riOWCsA0')" style="cursor: pointer;">
+          <div class="video-thumb"
+            style="background:var(--teal-lt); display: flex; align-items: center; justify-content: center;">
+            <div class="play-btn">
+              <svg viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            </div>
+          </div>
+          <div class="video-body">
+            <div class="card-tag tag-teal" style="margin-bottom:6px;">Sensibilisation</div>
+            <div class="video-title">Comprendre l'autisme en 3 minutes</div>
+            <div class="video-desc">Une présentation simple et claire du Trouble du Spectre de l'Autisme pour les
+              parents.</div>
+          </div>
+        </div>
+
+        <div class="video-card" onclick="openVideo('hcC2BU_0NGg')" style="cursor: pointer;">
+          <div class="video-thumb"
+            style="background:var(--purple-lt); display: flex; align-items: center; justify-content: center;">
+            <div class="play-btn">
+              <svg viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            </div>
+          </div>
+          <div class="video-body">
+            <div class="card-tag tag-purple" style="margin-bottom:6px;">Communication</div>
+            <div class="video-title">La communication alternative et améliorée (CAA)</div>
+            <div class="video-desc">Pictogrammes, tablettes et gestes pour aider l'enfant à s'exprimer.</div>
+          </div>
+        </div>
+
+        <div class="video-card" onclick="openVideo('sqcrAJzIpZU')" style="cursor: pointer;">
+          <div class="video-thumb"
+            style="background:var(--gold-lt); display: flex; align-items: center; justify-content: center;">
+            <div class="play-btn">
+              <svg viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            </div>
+          </div>
+          <div class="video-body">
+            <div class="card-tag tag-gold" style="margin-bottom:6px;">Témoignages</div>
+            <div class="video-title">Parcours d'un enfant autiste à l'école inclusive</div>
+            <div class="video-desc">Une famille tunisienne partage son expérience avec l'intégration scolaire.</div>
+          </div>
+        </div>
+
+        <div class="video-card" onclick="openVideo('b9_n1kVciY4')" style="cursor: pointer;">
+          <div class="video-thumb"
+            style="background:var(--rose-lt); display: flex; align-items: center; justify-content: center;">
+            <div class="play-btn">
+              <svg viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            </div>
+          </div>
+          <div class="video-body">
+            <div class="card-tag tag-rose" style="margin-bottom:6px;">Thérapies</div>
+            <div class="video-title">Les thérapies comportementales : ABA et TEACCH</div>
+            <div class="video-desc">Présentation des approches thérapeutiques les plus utilisées avec les enfants TSA.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-strip">Auti-Aura · Plateforme inclusive · Tunisie 🇹🇳 · 2025</div>
+    </div>
+
+    <!-- ─── CHAT PAGE ─── -->
+    <div id="page-chat" class="page">
+      <div class="topbar" style="margin-bottom:24px;">
+        <div>
+          <div class="topbar-title">Assistant Auti-Aura</div>
+          <div class="topbar-sub">Posez vos questions en français ou en arabe</div>
+        </div>
+      </div>
+
+      <div class="chat-container">
+        <div class="chat-header">
+          <div class="chat-avatar">
+            <svg viewBox="0 0 24 24">
+              <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z" />
+            </svg>
+          </div>
+          <div class="chat-header-info">
+            <div class="chat-header-name">Assistant Auti-Aura</div>
+            <div class="chat-header-status">
+              <div class="status-dot"></div>
+              En ligne · Powered by Groq
+            </div>
+          </div>
+          <div style="display:flex;gap:6px;">
+            <div class="lang-switch-bar" style="margin-bottom:0;background:rgba(255,255,255,0.15);">
+              <button class="lang-switch-btn active"
+                style="color:var(--purple);background:white;font-size:0.75rem;padding:5px 14px;">FR</button>
+              <button class="lang-switch-btn"
+                style="color:rgba(255,255,255,0.7);font-size:0.75rem;padding:5px 14px;">AR</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="chat-messages" id="chat-messages">
+          <div class="msg bot">
+            <div class="msg-avatar">A</div>
+            <div>
+              <div class="msg-bubble">
+                Bonjour ! Je suis l'assistant Auti-Aura. Je suis là pour répondre à vos questions sur l'autisme — en
+                français ou en arabe.<br><br>
+                Comment puis-je vous aider aujourd'hui ?
+              </div>
+              <div class="msg-time">Maintenant</div>
+              <div class="chat-quick-replies" style="margin-top:8px;">
+                <button class="quick-reply" onclick="sendQuickReply('Qu\'est-ce que le TSA ?')">Qu'est-ce que le TSA
+                  ?</button>
+                <button class="quick-reply" onclick="sendQuickReply('Comment gérer une crise sensorielle ?')">Crises
+                  sensorielles</button>
+                <button class="quick-reply" onclick="sendQuickReply('Signes précoces chez un enfant de 2 ans')">Signes
+                  précoces</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="chat-input-row">
+          <input id="chat-input" class="chat-input" type="text" placeholder="Posez votre question…"
+            onkeydown="handleChatKey(event)" />
+          <button class="send-btn" onclick="sendMessage()">
+            <svg viewBox="0 0 24 24">
+              <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="footer-strip">Auti-Aura · Plateforme inclusive · Tunisie 🇹🇳 · 2025</div>
+      <!-- ─── GAME PAGE ─── -->
+      <div id="page-game" class="page">
+        <div class="topbar" style="margin-bottom:24px;">
+          <div>
+            <div class="topbar-title" data-i18n="game-title-main">Jeux interactifs</div>
+            <div class="topbar-sub" data-i18n="game-sub-main">Apprendre en s'amusant</div>
+          </div>
+        </div>
+
+        <div class="game-container">
+          <div class="game-title" data-i18n="game-title">Jeu des Émotions</div>
+          <div class="game-prompt" id="game-prompt">Trouve le visage <strong>content</strong> !</div>
+
+          <div class="game-faces" id="game-faces">
+            <div class="game-face" onclick="checkGameAnswer(this, false)">😢</div>
+            <div class="game-face" onclick="checkGameAnswer(this, true)">😊</div>
+            <div class="game-face" onclick="checkGameAnswer(this, false)">😠</div>
+          </div>
+
+          <div style="margin-top: 24px; display: none;" id="game-next-btn-container">
+            <button class="btn btn-purple" onclick="nextGameRound()" data-i18n="btn-next">Suivant →</button>
+          </div>
+        </div>
+
+        <div class="footer-strip">Auti-Aura · Plateforme inclusive · Tunisie 🇹🇳 · 2025</div>
+      </div>
+
+  </main>
+
+  <!-- Video Modal -->
+  <div class="modal-overlay" id="videoModal">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeVideo()">&times;</button>
+      <div class="modal-video-wrapper" id="modalVideoWrapper">
+        <!-- iframe injected here -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function showPage(id) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById('page-' + id).classList.add('active');
+
+      document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+      const map = {
+        home: 0, informe: 1, educate: 2, videos: 3, game: 4, chat: 5, article: 1
+      };
+      const links = document.querySelectorAll('.nav-link');
+      if (map[id] !== undefined && links[map[id]]) {
+        links[map[id]].classList.add('active');
+      }
+
+      window.scrollTo(0, 0);
+    }
+
+    const translations = {
+      fr: {
+        'nav-home': 'Accueil',
+        'nav-inform': 'S\'informer',
+        'nav-educators': 'Éducateurs',
+        'nav-videos': 'Vidéos',
+        'nav-ai': 'Assistant IA',
+        'nav-games': 'Jeux',
+        'hero-hello': 'Bonjour 👋',
+        'hero-sub': 'Voici les ressources pour vous accompagner aujourd\'hui',
+        'game-title-main': 'Jeux interactifs',
+        'game-sub-main': 'Apprendre en s\'amusant',
+        'game-title': 'Jeu des Émotions',
+        'btn-next': 'Suivant →'
+      },
+      ar: {
+        'nav-home': 'الرئيسية',
+        'nav-inform': 'استكشف',
+        'nav-educators': 'للمربين',
+        'nav-videos': 'فيديوهات',
+        'nav-ai': 'المساعد الذكي',
+        'nav-games': 'ألعاب',
+        'hero-hello': 'مرحباً 👋',
+        'hero-sub': 'إليك الموارد لمرافقتك اليوم',
+        'game-title-main': 'ألعاب تفاعلية',
+        'game-sub-main': 'التعلم بالمرح',
+        'game-title': 'لعبة المشاعر',
+        'btn-next': 'التالي ←'
+      }
+    };
+
+    function setLang(l) {
+      document.getElementById('btn-fr').classList.toggle('active', l === 'fr');
+      document.getElementById('btn-ar').classList.toggle('active', l === 'ar');
+      document.body.style.fontFamily = l === 'ar' ? "'Tajawal', sans-serif" : "'Nunito', sans-serif";
+      document.body.dir = l === 'ar' ? 'rtl' : 'ltr';
+
+      // Update translations
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[l] && translations[l][key]) {
+          el.innerText = translations[l][key];
+        }
+      });
+      // specific game prompt logic depending on language
+      updateGamePromptText();
+    }
+
+    function filterArticles(category, btnElement) {
+      const tabs = btnElement.parentElement.querySelectorAll('.tab');
+      tabs.forEach(t => t.classList.remove('active'));
+      btnElement.classList.add('active');
+
+      const cards = document.querySelectorAll('#page-informe .article-card');
+      cards.forEach(card => {
+        if (category === 'all') {
+          card.style.display = 'block';
+        } else {
+          const tag = card.querySelector('.card-tag').innerText;
+          if (tag.toLowerCase().includes(category.toLowerCase())) {
+            card.style.display = 'block';
+          } else {
+            card.style.display = 'none';
+          }
+        }
+      });
+    }
+
+    function toggleTheme() {
+      const isDark = document.body.getAttribute('data-theme') === 'dark';
+      document.body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+      document.getElementById('theme-toggle-btn').innerText = isDark ? '☀️' : '🌙';
+    }
+
+    // Video Modal
+    function openVideo(videoId) {
+      const modal = document.getElementById('videoModal');
+      const wrapper = document.getElementById('modalVideoWrapper');
+      wrapper.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border:none;"></iframe>`;
+      modal.classList.add('active');
+    }
+
+    function closeVideo() {
+      const modal = document.getElementById('videoModal');
+      const wrapper = document.getElementById('modalVideoWrapper');
+      modal.classList.remove('active');
+      wrapper.innerHTML = '';
+    }
+
+    function setArticleLang(l) {
+      document.getElementById('art-btn-fr').classList.toggle('active', l === 'fr');
+      document.getElementById('art-btn-ar').classList.toggle('active', l === 'ar');
+      document.getElementById('article-body-fr').style.display = l === 'fr' ? 'block' : 'none';
+      document.getElementById('article-body-ar').style.display = l === 'ar' ? 'block' : 'none';
+    }
+
+    const replies = {
+      "Qu'est-ce que le TSA ?": "Le Trouble du Spectre de l'Autisme (TSA) est un trouble neurodéveloppemental qui affecte la communication, les interactions sociales et les comportements. Il est appelé « spectre » car chaque personne autiste est unique — les manifestations varient d'une personne à l'autre. Ce n'est pas une maladie, mais un fonctionnement neurologique différent.",
+      "Comment gérer une crise sensorielle ?": "Lors d'une crise sensorielle :\n• Restez calme et parlez doucement\n• Réduisez les stimuli (lumière, bruit)\n• Guidez l'enfant vers un espace calme\n• Évitez le contact physique soudain\n• Attendez que la crise passe sans pression\n\nAvoir un « coin calme » préparé à l'avance dans la classe est très utile.",
+      "Signes précoces chez un enfant de 2 ans": "Les signes précoces à surveiller chez un enfant de 18 mois à 2 ans :\n• Absence ou retard du pointage du doigt\n• Ne répond pas toujours à son prénom\n• Peu de contact visuel\n• Retard du langage ou écholalie\n• Peu d'intérêt pour les autres enfants\n\nCes signes ne signifient pas automatiquement autisme. Consultez votre pédiatre pour une évaluation.",
+    };
+
+    function appendMessage(role, text) {
+      const box = document.getElementById('chat-messages');
+      const isBot = role === 'bot';
+      const div = document.createElement('div');
+      div.className = 'msg ' + role;
+      div.innerHTML = `
+      <div class="msg-avatar">${isBot ? 'A' : 'V'}</div>
+      <div>
+        <div class="msg-bubble">${text.replace(/\n/g, '<br>')}</div>
+        <div class="msg-time">Maintenant</div>
+      </div>`;
+      box.appendChild(div);
+      box.scrollTop = box.scrollHeight;
+    }
+
+    async function sendMessage() {
+      const input = document.getElementById('chat-input');
+      const msg = input.value.trim();
+      if (!msg) return;
+      appendMessage('user', msg);
+      input.value = '';
+
+      appendMessage('bot', '...');
+      const chatMessages = document.getElementById('chat-messages');
+      const loadingBubble = chatMessages.lastElementChild.querySelector('.msg-bubble');
+
+      try {
+        const response = await fetch('http://localhost:8000/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: msg, history: [] })
+        });
+        if (response.ok) {
+          const data = await response.json();
+          loadingBubble.innerHTML = data.reply.replace(/\n/g, '<br>');
+          return;
+        }
+      } catch (e) {}
+      
+      try {
+        const GEMINI_KEY = "AIzaSyAGbuyxXPipAS3EE8GEbdlfB0qB7UOb-ro";
+        const GEMINI_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=" + GEMINI_KEY;
+        const contents = [
+          { role: "user", parts: [{ text: "Tu es 'Aura', un assistant bienveillant spécialisé dans l'autisme chez les enfants. Réponds dans la langue de l'utilisateur (français ou arabe)." }] },
+          { role: "model", parts: [{ text: "Compris ! Comment puis-je vous aider ?" }] },
+          { role: "user", parts: [{ text: msg }] }
+        ];
+        const res = await fetch(GEMINI_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ contents })
+        });
+        if (!res.ok) throw new Error("Erreur IA");
+        const data = await res.json();
+        const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text ?? "Je n'ai pas pu formuler une réponse.";
+        loadingBubble.innerHTML = reply.replace(/\n/g, '<br>');
+      } catch (e) {
+        loadingBubble.innerText = "Erreur de connexion au serveur.";
+      }
+    }
+
+    function sendQuickReply(text) {
+      const input = document.getElementById('chat-input');
+      input.value = text;
+      sendMessage();
+    }
+
+    function handleChatKey(e) {
+      if (e.key === 'Enter') sendMessage();
+    }
+
+    // ── QUIZ LOGIC ──
+    const quizQuestions = [
+      { q: "Le trouble du spectre autistique est...", options: ["Une maladie mentale", "Un trouble neurologique du développement", "Une phase passagère"], answer: 1, feedback: "L'autisme est un fonctionnement neurologique différent, pas une maladie." },
+      { q: "Les enfants autistes manquent-ils d'empathie ?", options: ["Oui, toujours", "Non, ils l'expriment différemment", "Seulement les garçons"], answer: 1, feedback: "Ils ressentent de l'empathie, mais peuvent avoir du mal à décoder les signaux sociaux." },
+      { q: "Quelle approche est recommandée ?", options: ["Punir les crises", "Ignorer l'enfant", "Utiliser des supports visuels"], answer: 2, feedback: "Les supports visuels aident beaucoup à la compréhension et la prévisibilité." }
+    ];
+    let currentQuiz = 0;
+    let score = 0;
+
+    function renderQuiz() {
+      const qText = document.getElementById('q-text');
+      const qOptions = document.querySelector('.quiz-options');
+      const feedback = document.getElementById('quiz-feedback');
+
+      if (currentQuiz >= quizQuestions.length) {
+        qText.innerHTML = `Quiz terminé ! Votre score : ${score}/${quizQuestions.length}`;
+        qOptions.innerHTML = `<button class="quiz-option" onclick="currentQuiz=0;score=0;renderQuiz()">Recommencer</button>`;
+        feedback.style.display = 'none';
+        return;
+      }
+
+      const q = quizQuestions[currentQuiz];
+      qText.innerText = q.q;
+      feedback.style.display = 'none';
+      feedback.className = 'quiz-feedback';
+
+      qOptions.innerHTML = q.options.map((opt, i) =>
+        `<button class="quiz-option" onclick="checkQuiz(${i}, this)">${opt}</button>`
+      ).join('');
+    }
+
+    function checkQuiz(choiceIndex, btnElement) {
+      const q = quizQuestions[currentQuiz];
+      const feedback = document.getElementById('quiz-feedback');
+      const options = document.querySelectorAll('.quiz-option');
+
+      options.forEach(opt => opt.disabled = true);
+
+      if (choiceIndex === q.answer) {
+        btnElement.classList.add('correct');
+        feedback.textContent = 'Correct ! ' + q.feedback;
+        feedback.className = 'quiz-feedback success';
+        score++;
+      } else {
+        btnElement.classList.add('incorrect');
+        options[q.answer].classList.add('correct');
+        feedback.textContent = 'Incorrect. ' + q.feedback;
+        feedback.className = 'quiz-feedback error';
+      }
+
+      feedback.style.display = 'block';
+      setTimeout(() => {
+        currentQuiz++;
+        renderQuiz();
+      }, 2500);
+    }
+
+    // ── GAME LOGIC ──
+    const gameRounds = [
+      { target: 'content', faces: ['😢', '😊', '😠'], answer: 1 },
+      { target: 'triste', faces: ['😊', '😢', '😨'], answer: 1 },
+      { target: 'en colère', faces: ['😭', '😊', '😠'], answer: 2 }
+    ];
+    let currentGameRound = 0;
+
+    function updateGamePromptText() {
+      if (!document.getElementById('game-prompt')) return;
+      const lang = document.body.dir === 'rtl' ? 'ar' : 'fr';
+      const gamePromptsFR = ["content", "triste", "en colère"];
+      const gamePromptsAR = ["سعيد", "حزين", "غاضب"];
+      const currentTarget = lang === 'ar' ? gamePromptsAR[currentGameRound] : gamePromptsFR[currentGameRound];
+      const basePrompt = lang === 'ar' ? `أين الوجه الـ <strong>${currentTarget}</strong> !` : `Trouve le visage <strong>${currentTarget}</strong> !`;
+      document.getElementById('game-prompt').innerHTML = basePrompt;
+    }
+
+    let gameScore = 0;
+
+    function renderGameRound() {
+      const container = document.getElementById('game-faces');
+      const prompt = document.getElementById('game-prompt');
+      const nextBtn = document.getElementById('game-next-btn-container');
+      nextBtn.style.display = 'none';
+
+      if (currentGameRound >= gameRounds.length) {
+        prompt.innerHTML = `Jeu terminé ! Score : ${gameScore}/${gameRounds.length}`;
+        container.innerHTML = `<button class="btn btn-purple" onclick="currentGameRound=0; gameScore=0; renderGameRound()">Rejouer</button>`;
+        return;
+      }
+
+      const round = gameRounds[currentGameRound];
+      updateGamePromptText();
+      
+      container.innerHTML = round.faces.map((face, i) => 
+        `<div class="game-face" onclick="checkGameAnswer(this, ${i === round.answer})">${face}</div>`
+      ).join('');
+    }
+
+    function checkGameAnswer(element, isCorrect) {
+      if (element.classList.contains('success') || element.classList.contains('error')) return;
+      const siblings = element.parentElement.children;
+      for (let s of siblings) {
+        if (s.classList.contains('success') || s.classList.contains('error')) return;
+      }
+      
+      if (isCorrect) {
+        element.classList.add('success');
+        gameScore++;
+        document.getElementById('game-next-btn-container').style.display = 'block';
+      } else {
+        element.classList.add('error');
+        const correctIndex = gameRounds[currentGameRound].answer;
+        siblings[correctIndex].classList.add('success');
+        document.getElementById('game-next-btn-container').style.display = 'block';
+      }
+    }
+
+    function nextGameRound() {
+      currentGameRound++;
+      renderGameRound();
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderQuiz();
+      renderGameRound();
+    });
+  </script>
+
+</body>
+
+</html>
