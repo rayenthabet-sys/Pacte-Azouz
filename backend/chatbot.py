@@ -1,14 +1,14 @@
 """
-chatbot.py — Wraps Google Gemini to power the Auti-Aura assistant.
+chatbot.py — Wraps Google Gemini and Groq to power the Auti-Aura assistant.
 
 The chatbot is specialised in autism awareness for parents and educators.
 It always replies in the same language the user writes in (French or Arabic).
 """
 
 import os
+import google.generativeai as genai
 from groq import Groq
 
-from backend.config import settings
 from backend.models import ChatMessage
 
 # ── System prompt ─────────────────────────────────────────────────────────────
@@ -31,31 +31,50 @@ Règles importantes :
 دورك هو مساعدة الآباء والمربين بمعلومات واضحة وعلمية حول طيف اضطراب التوحد.
 """
 
-def build_history(history: list[ChatMessage]) -> list[dict]:
+def build_history_groq(history: list[ChatMessage]) -> list[dict]:
     """Convert our internal ChatMessage list to the format Groq expects."""
     return [
         {"role": msg.role, "content": msg.content}
         for msg in history
     ]
 
+def build_history_gemini(history: list[ChatMessage]) -> list[dict]:
+    """Convert our internal ChatMessage list to the format Gemini expects."""
+    return [
+        {"role": "user" if msg.role == "user" else "model", "parts": [msg.content]}
+        for msg in history
+    ]
 
 async def ask_chatbot(message: str, history: list[ChatMessage]) -> str:
     """
-    Send a user message (with conversation history) to Groq and return the reply.
-    Raises ValueError if the API key is not configured.
+    Send a user message to Gemini (primary) or Groq (fallback).
+    Raises ValueError if neither API key is configured.
     """
-    if not settings.groq_api_key:
-        raise ValueError("GROQ_API_KEY is not set. Please add it to your .env file.")
+    gemini_key = os.environ.get("GEMINI_API_KEY")
+    groq_key = os.environ.get("GROQ_API_KEY")
 
-    client = Groq(api_key=settings.groq_api_key)
-    
-    messages = [{"role": "system", "content": SYSTEM_PROMPT}]
-    messages.extend(build_history(history))
-    messages.append({"role": "user", "content": message})
+    if gemini_key:
+        genai.configure(api_key=gemini_key)
+        model = genai.GenerativeModel(
+            'gemini-2.0-flash',
+            system_instruction=SYSTEM_PROMPT
+        )
+        chat_history = build_history_gemini(history)
+        chat = model.start_chat(history=chat_history)
+        response = chat.send_message(message)
+        return response.text
+        
+    elif groq_key:
+        client = Groq(api_key=groq_key)
+        messages = [{"role": "system", "content": SYSTEM_PROMPT}]
+        messages.extend(build_history_groq(history))
+        messages.append({"role": "user", "content": message})
 
-    chat_completion = client.chat.completions.create(
-        messages=messages,
-        model="llama3-8b-8192",
-    )
-    
-    return chat_completion.choices[0].message.content
+        chat_completion = client.chat.completions.create(
+            messages=messages,
+            model="llama3-8b-8192",
+        )
+        return chat_completion.choices[0].message.content
+        
+    else:
+        raise ValueError("Neither GEMINI_API_KEY nor GROQ_API_KEY is found in the environment. Please add them via Railway variables or .env file.")
