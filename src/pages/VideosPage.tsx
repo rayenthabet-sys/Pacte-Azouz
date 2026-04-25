@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { fetchVideos } from "@/api";
 import type { Video } from "@/api";
 import { Play } from "lucide-react";
+import CategoryBadge from "@/components/CategoryBadge";
 
 export default function VideosPage() {
   const [videos, setVideos] = useState<Video[]>([]);
@@ -52,9 +53,7 @@ export default function VideosPage() {
                   <div className="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center text-blue-500">
                     <Play size={16} />
                   </div>
-                  <span className="text-xs font-bold uppercase tracking-widest text-slate-400">
-                    {v.category}
-                  </span>
+                  <CategoryBadge category={v.category} />
                 </div>
                 <h2 className="font-bold text-lg text-slate-800 mb-2">{v.title}</h2>
                 <p className="text-sm text-slate-500 leading-relaxed">{v.description}</p>

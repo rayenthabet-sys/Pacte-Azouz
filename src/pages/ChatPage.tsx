@@ -4,6 +4,30 @@ import { sendChatMessage } from "@/api";
 import type { ChatMessage } from "@/api";
 import { Send, Bot, User } from "lucide-react";
 
+function TypewriterMessage({ content, isNew }: { content: string; isNew: boolean }) {
+  const [displayed, setDisplayed] = useState(isNew ? "" : content);
+
+  useEffect(() => {
+    if (!isNew) {
+      setDisplayed(content);
+      return;
+    }
+    let i = 0;
+    const timer = setInterval(() => {
+      i += 3;
+      if (i >= content.length) {
+        setDisplayed(content);
+        clearInterval(timer);
+      } else {
+        setDisplayed(content.slice(0, i));
+      }
+    }, 15);
+    return () => clearInterval(timer);
+  }, [content, isNew]);
+
+  return <ReactMarkdown>{displayed}</ReactMarkdown>;
+}
+
 export default function ChatPage() {
   const [history, setHistory] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState("");
@@ -97,7 +121,11 @@ export default function ChatPage() {
                   : "bg-white border border-slate-200/80 text-slate-600 rounded-bl-md bubble"
               }`}
             >
-              {msg.role === "user" ? msg.content : <ReactMarkdown>{msg.content}</ReactMarkdown>}
+              {msg.role === "user" ? (
+                msg.content
+              ) : (
+                <TypewriterMessage content={msg.content} isNew={i === history.length - 1} />
+              )}
             </div>
             {msg.role === "user" && (
               <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center ml-3 mt-1 shrink-0">

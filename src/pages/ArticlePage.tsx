@@ -4,6 +4,7 @@ import ReactMarkdown from "react-markdown";
 import { fetchArticle } from "@/api";
 import type { Article } from "@/api";
 import { ArrowLeft, Globe } from "lucide-react";
+import CategoryBadge from "@/components/CategoryBadge";
 
 export default function ArticlePage() {
   const { id } = useParams<{ id: string }>();
@@ -77,9 +78,9 @@ export default function ArticlePage() {
       {/* Article */}
       <div className="bg-white rounded-2xl border border-slate-200/80 overflow-hidden">
         <div className="px-8 py-6 border-b border-slate-100">
-          <span className="inline-block px-3 py-1 rounded-full bg-blue-50 text-blue-600 text-xs font-bold uppercase tracking-wider mb-3">
-            {article.category}
-          </span>
+          <div className="mb-3">
+            <CategoryBadge category={article.category} />
+          </div>
           <h1 className="text-2xl font-extrabold text-slate-800 leading-snug" dir={isAr ? "rtl" : "ltr"}>
             {isAr ? article.title_ar : article.title}
           </h1>
