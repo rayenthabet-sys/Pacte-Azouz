@@ -1,12 +1,12 @@
 import { NavLink, Link, useLocation } from "react-router-dom";
 import { useState } from "react";
-import { BookOpen, Gamepad2, Menu, X } from "lucide-react";
+import { BookOpen, Users, Play, Gamepad2, Menu, X } from "lucide-react";
 
 const NAV_LINKS = [
-  { to: "/informe",  label: "Je m'informe",     icon: BookOpen },
-  { to: "/educate",  label: "Je suis Éducateur", icon: BookOpen },
-  { to: "/videos",   label: "Vidéos",            icon: BookOpen },
-  { to: "/chat",     label: "Assistant IA",       icon: Gamepad2 },
+  { to: "/informe", label: "Je m'informe", icon: BookOpen },
+  { to: "/educate", label: "Je suis Éducateur", icon: Users },
+  { to: "/videos", label: "Vidéos", icon: Play },
+  { to: "/chat", label: "Assistant IA", icon: Gamepad2 },
 ];
 
 export default function Navbar() {

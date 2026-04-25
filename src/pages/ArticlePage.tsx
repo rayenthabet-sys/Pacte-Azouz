@@ -15,6 +15,7 @@ export default function ArticlePage() {
   const [error, setError] = useState("");
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     if (!id) return;
     fetchArticle(id)
       .then(setArticle)
@@ -48,7 +49,7 @@ export default function ArticlePage() {
   const isAr = lang === "ar";
 
   return (
-    <div className="max-w-3xl mx-auto anim-in">
+    <div className="max-w-3xl mx-auto anim-in" dir={isAr ? "rtl" : "ltr"}>
       {/* Top bar */}
       <div className="flex items-center justify-between mb-6">
         <button
@@ -79,13 +80,13 @@ export default function ArticlePage() {
       <div className="bg-white rounded-2xl border border-slate-200/80 overflow-hidden">
         <div className="px-8 py-6 border-b border-slate-100">
           <div className="mb-3">
-            <CategoryBadge category={article.category} />
+            <CategoryBadge category={article.category} isAr={isAr} />
           </div>
-          <h1 className="text-2xl font-extrabold text-slate-800 leading-snug" dir={isAr ? "rtl" : "ltr"}>
+          <h1 className="text-2xl font-extrabold text-slate-800 leading-snug">
             {isAr ? article.title_ar : article.title}
           </h1>
         </div>
-        <div className="px-8 py-8 prose" dir={isAr ? "rtl" : "ltr"}>
+        <div className="px-8 py-8 prose">
           <ReactMarkdown>{isAr ? article.content_ar : article.content}</ReactMarkdown>
         </div>
       </div>

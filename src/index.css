@@ -52,15 +52,15 @@ body {
 .prose h2 { font-size: 1.35rem; font-weight: 800; margin: 2rem 0 0.75rem; color: #1e40af; }
 .prose h3 { font-size: 1.1rem;  font-weight: 700; margin: 1.5rem 0 0.5rem; color: #1e3a5f; }
 .prose p  { margin: 0.75rem 0; line-height: 1.85; color: #475569; }
-.prose ul,.prose ol { padding-left: 1.5rem; margin: 0.5rem 0; }
+.prose ul,.prose ol { padding-inline-start: 1.5rem; margin: 0.5rem 0; }
 .prose li { margin: 0.4rem 0; line-height: 1.8; color: #475569; }
 .prose strong { color: #0f172a; font-weight: 700; }
 .prose blockquote {
-  border-left: 4px solid #3b82f6;
+  border-inline-start: 4px solid #3b82f6;
   padding: 0.75rem 1.25rem;
   margin: 1.25rem 0;
   background: #eff6ff;
-  border-radius: 0 12px 12px 0;
+  border-radius: 12px;
 }
 .prose blockquote p { color: #1e40af; font-weight: 600; }
 

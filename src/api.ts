@@ -287,8 +287,6 @@ const MOCK_VIDEOS: Video[] = [
 const BASE_URL = import.meta.env.VITE_API_URL
   ? `${import.meta.env.VITE_API_URL}/api`
   : "/api";
-const GEMINI_KEY = import.meta.env.VITE_GEMINI_API_KEY || "";
-const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_KEY}`;
 
 const SYSTEM_PROMPT = `Tu es "Aura", un assistant bienveillant spécialisé dans l'autisme chez les enfants.
 Ton rôle :
@@ -309,7 +307,7 @@ export async function fetchArticles(axis?: string): Promise<Article[]> {
     return await res.json();
   } catch {
     return MOCK_ARTICLES.filter((a) => !axis || a.axis === axis);
-  }
+}
 }
 
 export async function fetchArticle(id: string): Promise<Article> {
@@ -338,7 +336,7 @@ export async function sendChatMessage(
   message: string,
   history: ChatMessage[],
 ): Promise<string> {
-  // Try backend first
+// Try backend first
   try {
     const res = await fetch(`${BASE_URL}/chat`, {
       method: "POST",
@@ -350,30 +348,7 @@ export async function sendChatMessage(
       return data.reply as string;
     }
   } catch {
-    // fall through to direct Gemini call
+    throw new Error("Le service de chat est indisponible. Veuillez réessayer plus tard.");
   }
-
-  // Direct Gemini API
-  const contents = [
-    { role: "user",  parts: [{ text: SYSTEM_PROMPT }] },
-    { role: "model", parts: [{ text: "Compris ! Je suis Aura, votre assistant spécialisé en autisme. Comment puis-je vous aider ?" }] },
-    ...history.map((m) => ({ role: m.role === "user" ? "user" : "model", parts: [{ text: m.content }] })),
-    { role: "user",  parts: [{ text: message }] },
-  ];
-
-  const res = await fetch(GEMINI_URL, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ contents }),
-  });
-
-  if (!res.ok) {
-    const err = await res.json().catch(() => ({}));
-    throw new Error(
-      (err as { error?: { message?: string } }).error?.message ?? "Erreur de l'assistant IA",
-    );
-  }
-
-  const data = await res.json();
-  return data?.candidates?.[0]?.content?.parts?.[0]?.text ?? "Je n'ai pas pu formuler une réponse. Veuillez réessayer.";
+  throw new Error("Le service de chat est indisponible. Veuillez réessayer plus tard.");
 }
