@@ -42,28 +42,140 @@
       --radius-sm: 10px;
       --shadow: 0 4px 24px rgba(123, 94, 167, 0.10);
       --shadow-sm: 0 2px 12px rgba(123, 94, 167, 0.08);
+      --surface: #ffffff;
+      --surface-2: #f8f4fd;
+      --border: rgba(0,0,0,0.08);
       font-size: 16px;
     }
 
     [data-theme="dark"] {
-      --cream: #2C2C2C;
-      --cream-dark: #3A3A3A;
-      --purple: #B59CDA;
-      --purple-lt: #45375A;
-      --purple-mid: #8872B0;
-      --gold: #FFC46B;
-      --gold-lt: #56442A;
-      --teal: #6CE0E0;
-      --teal-lt: #2B4E4E;
-      --rose: #F9A4A4;
-      --rose-lt: #5A3535;
-      --green: #88DCAE;
-      --green-lt: #2F4D3C;
-      --text: #F5F5F5;
-      --text-mid: #D0D0D0;
-      --text-light: #A3A3A3;
-      --shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
-      --shadow-sm: 0 2px 12px rgba(0, 0, 0, 0.3);
+      --cream: #0B0F14;
+      --cream-dark: #121821;
+      --purple: #BBA6EE;
+      --purple-lt: #1E2333;
+      --purple-mid: #68579C;
+      --gold: #F5C56C;
+      --gold-lt: #2B261D;
+      --teal: #5DD4D4;
+      --teal-lt: #182A2A;
+      --rose: #F5A0A0;
+      --rose-lt: #2C1E20;
+      --green: #7ADCAA;
+      --green-lt: #182C23;
+      --text: #F8FAFC;
+      --text-mid: #CBD5E1;
+      --text-light: #94A3B8;
+      --shadow: 0 4px 24px rgba(0, 0, 0, 0.7);
+      --shadow-sm: 0 2px 12px rgba(0, 0, 0, 0.5);
+      --surface: #121821;
+      --surface-2: #1A222E;
+      --border: #263040;
+    }
+
+    /* ─── DARK MODE COMPONENT OVERRIDES ──────────────────────── */
+    [data-theme="dark"] body {
+      color: var(--text-mid);
+    }
+    [data-theme="dark"] h1, [data-theme="dark"] h2, [data-theme="dark"] h3, [data-theme="dark"] h4, [data-theme="dark"] h5, [data-theme="dark"] h6 {
+      color: var(--text);
+    }
+    [data-theme="dark"] .sidebar {
+      background: #0B0F14;
+      border-bottom: 1px solid #263040;
+    }
+    [data-theme="dark"] .search-bar {
+      background: var(--surface);
+      border-color: #263040;
+      color: var(--text);
+    }
+    [data-theme="dark"] .search-bar input {
+      background: transparent;
+      color: var(--text);
+    }
+    [data-theme="dark"] .stat-card,
+    [data-theme="dark"] .article-card,
+    [data-theme="dark"] .featured,
+    [data-theme="dark"] .video-card,
+    [data-theme="dark"] .article-detail,
+    [data-theme="dark"] .modal-content {
+      background: var(--surface);
+      border-color: #263040;
+    }
+    [data-theme="dark"] .card-footer {
+      border-top-color: #263040;
+    }
+    [data-theme="dark"] .chat-container {
+      background: var(--surface);
+      border: 1px solid #263040;
+    }
+    [data-theme="dark"] .chat-input-row {
+      background: var(--surface);
+      border-top-color: #263040;
+    }
+    [data-theme="dark"] .chat-input {
+      background: var(--surface-2);
+      border-color: #263040;
+      color: var(--text);
+    }
+    [data-theme="dark"] .chat-messages {
+      background: #0B0F14;
+    }
+    [data-theme="dark"] .msg.bot .msg-bubble {
+      background: var(--surface-2);
+      color: var(--text);
+    }
+    [data-theme="dark"] .quick-reply {
+      background: var(--surface-2);
+      border-color: #263040;
+      color: var(--purple);
+    }
+    [data-theme="dark"] .game-container {
+      background: var(--surface);
+      border-color: #263040;
+    }
+    [data-theme="dark"] .memory-card-inner {
+      background: var(--surface-2);
+    }
+    [data-theme="dark"] .memory-card-front {
+      background: linear-gradient(135deg, #1A222E, #121821);
+      border: 2px solid #263040;
+    }
+    [data-theme="dark"] .memory-card-back {
+      border-color: #263040;
+    }
+    [data-theme="dark"] .quiz-option {
+      background: var(--surface);
+      border-color: #263040;
+      color: var(--text);
+    }
+    [data-theme="dark"] .quiz-option:hover {
+      background: var(--surface-2);
+      border-color: var(--purple);
+    }
+    [data-theme="dark"] .featured-visual {
+      background: #1A222E;
+    }
+    [data-theme="dark"] .lang-toggle {
+      background: #121821;
+      border: 1px solid #263040;
+    }
+    [data-theme="dark"] .lang-btn.active {
+      background: var(--surface-2);
+    }
+    [data-theme="dark"] .play-btn {
+      background: var(--surface-2);
+      border: 1px solid #263040;
+    }
+    [data-theme="dark"] .play-btn svg {
+      fill: var(--purple);
+    }
+    [data-theme="dark"] .article-content h2,
+    [data-theme="dark"] .article-content h3 {
+      color: var(--purple);
+    }
+    [data-theme="dark"] .see-all {
+      background: #1A222E;
+      color: var(--purple);
     }
 
     body {
@@ -237,7 +349,7 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      background: white;
+      background: var(--surface);
       border: 2px solid var(--cream-dark);
       border-radius: 50px;
       padding: 10px 18px;
@@ -364,7 +476,7 @@
     }
 
     .btn-white {
-      background: white;
+      background: var(--surface);
       color: var(--purple);
     }
 
@@ -413,7 +525,7 @@
     }
 
     .stat-card {
-      background: white;
+      background: var(--surface);
       border-radius: var(--radius-lg);
       padding: 20px 22px;
       box-shadow: var(--shadow-sm);
@@ -505,7 +617,7 @@
     }
 
     .article-card {
-      background: white;
+      background: var(--surface);
       border-radius: var(--radius-xl);
       overflow: hidden;
       box-shadow: var(--shadow-sm);
@@ -617,7 +729,7 @@
 
     /* ─── FEATURED ARTICLE ─────────────────────── */
     .featured {
-      background: white;
+      background: var(--surface);
       border-radius: var(--radius-xl);
       padding: 32px 36px;
       box-shadow: var(--shadow-sm);
@@ -688,7 +800,7 @@
     }
 
     .video-card {
-      background: white;
+      background: var(--surface);
       border-radius: var(--radius-xl);
       overflow: hidden;
       box-shadow: var(--shadow-sm);
@@ -712,7 +824,7 @@
     .play-btn {
       width: 54px;
       height: 54px;
-      background: white;
+      background: var(--surface);
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -749,7 +861,7 @@
 
     /* ─── CHAT UI ──────────────────────────────── */
     .chat-container {
-      background: white;
+      background: var(--surface);
       border-radius: var(--radius-xl);
       box-shadow: var(--shadow-sm);
       overflow: hidden;
@@ -873,7 +985,7 @@
     }
 
     .msg.bot .msg-bubble {
-      background: white;
+      background: var(--surface);
       color: var(--text);
       border-bottom-left-radius: 6px;
       box-shadow: var(--shadow-sm);
@@ -923,7 +1035,7 @@
 
     .chat-input-row {
       padding: 16px 20px;
-      background: white;
+      background: var(--surface);
       border-top: 1px solid var(--cream-dark);
       display: flex;
       gap: 10px;
@@ -977,7 +1089,7 @@
 
     /* ─── ARTICLE DETAIL ───────────────────────── */
     .article-detail {
-      background: white;
+      background: var(--surface);
       border-radius: var(--radius-xl);
       overflow: hidden;
       box-shadow: var(--shadow-sm);
@@ -1107,7 +1219,7 @@
     }
 
     .lang-switch-btn.active {
-      background: white;
+      background: var(--surface);
       color: var(--purple);
       box-shadow: var(--shadow-sm);
     }
@@ -1170,7 +1282,7 @@
 
     /* ─── QUIZ STYLES ──────────────────────────── */
     .quiz-section {
-      background: white;
+      background: var(--surface);
       border-radius: var(--radius-xl);
       padding: 32px 36px;
       box-shadow: var(--shadow-sm);
@@ -1358,10 +1470,10 @@
 
     /* ─── GAME STYLES ──────────────────────────── */
     .game-container {
-      background: var(--cream);
+      background: var(--surface);
       border: 2px solid var(--cream-dark);
       border-radius: var(--radius-xl);
-      padding: 40px;
+      padding: 32px 40px;
       text-align: center;
       margin-top: 24px;
     }
@@ -1370,83 +1482,161 @@
       font-size: 1.8rem;
       font-weight: 900;
       color: var(--text);
-      margin-bottom: 12px;
+      margin-bottom: 6px;
     }
 
-    .game-prompt {
-      font-size: 1.2rem;
-      font-weight: 700;
-      color: var(--purple);
-      margin-bottom: 32px;
+    .game-subtitle {
+      font-size: 0.9rem;
+      color: var(--text-light);
+      margin-bottom: 20px;
     }
 
-    .game-faces {
+    .game-stats-bar {
       display: flex;
       justify-content: center;
       gap: 24px;
+      margin-bottom: 24px;
     }
 
-    .game-face {
-      width: 100px;
-      height: 100px;
-      background: white;
-      border-radius: 50%;
+    .game-stat-pill {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--purple-lt);
+      color: var(--purple);
+      border-radius: 50px;
+      padding: 6px 16px;
+      font-size: 0.85rem;
+      font-weight: 800;
+    }
+
+    /* Memory grid */
+    .memory-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      max-width: 520px;
+      margin: 0 auto 24px;
+    }
+
+    .memory-card {
+      aspect-ratio: 1;
+      perspective: 600px;
+      cursor: pointer;
+    }
+
+    .memory-card-inner {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.45s ease;
+      border-radius: var(--radius-lg);
+      background: transparent;
+    }
+
+    .memory-card.flipped .memory-card-inner,
+    .memory-card.matched .memory-card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .memory-card-front,
+    .memory-card-back {
+      position: absolute;
+      inset: 0;
+      border-radius: var(--radius-lg);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 3rem;
-      cursor: pointer;
+      backface-visibility: hidden;
+    }
+
+    .memory-card-front {
+      background: linear-gradient(135deg, var(--purple-lt), var(--purple-mid));
+      font-size: 1.8rem;
+      color: var(--purple);
       box-shadow: var(--shadow-sm);
-      transition: transform 0.2s, box-shadow 0.2s;
+      border: 2px solid var(--purple-mid);
     }
 
-    .game-face:hover {
-      transform: scale(1.1);
-      box-shadow: var(--shadow);
+    .memory-card-front::after {
+      content: '?';
+      font-size: 1.4rem;
+      font-weight: 900;
+      color: var(--purple);
+      opacity: 0.6;
     }
 
-    .game-face.success {
+    .memory-card-back {
+      transform: rotateY(180deg);
+      font-size: 2.4rem;
+      background: var(--surface);
+      box-shadow: var(--shadow-sm);
+      border: 2px solid var(--cream-dark);
+    }
+
+    .memory-card.matched .memory-card-back {
       background: var(--green-lt);
-      animation: pop 0.4s ease;
+      border-color: var(--green);
+      animation: matchPop 0.4s ease;
     }
 
-    .game-face.error {
-      background: var(--rose-lt);
-      animation: shake 0.4s ease;
+    .memory-card.wrong .memory-card-back {
+      animation: wrongShake 0.4s ease;
+      border-color: var(--rose);
     }
+
+    @keyframes matchPop {
+      0% { transform: rotateY(180deg) scale(1); }
+      50% { transform: rotateY(180deg) scale(1.12); }
+      100% { transform: rotateY(180deg) scale(1); }
+    }
+
+    @keyframes wrongShake {
+      0%, 100% { transform: rotateY(180deg) translateX(0); }
+      25% { transform: rotateY(180deg) translateX(-6px); }
+      75% { transform: rotateY(180deg) translateX(6px); }
+    }
+
+    .game-win-banner {
+      display: none;
+      background: linear-gradient(135deg, var(--purple), var(--teal));
+      color: white;
+      border-radius: var(--radius-xl);
+      padding: 28px 32px;
+      margin-bottom: 20px;
+      font-size: 1.15rem;
+      font-weight: 800;
+    }
+
+    .game-win-banner.show { display: block; }
+
+    .btn-game-restart {
+      background: var(--purple);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      padding: 12px 28px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.92rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: background 0.18s;
+    }
+
+    .btn-game-restart:hover { background: var(--purple-mid); }
 
     @keyframes pop {
-      0% {
-        transform: scale(1);
-      }
-
-      50% {
-        transform: scale(1.2);
-      }
-
-      100% {
-        transform: scale(1);
-      }
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
     }
 
     @keyframes shake {
-
-      0%,
-      100% {
-        transform: translateX(0);
-      }
-
-      25% {
-        transform: translateX(-10px);
-      }
-
-      50% {
-        transform: translateX(10px);
-      }
-
-      75% {
-        transform: translateX(-10px);
-      }
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-10px); }
+      50% { transform: translateX(10px); }
+      75% { transform: translateX(-10px); }
     }
 
     .theme-toggle {
@@ -1461,6 +1651,9 @@
       justify-content: center;
       padding: 8px;
     }
+
+    body[dir="rtl"] .lang-fr { display: none !important; }
+    body[dir="ltr"] .lang-ar { display: none !important; }
   </style>
 </head>
 
@@ -1477,7 +1670,7 @@
       <div>
         <div class="logo-text">Auti<span>-Aura</span></div>
         <div style="font-size:0.65rem;color:var(--text-light);font-weight:700;letter-spacing:.5px;margin-top:1px;">
-          Plateforme inclusive</div>
+          <span class="lang-fr">Plateforme inclusive</span><span class="lang-ar">منصة شاملة</span></div>
       </div>
     </div>
 
@@ -1578,9 +1771,9 @@
       <div class="hero fade-up fade-up-1">
         <div class="hero-content">
           <div class="hero-badge">
-            <div class="hero-badge-dot"></div> Plateforme inclusive · Tunisie
+            <div class="hero-badge-dot"></div> <span class="lang-fr">Plateforme inclusive · Tunisie</span><span class="lang-ar">منصة شاملة · تونس</span>
           </div>
-          <h1>Chaque enfant mérite<br><span>d'être compris</span></h1>
+          <h1><span class="lang-fr">Chaque enfant mérite<br><span>d'être compris</span></span><span class="lang-ar">كل طفل يستحق<br><span>أن يُفهم</span></span></h1>
           <p>Ressources éducatives, vidéos et assistant IA pour accompagner les parents et éducateurs d'enfants
             autistes.</p>
           <div class="hero-actions">
@@ -1588,14 +1781,12 @@
               <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
                 <path
                   d="M11 7h2v2h-2zm0 4h2v6h-2zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" />
-              </svg>
-              S'informer
-            </button>
+              </svg> <span class="lang-fr">S'informer</span><span class="lang-ar">استكشف</span> </button>
             <button class="btn btn-outline" onclick="showPage('chat')">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z" />
               </svg>
-              Parler à l'assistant
+              <span class="lang-fr">Parler à l'assistant</span><span class="lang-ar">التحدث إلى المساعد</span>
             </button>
           </div>
         </div>
@@ -1642,7 +1833,7 @@
           </div>
           <div>
             <div class="stat-n">22</div>
-            <div class="stat-l">Articles éducatifs</div>
+            <div class="stat-l"><span class="lang-fr">Articles éducatifs</span><span class="lang-ar">مقالات تعليمية</span></div>
           </div>
         </div>
         <div class="stat-card">
@@ -1654,7 +1845,7 @@
           </div>
           <div>
             <div class="stat-n">5</div>
-            <div class="stat-l">Vidéos inspirantes</div>
+            <div class="stat-l"><span class="lang-fr">Vidéos inspirantes</span><span class="lang-ar">فيديوهات ملهمة</span></div>
           </div>
         </div>
         <div class="stat-card">
@@ -1665,7 +1856,7 @@
           </div>
           <div>
             <div class="stat-n">IA</div>
-            <div class="stat-l">Assistant 24/7</div>
+            <div class="stat-l"><span class="lang-fr">Assistant 24/7</span><span class="lang-ar">مساعد متاح 24/7</span></div>
           </div>
         </div>
         <div class="stat-card">
@@ -1677,7 +1868,7 @@
           </div>
           <div>
             <div class="stat-n">FR&nbsp;/&nbsp;AR</div>
-            <div class="stat-l">Bilingue</div>
+            <div class="stat-l"><span class="lang-fr">Bilingue</span><span class="lang-ar">ثنائي اللغة</span></div>
           </div>
         </div>
       </div>
@@ -1710,17 +1901,17 @@
               <path
                 d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm4.24 16L12 15.45 7.77 18l1.12-4.81-3.73-3.23 4.92-.42L12 5l1.92 4.53 4.92.42-3.73 3.23L16.23 18z" />
             </svg>
-            Article vedette · Comprendre
+            <span class="lang-fr">Article vedette · Comprendre</span><span class="lang-ar">مقال مميز · للفهم</span>
           </div>
-          <div class="featured-title">L'autisme : une différence de<br>traitement de l'information</div>
+          <div class="featured-title"><span class="lang-fr">L'autisme : une différence de<br>traitement de l'information</span><span class="lang-ar">التوحد: اختلاف في<br>معالجة المعلومات</span></div>
           <div class="featured-text">
-            L'autisme n'est pas une maladie mentale — c'est un fonctionnement neurologique différent. Découvrez comment
+            <span class="lang-fr">L'autisme n'est pas une maladie mentale — c'est un fonctionnement neurologique différent. Découvrez comment
             votre enfant perçoit le monde à travers ses propres « lunettes » et comment l'accompagner avec
-            bienveillance.
+            bienveillance.</span><span class="lang-ar">التوحد ليس مرضاً عقلياً — بل هو اختلاف في الوظائف العصبية. اكتشف كيف ينظر طفلك إلى العالم من خلال "نظاراته" الخاصة وكيف تدعمه بلطف.</span>
           </div>
           <div style="display:flex;gap:10px;align-items:center;">
-            <button class="btn btn-purple" style="font-size:0.82rem;padding:9px 18px;">Lire l'article →</button>
-            <span style="font-size:0.78rem;color:var(--text-light);font-weight:600;">5 min de lecture</span>
+            <button class="btn btn-purple" style="font-size:0.82rem;padding:9px 18px;"><span class="lang-fr">Lire l'article →</span><span class="lang-ar">اقرأ المقال ←</span></button>
+            <span style="font-size:0.78rem;color:var(--text-light);font-weight:600;"><span class="lang-fr">5 min de lecture</span><span class="lang-ar">قراءة 5 دقائق</span></span>
           </div>
         </div>
       </div>
@@ -1745,7 +1936,7 @@
           </div>
           <div class="card-body">
             <div class="card-tag tag-teal">Sensoriel</div>
-            <div class="card-title">L'hypersensibilité sensorielle expliquée</div>
+            <div class="card-title"><span class="lang-fr">L'hypersensibilité sensorielle expliquée</span><span class="lang-ar">شرح فرط الحساسية الحسية</span></div>
             <div class="card-excerpt">Comprendre pourquoi certains sons, textures ou lumières peuvent être douloureux
               pour votre enfant.</div>
             <div class="card-footer">
@@ -1820,7 +2011,7 @@
         </div>
       </div>
 
-      <div class="footer-strip">Auti-Aura · Plateforme inclusive · Tunisie 🇹🇳 · 2025</div>
+      <div class="footer-strip">Auti-Aura · <span class="lang-fr">Plateforme inclusive · Tunisie</span><span class="lang-ar">منصة شاملة · تونس</span> 🇹🇳 · 2025</div>
     </div>
 
     <!-- ─── ARTICLE DETAIL PAGE ─── -->
@@ -1864,7 +2055,7 @@
             <div class="card-tag tag-purple">Comprendre</div>
             <span style="font-size:0.78rem;color:var(--text-light);font-weight:600;">5 min de lecture</span>
           </div>
-          <div class="article-detail-title">L'autisme, une différence de traitement de l'information</div>
+          <div class="article-detail-title"><span class="lang-fr">L'autisme, une différence de traitement de l'information</span><span class="lang-ar">التوحد، اختلاف في معالجة المعلومات</span></div>
           <div class="article-detail-sub">Comprendre le fonctionnement neurologique unique de votre enfant pour mieux
             l'accompagner.</div>
 
@@ -1962,15 +2153,15 @@
         </div>
       </div>
 
-      <div class="footer-strip">Auti-Aura · Plateforme inclusive · Tunisie 🇹🇳 · 2025</div>
+      <div class="footer-strip">Auti-Aura · <span class="lang-fr">Plateforme inclusive · Tunisie</span><span class="lang-ar">منصة شاملة · تونس</span> 🇹🇳 · 2025</div>
     </div>
 
     <!-- ─── INFORME PAGE ─── -->
     <div id="page-informe" class="page">
       <div class="topbar" style="margin-bottom:24px;">
         <div>
-          <div class="topbar-title">S'informer sur l'autisme</div>
-          <div class="topbar-sub">Articles de sensibilisation pour le grand public</div>
+          <div class="topbar-title"><span class="lang-fr">S'informer sur l'autisme</span><span class="lang-ar">التعرف على التوحد</span></div>
+          <div class="topbar-sub"><span class="lang-fr">Articles de sensibilisation pour le grand public</span><span class="lang-ar">مقالات توعوية للجمهور العام</span></div>
         </div>
       </div>
 
@@ -1996,7 +2187,7 @@
           </div>
           <div class="card-body">
             <div class="card-tag tag-purple">Comprendre</div>
-            <div class="card-title">L'autisme, une différence de traitement de l'information</div>
+            <div class="card-title"><span class="lang-fr">L'autisme, une différence de traitement de l'information</span><span class="lang-ar">التوحد، اختلاف في معالجة المعلومات</span></div>
             <div class="card-excerpt">Les « lunettes » à travers lesquelles l'enfant voit le monde : détails vs
               globalité.</div>
             <div class="card-footer">
@@ -2023,7 +2214,7 @@
           </div>
           <div class="card-body">
             <div class="card-tag tag-gold">Histoire</div>
-            <div class="card-title">Histoire et évolution du concept d'autisme</div>
+            <div class="card-title"><span class="lang-fr">Histoire et évolution du concept d'autisme</span><span class="lang-ar">تاريخ وتطور مفهوم التوحد</span></div>
             <div class="card-excerpt">Du terme « maladie » au Trouble du Spectre de l'Autisme : comprendre le spectre.
             </div>
             <div class="card-footer">
@@ -2052,7 +2243,7 @@
           </div>
           <div class="card-body">
             <div class="card-tag tag-teal">Sensoriel</div>
-            <div class="card-title">L'hypersensibilité sensorielle expliquée</div>
+            <div class="card-title"><span class="lang-fr">L'hypersensibilité sensorielle expliquée</span><span class="lang-ar">شرح فرط الحساسية الحسية</span></div>
             <div class="card-excerpt">Réactions intenses aux sons, textures et lumières — comprendre la surcharge
               sensorielle.</div>
             <div class="card-footer">
@@ -2078,7 +2269,7 @@
           </div>
           <div class="card-body">
             <div class="card-tag tag-rose">Talents</div>
-            <div class="card-title">Les forces et talents souvent ignorés</div>
+            <div class="card-title"><span class="lang-fr">Les forces et talents souvent ignorés</span><span class="lang-ar">نقاط القوة والمواهب التي غالبا ما يتم تجاهلها</span></div>
             <div class="card-excerpt">Mémoire exceptionnelle, concentration intense : des atouts remarquables à
               valoriser.</div>
             <div class="card-footer">
@@ -2106,7 +2297,7 @@
           </div>
           <div class="card-body">
             <div class="card-tag tag-green">Droits</div>
-            <div class="card-title">Le droit à l'éducation : un cadre mondial</div>
+            <div class="card-title"><span class="lang-fr">Le droit à l'éducation : un cadre mondial</span><span class="lang-ar">الحق في التعليم: إطار عالمي</span></div>
             <div class="card-excerpt">Déclaration universelle et constitution tunisienne : ce que dit la loi pour votre
               enfant.</div>
             <div class="card-footer">
@@ -2132,7 +2323,7 @@
           </div>
           <div class="card-body">
             <div class="card-tag tag-gold">Dépistage</div>
-            <div class="card-title">Les signes qui doivent alerter</div>
+            <div class="card-title"><span class="lang-fr">Les signes qui doivent alerter</span><span class="lang-ar">العلامات التي يجب الانتباه إليها</span></div>
             <div class="card-excerpt">Retard du pointage, absence de réponse au prénom, écholalie : le guide de
               dépistage précoce.</div>
             <div class="card-footer">
@@ -2158,7 +2349,7 @@
           </div>
           <div class="card-body">
             <div class="card-tag tag-purple">Comprendre</div>
-            <div class="card-title">Mythes et réalités sur l'autisme</div>
+            <div class="card-title"><span class="lang-fr">Mythes et réalités sur l'autisme</span><span class="lang-ar">خرافات وحقائق حول التوحد</span></div>
             <div class="card-excerpt">Démêler le vrai du faux concernant les stéréotypes les plus courants sur le TSA.
             </div>
             <div class="card-footer">
@@ -2184,7 +2375,7 @@
           </div>
           <div class="card-body">
             <div class="card-tag tag-teal">Droits</div>
-            <div class="card-title">Démarches administratives en Tunisie</div>
+            <div class="card-title"><span class="lang-fr">Démarches administratives en Tunisie</span><span class="lang-ar">الإجراءات الإدارية في تونس</span></div>
             <div class="card-excerpt">Comment obtenir la carte d'handicap et les aides sociales pour votre enfant.</div>
             <div class="card-footer">
               <div class="card-read">
@@ -2212,15 +2403,15 @@
         <div id="quiz-feedback" class="quiz-feedback"></div>
       </div>
 
-      <div class="footer-strip">Auti-Aura · Plateforme inclusive · Tunisie 🇹🇳 · 2025</div>
+      <div class="footer-strip">Auti-Aura · <span class="lang-fr">Plateforme inclusive · Tunisie</span><span class="lang-ar">منصة شاملة · تونس</span> 🇹🇳 · 2025</div>
     </div>
 
     <!-- ─── EDUCATE PAGE ─── -->
     <div id="page-educate" class="page">
       <div class="topbar" style="margin-bottom:24px;">
         <div>
-          <div class="topbar-title">Ressources pour éducateurs</div>
-          <div class="topbar-sub">Conseils pratiques et stratégies pédagogiques adaptées</div>
+          <div class="topbar-title"><span class="lang-fr">Ressources pour éducateurs</span><span class="lang-ar">موارد للمربين</span></div>
+          <div class="topbar-sub"><span class="lang-fr">Conseils pratiques et stratégies pédagogiques adaptées</span><span class="lang-ar">نصائح عملية واستراتيجيات تعليمية مكيفة</span></div>
         </div>
       </div>
 
@@ -2248,7 +2439,7 @@
           </div>
           <div class="card-body">
             <div class="card-tag tag-purple">Pédagogie</div>
-            <div class="card-title">Adapter ses consignes et son langage</div>
+            <div class="card-title"><span class="lang-fr">Adapter ses consignes et son langage</span><span class="lang-ar">تكييف التعليمات واللغة</span></div>
             <div class="card-excerpt">Consignes courtes, une à la fois, avec support visuel permanent.</div>
             <div class="card-footer">
               <div class="card-read">
@@ -2278,7 +2469,7 @@
           </div>
           <div class="card-body">
             <div class="card-tag tag-teal">Émotions</div>
-            <div class="card-title">Gérer les émotions et les crises</div>
+            <div class="card-title"><span class="lang-fr">Gérer les émotions et les crises</span><span class="lang-ar">إدارة العواطف والأزمات</span></div>
             <div class="card-excerpt">Le baromètre des émotions, le coin calme et les stratégies de désescalade.</div>
             <div class="card-footer">
               <div class="card-read">
@@ -2306,7 +2497,7 @@
           </div>
           <div class="card-body">
             <div class="card-tag tag-gold">Partenariat</div>
-            <div class="card-title">Collaborer avec la famille et les spécialistes</div>
+            <div class="card-title"><span class="lang-fr">Collaborer avec la famille et les spécialistes</span><span class="lang-ar">التعاون مع الأسرة والمختصين</span></div>
             <div class="card-excerpt">Le cahier de communication, la coordination avec l'orthophoniste et
               l'ergothérapeute.</div>
             <div class="card-footer">
@@ -2332,7 +2523,7 @@
           </div>
           <div class="card-body">
             <div class="card-tag tag-rose">Pédagogie</div>
-            <div class="card-title">L'apprentissage par le jeu</div>
+            <div class="card-title"><span class="lang-fr">L'apprentissage par le jeu</span><span class="lang-ar">التعلم عن طريق اللعب</span></div>
             <div class="card-excerpt">Comment utiliser les intérêts spécifiques de l'enfant pour stimuler
               l'apprentissage.</div>
             <div class="card-footer">
@@ -2348,15 +2539,15 @@
           </div>
         </div>
       </div>
-      <div class="footer-strip">Auti-Aura · Plateforme inclusive · Tunisie 🇹🇳 · 2025</div>
+      <div class="footer-strip">Auti-Aura · <span class="lang-fr">Plateforme inclusive · Tunisie</span><span class="lang-ar">منصة شاملة · تونس</span> 🇹🇳 · 2025</div>
     </div>
 
     <!-- ─── VIDEOS PAGE ─── -->
     <div id="page-videos" class="page">
       <div class="topbar" style="margin-bottom:24px;">
         <div>
-          <div class="topbar-title">Vidéos inspirantes</div>
-          <div class="topbar-sub">Témoignages, explications et guides pratiques en vidéo</div>
+          <div class="topbar-title"><span class="lang-fr">Vidéos inspirantes</span><span class="lang-ar">فيديوهات ملهمة</span></div>
+          <div class="topbar-sub"><span class="lang-fr">Témoignages, explications et guides pratiques en vidéo</span><span class="lang-ar">شهادات، شروحات وأدلة عملية بالفيديو</span></div>
         </div>
       </div>
 
@@ -2428,15 +2619,15 @@
         </div>
       </div>
 
-      <div class="footer-strip">Auti-Aura · Plateforme inclusive · Tunisie 🇹🇳 · 2025</div>
+      <div class="footer-strip">Auti-Aura · <span class="lang-fr">Plateforme inclusive · Tunisie</span><span class="lang-ar">منصة شاملة · تونس</span> 🇹🇳 · 2025</div>
     </div>
 
     <!-- ─── CHAT PAGE ─── -->
     <div id="page-chat" class="page">
       <div class="topbar" style="margin-bottom:24px;">
         <div>
-          <div class="topbar-title">Assistant Auti-Aura</div>
-          <div class="topbar-sub">Posez vos questions en français ou en arabe</div>
+          <div class="topbar-title"><span class="lang-fr">Assistant Auti-Aura</span><span class="lang-ar">المساعد Auti-Aura</span></div>
+          <div class="topbar-sub"><span class="lang-fr">Posez vos questions en français ou en arabe</span><span class="lang-ar">اطرح أسئلتك باللغة الفرنسية أو العربية</span></div>
         </div>
       </div>
 
@@ -2448,7 +2639,7 @@
             </svg>
           </div>
           <div class="chat-header-info">
-            <div class="chat-header-name">Assistant Auti-Aura</div>
+            <div class="chat-header-name"><span class="lang-fr">Assistant Auti-Aura</span><span class="lang-ar">المساعد Auti-Aura</span></div>
             <div class="chat-header-status">
               <div class="status-dot"></div>
               En ligne · Powered by Groq
@@ -2457,7 +2648,7 @@
           <div style="display:flex;gap:6px;">
             <div class="lang-switch-bar" style="margin-bottom:0;background:rgba(255,255,255,0.15);">
               <button class="lang-switch-btn active"
-                style="color:var(--purple);background:white;font-size:0.75rem;padding:5px 14px;">FR</button>
+                style="color:var(--purple);background:var(--surface);font-size:0.75rem;padding:5px 14px;">FR</button>
               <button class="lang-switch-btn"
                 style="color:rgba(255,255,255,0.7);font-size:0.75rem;padding:5px 14px;">AR</button>
             </div>
@@ -2465,6 +2656,15 @@
         </div>
 
         <div class="chat-messages" id="chat-messages">
+
+          <!-- Groq key section - hidden by default, shown when needed -->
+          <div id="groq-key-section" style="display:none; background:var(--gold-lt); border-radius:var(--radius-md); padding:14px 16px; margin-bottom:8px; border:1.5px solid var(--gold);">
+            <div style="font-size:0.82rem;font-weight:700;color:var(--text);margin-bottom:8px;">⚙️ Clé API Groq (fallback sans backend)</div>
+            <div style="font-size:0.75rem;color:var(--text-mid);margin-bottom:8px;">Le serveur backend n'est pas démarré. Entrez votre clé Groq gratuite pour utiliser le chatbot directement.<br><a href="https://console.groq.com" target="_blank" style="color:var(--teal);">Obtenir une clé sur console.groq.com →</a></div>
+            <input id="groq-key-input" type="password" placeholder="gsk_..." style="width:100%;padding:8px 12px;border-radius:var(--radius-sm);border:1.5px solid var(--cream-dark);background:var(--surface);color:var(--text);font-family:'Nunito',sans-serif;font-size:0.82rem;outline:none;" />
+            <div style="font-size:0.7rem;color:var(--text-light);margin-top:6px;">La clé reste dans votre navigateur et n'est jamais envoyée ailleurs.</div>
+          </div>
+
           <div class="msg bot">
             <div class="msg-avatar">A</div>
             <div>
@@ -2497,9 +2697,11 @@
         </div>
       </div>
 
-      <div class="footer-strip">Auti-Aura · Plateforme inclusive · Tunisie 🇹🇳 · 2025</div>
-      <!-- ─── GAME PAGE ─── -->
-      <div id="page-game" class="page">
+      <div class="footer-strip">Auti-Aura · <span class="lang-fr">Plateforme inclusive · Tunisie</span><span class="lang-ar">منصة شاملة · تونس</span> 🇹🇳 · 2025</div>
+    </div>
+
+    <!-- ─── GAME PAGE ─── -->
+    <div id="page-game" class="page">
         <div class="topbar" style="margin-bottom:24px;">
           <div>
             <div class="topbar-title" data-i18n="game-title-main">Jeux interactifs</div>
@@ -2508,22 +2710,25 @@
         </div>
 
         <div class="game-container">
-          <div class="game-title" data-i18n="game-title">Jeu des Émotions</div>
-          <div class="game-prompt" id="game-prompt">Trouve le visage <strong>content</strong> !</div>
+          <div class="game-title">🧩 Jeu de Mémoire</div>
+          <div class="game-subtitle">Retrouve les paires cachées ! Retourne 2 cartes — si elles sont identiques, bravo !</div>
 
-          <div class="game-faces" id="game-faces">
-            <div class="game-face" onclick="checkGameAnswer(this, false)">😢</div>
-            <div class="game-face" onclick="checkGameAnswer(this, true)">😊</div>
-            <div class="game-face" onclick="checkGameAnswer(this, false)">😠</div>
+          <div class="game-stats-bar">
+            <div class="game-stat-pill">🎯 Paires : <span id="mem-pairs">0</span>/8</div>
+            <div class="game-stat-pill">🔁 Essais : <span id="mem-tries">0</span></div>
           </div>
 
-          <div style="margin-top: 24px; display: none;" id="game-next-btn-container">
-            <button class="btn btn-purple" onclick="nextGameRound()" data-i18n="btn-next">Suivant →</button>
+          <div class="game-win-banner" id="mem-win-banner">
+            🌟 Bravo ! Tu as retrouvé toutes les paires en <span id="mem-final-tries">0</span> essais !
           </div>
+
+          <div class="memory-grid" id="memory-grid"></div>
+
+          <button class="btn-game-restart" onclick="initMemoryGame()">🔄 Nouvelle partie</button>
         </div>
 
-        <div class="footer-strip">Auti-Aura · Plateforme inclusive · Tunisie 🇹🇳 · 2025</div>
-      </div>
+        <div class="footer-strip">Auti-Aura · <span class="lang-fr">Plateforme inclusive · Tunisie</span><span class="lang-ar">منصة شاملة · تونس</span> 🇹🇳 · 2025</div>
+    </div>
 
   </main>
 
@@ -2600,6 +2805,11 @@
       });
       // specific game prompt logic depending on language
       updateGamePromptText();
+        // Update placeholders
+        document.querySelectorAll('input[placeholder="Rechercher."]').forEach(el => {
+            el.setAttribute('placeholder', l === 'ar' ? 'بحث...' : 'Rechercher.');
+        });
+
     }
 
     function filterArticles(category, btnElement) {
@@ -2682,6 +2892,7 @@
       const chatMessages = document.getElementById('chat-messages');
       const loadingBubble = chatMessages.lastElementChild.querySelector('.msg-bubble');
 
+      // Try backend first (works when uvicorn is running locally)
       try {
         const response = await fetch('http://localhost:8000/api/chat', {
           method: 'POST',
@@ -2694,7 +2905,41 @@
           return;
         }
       } catch (e) {}
-      
+
+      // Fallback: Gemini API or Groq API
+      const groqKey = document.getElementById('groq-key-input')?.value?.trim();
+      if (groqKey) {
+          try {
+            const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + groqKey
+              },
+              body: JSON.stringify({
+                model: 'llama3-8b-8192',
+                max_tokens: 600,
+                messages: [
+                  {
+                    role: 'system',
+                    content: `Tu es "Aura", un assistant bienveillant spécialisé dans l'autisme chez les enfants en Tunisie.\nRéponds TOUJOURS dans la langue du message reçu (français ou arabe). Sois chaleureux, empathique et concis (max 250 mots). Ne pose jamais de diagnostic ; oriente vers un professionnel si nécessaire.`
+                  },
+                  { role: 'user', content: msg }
+                ]
+              })
+            });
+            if (!res.ok) { const err = await res.json(); throw new Error(err.error?.message || 'Erreur API'); }
+            const data = await res.json();
+            const reply = data?.choices?.[0]?.message?.content ?? "Je n'ai pas pu formuler une réponse.";
+            loadingBubble.innerHTML = reply.replace(/\n/g, '<br>').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            return;
+          } catch (e) {
+            loadingBubble.innerText = "Erreur Groq : " + e.message;
+            return;
+          }
+      }
+
+      // Default Gemini Fallback
       try {
         const GEMINI_KEY = "AIzaSyAGbuyxXPipAS3EE8GEbdlfB0qB7UOb-ro";
         const GEMINI_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=" + GEMINI_KEY;
@@ -2711,7 +2956,7 @@
         if (!res.ok) throw new Error("Erreur IA");
         const data = await res.json();
         const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text ?? "Je n'ai pas pu formuler une réponse.";
-        loadingBubble.innerHTML = reply.replace(/\n/g, '<br>');
+        loadingBubble.innerHTML = reply.replace(/\n/g, '<br>').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
       } catch (e) {
         loadingBubble.innerText = "Erreur de connexion au serveur.";
       }
@@ -2784,73 +3029,95 @@
       }, 2500);
     }
 
-    // ── GAME LOGIC ──
-    const gameRounds = [
-      { target: 'content', faces: ['😢', '😊', '😠'], answer: 1 },
-      { target: 'triste', faces: ['😊', '😢', '😨'], answer: 1 },
-      { target: 'en colère', faces: ['😭', '😊', '😠'], answer: 2 }
-    ];
-    let currentGameRound = 0;
+    // ── MEMORY CARD GAME ──
+    const MEMORY_EMOJIS = ['🌟','🎨','🎵','🌈','🦋','🧩','🌺','🐬'];
+    let memoryCards = [];
+    let memFlipped = [];
+    let memMatched = 0;
+    let memTries = 0;
+    let memLocked = false;
 
-    function updateGamePromptText() {
-      if (!document.getElementById('game-prompt')) return;
-      const lang = document.body.dir === 'rtl' ? 'ar' : 'fr';
-      const gamePromptsFR = ["content", "triste", "en colère"];
-      const gamePromptsAR = ["سعيد", "حزين", "غاضب"];
-      const currentTarget = lang === 'ar' ? gamePromptsAR[currentGameRound] : gamePromptsFR[currentGameRound];
-      const basePrompt = lang === 'ar' ? `أين الوجه الـ <strong>${currentTarget}</strong> !` : `Trouve le visage <strong>${currentTarget}</strong> !`;
-      document.getElementById('game-prompt').innerHTML = basePrompt;
+    function shuffle(arr) {
+      return [...arr].flatMap(e => [e, e])
+        .sort(() => Math.random() - 0.5);
     }
 
-    let gameScore = 0;
+    function initMemoryGame() {
+      memFlipped = [];
+      memMatched = 0;
+      memTries = 0;
+      memLocked = false;
+      document.getElementById('mem-pairs').textContent = '0';
+      document.getElementById('mem-tries').textContent = '0';
+      document.getElementById('mem-win-banner').classList.remove('show');
 
-    function renderGameRound() {
-      const container = document.getElementById('game-faces');
-      const prompt = document.getElementById('game-prompt');
-      const nextBtn = document.getElementById('game-next-btn-container');
-      nextBtn.style.display = 'none';
-
-      if (currentGameRound >= gameRounds.length) {
-        prompt.innerHTML = `Jeu terminé ! Score : ${gameScore}/${gameRounds.length}`;
-        container.innerHTML = `<button class="btn btn-purple" onclick="currentGameRound=0; gameScore=0; renderGameRound()">Rejouer</button>`;
-        return;
-      }
-
-      const round = gameRounds[currentGameRound];
-      updateGamePromptText();
-      
-      container.innerHTML = round.faces.map((face, i) => 
-        `<div class="game-face" onclick="checkGameAnswer(this, ${i === round.answer})">${face}</div>`
-      ).join('');
+      memoryCards = shuffle(MEMORY_EMOJIS);
+      const grid = document.getElementById('memory-grid');
+      grid.innerHTML = memoryCards.map((emoji, i) => `
+        <div class="memory-card" id="mcard-${i}" onclick="flipMemCard(${i})">
+          <div class="memory-card-inner">
+            <div class="memory-card-front"></div>
+            <div class="memory-card-back">${emoji}</div>
+          </div>
+        </div>`).join('');
     }
 
-    function checkGameAnswer(element, isCorrect) {
-      if (element.classList.contains('success') || element.classList.contains('error')) return;
-      const siblings = element.parentElement.children;
-      for (let s of siblings) {
-        if (s.classList.contains('success') || s.classList.contains('error')) return;
-      }
-      
-      if (isCorrect) {
-        element.classList.add('success');
-        gameScore++;
-        document.getElementById('game-next-btn-container').style.display = 'block';
-      } else {
-        element.classList.add('error');
-        const correctIndex = gameRounds[currentGameRound].answer;
-        siblings[correctIndex].classList.add('success');
-        document.getElementById('game-next-btn-container').style.display = 'block';
-      }
-    }
+    function flipMemCard(index) {
+      if (memLocked) return;
+      const card = document.getElementById('mcard-' + index);
+      if (!card || card.classList.contains('flipped') || card.classList.contains('matched')) return;
+      if (memFlipped.length >= 2) return;
 
-    function nextGameRound() {
-      currentGameRound++;
-      renderGameRound();
+      card.classList.add('flipped');
+      memFlipped.push(index);
+
+      if (memFlipped.length === 2) {
+        memLocked = true;
+        memTries++;
+        document.getElementById('mem-tries').textContent = memTries;
+
+        const [a, b] = memFlipped;
+        if (memoryCards[a] === memoryCards[b]) {
+          // Match!
+          setTimeout(() => {
+            document.getElementById('mcard-' + a).classList.add('matched');
+            document.getElementById('mcard-' + b).classList.add('matched');
+            memMatched++;
+            document.getElementById('mem-pairs').textContent = memMatched;
+            memFlipped = [];
+            memLocked = false;
+            if (memMatched === MEMORY_EMOJIS.length) {
+              document.getElementById('mem-final-tries').textContent = memTries;
+              document.getElementById('mem-win-banner').classList.add('show');
+            }
+          }, 500);
+        } else {
+          // No match - flip back
+          setTimeout(() => {
+            document.getElementById('mcard-' + a).classList.remove('flipped');
+            document.getElementById('mcard-' + b).classList.remove('flipped');
+            memFlipped = [];
+            memLocked = false;
+          }, 900);
+        }
+      }
     }
 
     document.addEventListener('DOMContentLoaded', () => {
       renderQuiz();
-      renderGameRound();
+      initMemoryGame();
+
+      // Restore saved Groq key and show key section on chat page load
+      const savedKey = localStorage.getItem('groq_api_key');
+      if (savedKey) {
+        const keyInput = document.getElementById('groq-key-input');
+        if (keyInput) keyInput.value = savedKey;
+      }
+
+      // Save key to localStorage on input
+      document.getElementById('groq-key-input')?.addEventListener('input', function() {
+        localStorage.setItem('groq_api_key', this.value.trim());
+      });
     });
   </script>
 
