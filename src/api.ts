@@ -285,7 +285,7 @@ const MOCK_VIDEOS: Video[] = [
 /* ── Config ────────────────────────────────────────────────────── */
 
 const BASE = "/api";
-const GEMINI_KEY = "AIzaSyAGbuyxXPipAS3EE8GEbdlfB0qB7UOb-ro";
+const GEMINI_KEY = import.meta.env.VITE_GEMINI_API_KEY || "";
 const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_KEY}`;
 
 const SYSTEM_PROMPT = `Tu es "Aura", un assistant bienveillant spécialisé dans l'autisme chez les enfants.

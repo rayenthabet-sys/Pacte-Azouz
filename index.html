@@ -44,7 +44,7 @@
       --shadow-sm: 0 2px 12px rgba(123, 94, 167, 0.08);
       --surface: #ffffff;
       --surface-2: #f8f4fd;
-      --border: rgba(0,0,0,0.08);
+      --border: rgba(0, 0, 0, 0.08);
       font-size: 16px;
     }
 
@@ -76,22 +76,32 @@
     [data-theme="dark"] body {
       color: var(--text-mid);
     }
-    [data-theme="dark"] h1, [data-theme="dark"] h2, [data-theme="dark"] h3, [data-theme="dark"] h4, [data-theme="dark"] h5, [data-theme="dark"] h6 {
+
+    [data-theme="dark"] h1,
+    [data-theme="dark"] h2,
+    [data-theme="dark"] h3,
+    [data-theme="dark"] h4,
+    [data-theme="dark"] h5,
+    [data-theme="dark"] h6 {
       color: var(--text);
     }
+
     [data-theme="dark"] .sidebar {
       background: #0B0F14;
       border-bottom: 1px solid #263040;
     }
+
     [data-theme="dark"] .search-bar {
       background: var(--surface);
       border-color: #263040;
       color: var(--text);
     }
+
     [data-theme="dark"] .search-bar input {
       background: transparent;
       color: var(--text);
     }
+
     [data-theme="dark"] .stat-card,
     [data-theme="dark"] .article-card,
     [data-theme="dark"] .featured,
@@ -101,78 +111,98 @@
       background: var(--surface);
       border-color: #263040;
     }
+
     [data-theme="dark"] .card-footer {
       border-top-color: #263040;
     }
+
     [data-theme="dark"] .chat-container {
       background: var(--surface);
       border: 1px solid #263040;
     }
+
     [data-theme="dark"] .chat-input-row {
       background: var(--surface);
       border-top-color: #263040;
     }
+
     [data-theme="dark"] .chat-input {
       background: var(--surface-2);
       border-color: #263040;
       color: var(--text);
     }
+
     [data-theme="dark"] .chat-messages {
       background: #0B0F14;
     }
+
     [data-theme="dark"] .msg.bot .msg-bubble {
       background: var(--surface-2);
       color: var(--text);
     }
+
     [data-theme="dark"] .quick-reply {
       background: var(--surface-2);
       border-color: #263040;
       color: var(--purple);
     }
+
     [data-theme="dark"] .game-container {
       background: var(--surface);
       border-color: #263040;
     }
+
     [data-theme="dark"] .memory-card-inner {
       background: var(--surface-2);
     }
+
     [data-theme="dark"] .memory-card-front {
       background: linear-gradient(135deg, #1A222E, #121821);
       border: 2px solid #263040;
     }
+
     [data-theme="dark"] .memory-card-back {
       border-color: #263040;
     }
+
     [data-theme="dark"] .quiz-option {
       background: var(--surface);
       border-color: #263040;
       color: var(--text);
     }
+
     [data-theme="dark"] .quiz-option:hover {
       background: var(--surface-2);
       border-color: var(--purple);
     }
+
     [data-theme="dark"] .featured-visual {
       background: #1A222E;
     }
+
     [data-theme="dark"] .lang-toggle {
       background: #121821;
       border: 1px solid #263040;
     }
+
     [data-theme="dark"] .lang-btn.active {
       background: var(--surface-2);
     }
+
     [data-theme="dark"] .play-btn {
       background: var(--surface-2);
       border: 1px solid #263040;
     }
+
     [data-theme="dark"] .play-btn svg {
       fill: var(--purple);
     }
+
     [data-theme="dark"] .article-content h2,
     [data-theme="dark"] .article-content h3 {
       color: var(--purple);
     }
+
     [data-theme="dark"] .see-all {
       background: #1A222E;
       color: var(--purple);
@@ -1587,15 +1617,33 @@
     }
 
     @keyframes matchPop {
-      0% { transform: rotateY(180deg) scale(1); }
-      50% { transform: rotateY(180deg) scale(1.12); }
-      100% { transform: rotateY(180deg) scale(1); }
+      0% {
+        transform: rotateY(180deg) scale(1);
+      }
+
+      50% {
+        transform: rotateY(180deg) scale(1.12);
+      }
+
+      100% {
+        transform: rotateY(180deg) scale(1);
+      }
     }
 
     @keyframes wrongShake {
-      0%, 100% { transform: rotateY(180deg) translateX(0); }
-      25% { transform: rotateY(180deg) translateX(-6px); }
-      75% { transform: rotateY(180deg) translateX(6px); }
+
+      0%,
+      100% {
+        transform: rotateY(180deg) translateX(0);
+      }
+
+      25% {
+        transform: rotateY(180deg) translateX(-6px);
+      }
+
+      75% {
+        transform: rotateY(180deg) translateX(6px);
+      }
     }
 
     .game-win-banner {
@@ -1609,7 +1657,9 @@
       font-weight: 800;
     }
 
-    .game-win-banner.show { display: block; }
+    .game-win-banner.show {
+      display: block;
+    }
 
     .btn-game-restart {
       background: var(--purple);
@@ -1624,19 +1674,42 @@
       transition: background 0.18s;
     }
 
-    .btn-game-restart:hover { background: var(--purple-mid); }
+    .btn-game-restart:hover {
+      background: var(--purple-mid);
+    }
 
     @keyframes pop {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.2); }
-      100% { transform: scale(1); }
+      0% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.2);
+      }
+
+      100% {
+        transform: scale(1);
+      }
     }
 
     @keyframes shake {
-      0%, 100% { transform: translateX(0); }
-      25% { transform: translateX(-10px); }
-      50% { transform: translateX(10px); }
-      75% { transform: translateX(-10px); }
+
+      0%,
+      100% {
+        transform: translateX(0);
+      }
+
+      25% {
+        transform: translateX(-10px);
+      }
+
+      50% {
+        transform: translateX(10px);
+      }
+
+      75% {
+        transform: translateX(-10px);
+      }
     }
 
     .theme-toggle {
@@ -1652,8 +1725,13 @@
       padding: 8px;
     }
 
-    body[dir="rtl"] .lang-fr { display: none !important; }
-    body[dir="ltr"] .lang-ar { display: none !important; }
+    body[dir="rtl"] .lang-fr {
+      display: none !important;
+    }
+
+    body[dir="ltr"] .lang-ar {
+      display: none !important;
+    }
   </style>
 </head>
 
@@ -1670,7 +1748,8 @@
       <div>
         <div class="logo-text">Auti<span>-Aura</span></div>
         <div style="font-size:0.65rem;color:var(--text-light);font-weight:700;letter-spacing:.5px;margin-top:1px;">
-          <span class="lang-fr">Plateforme inclusive</span><span class="lang-ar">منصة شاملة</span></div>
+          <span class="lang-fr">Plateforme inclusive</span><span class="lang-ar">منصة شاملة</span>
+        </div>
       </div>
     </div>
 
@@ -1771,9 +1850,11 @@
       <div class="hero fade-up fade-up-1">
         <div class="hero-content">
           <div class="hero-badge">
-            <div class="hero-badge-dot"></div> <span class="lang-fr">Plateforme inclusive · Tunisie</span><span class="lang-ar">منصة شاملة · تونس</span>
+            <div class="hero-badge-dot"></div> <span class="lang-fr">Plateforme inclusive · Tunisie</span><span
+              class="lang-ar">منصة شاملة · تونس</span>
           </div>
-          <h1><span class="lang-fr">Chaque enfant mérite<br><span>d'être compris</span></span><span class="lang-ar">كل طفل يستحق<br><span>أن يُفهم</span></span></h1>
+          <h1><span class="lang-fr">Chaque enfant mérite<br><span>d'être compris</span></span><span class="lang-ar">كل
+              طفل يستحق<br><span>أن يُفهم</span></span></h1>
           <p>Ressources éducatives, vidéos et assistant IA pour accompagner les parents et éducateurs d'enfants
             autistes.</p>
           <div class="hero-actions">
@@ -1833,7 +1914,8 @@
           </div>
           <div>
             <div class="stat-n">22</div>
-            <div class="stat-l"><span class="lang-fr">Articles éducatifs</span><span class="lang-ar">مقالات تعليمية</span></div>
+            <div class="stat-l"><span class="lang-fr">Articles éducatifs</span><span class="lang-ar">مقالات
+                تعليمية</span></div>
           </div>
         </div>
         <div class="stat-card">
@@ -1845,7 +1927,8 @@
           </div>
           <div>
             <div class="stat-n">5</div>
-            <div class="stat-l"><span class="lang-fr">Vidéos inspirantes</span><span class="lang-ar">فيديوهات ملهمة</span></div>
+            <div class="stat-l"><span class="lang-fr">Vidéos inspirantes</span><span class="lang-ar">فيديوهات
+                ملهمة</span></div>
           </div>
         </div>
         <div class="stat-card">
@@ -1856,7 +1939,8 @@
           </div>
           <div>
             <div class="stat-n">IA</div>
-            <div class="stat-l"><span class="lang-fr">Assistant 24/7</span><span class="lang-ar">مساعد متاح 24/7</span></div>
+            <div class="stat-l"><span class="lang-fr">Assistant 24/7</span><span class="lang-ar">مساعد متاح 24/7</span>
+            </div>
           </div>
         </div>
         <div class="stat-card">
@@ -1903,15 +1987,20 @@
             </svg>
             <span class="lang-fr">Article vedette · Comprendre</span><span class="lang-ar">مقال مميز · للفهم</span>
           </div>
-          <div class="featured-title"><span class="lang-fr">L'autisme : une différence de<br>traitement de l'information</span><span class="lang-ar">التوحد: اختلاف في<br>معالجة المعلومات</span></div>
+          <div class="featured-title"><span class="lang-fr">L'autisme : une différence de<br>traitement de
+              l'information</span><span class="lang-ar">التوحد: اختلاف في<br>معالجة المعلومات</span></div>
           <div class="featured-text">
-            <span class="lang-fr">L'autisme n'est pas une maladie mentale — c'est un fonctionnement neurologique différent. Découvrez comment
-            votre enfant perçoit le monde à travers ses propres « lunettes » et comment l'accompagner avec
-            bienveillance.</span><span class="lang-ar">التوحد ليس مرضاً عقلياً — بل هو اختلاف في الوظائف العصبية. اكتشف كيف ينظر طفلك إلى العالم من خلال "نظاراته" الخاصة وكيف تدعمه بلطف.</span>
+            <span class="lang-fr">L'autisme n'est pas une maladie mentale — c'est un fonctionnement neurologique
+              différent. Découvrez comment
+              votre enfant perçoit le monde à travers ses propres « lunettes » et comment l'accompagner avec
+              bienveillance.</span><span class="lang-ar">التوحد ليس مرضاً عقلياً — بل هو اختلاف في الوظائف العصبية.
+              اكتشف كيف ينظر طفلك إلى العالم من خلال "نظاراته" الخاصة وكيف تدعمه بلطف.</span>
           </div>
           <div style="display:flex;gap:10px;align-items:center;">
-            <button class="btn btn-purple" style="font-size:0.82rem;padding:9px 18px;"><span class="lang-fr">Lire l'article →</span><span class="lang-ar">اقرأ المقال ←</span></button>
-            <span style="font-size:0.78rem;color:var(--text-light);font-weight:600;"><span class="lang-fr">5 min de lecture</span><span class="lang-ar">قراءة 5 دقائق</span></span>
+            <button class="btn btn-purple" style="font-size:0.82rem;padding:9px 18px;"><span class="lang-fr">Lire
+                l'article →</span><span class="lang-ar">اقرأ المقال ←</span></button>
+            <span style="font-size:0.78rem;color:var(--text-light);font-weight:600;"><span class="lang-fr">5 min de
+                lecture</span><span class="lang-ar">قراءة 5 دقائق</span></span>
           </div>
         </div>
       </div>
@@ -1936,7 +2025,8 @@
           </div>
           <div class="card-body">
             <div class="card-tag tag-teal">Sensoriel</div>
-            <div class="card-title"><span class="lang-fr">L'hypersensibilité sensorielle expliquée</span><span class="lang-ar">شرح فرط الحساسية الحسية</span></div>
+            <div class="card-title"><span class="lang-fr">L'hypersensibilité sensorielle expliquée</span><span
+                class="lang-ar">شرح فرط الحساسية الحسية</span></div>
             <div class="card-excerpt">Comprendre pourquoi certains sons, textures ou lumières peuvent être douloureux
               pour votre enfant.</div>
             <div class="card-footer">
@@ -2011,7 +2101,8 @@
         </div>
       </div>
 
-      <div class="footer-strip">Auti-Aura · <span class="lang-fr">Plateforme inclusive · Tunisie</span><span class="lang-ar">منصة شاملة · تونس</span> 🇹🇳 · 2025</div>
+      <div class="footer-strip">Auti-Aura · <span class="lang-fr">Plateforme inclusive · Tunisie</span><span
+          class="lang-ar">منصة شاملة · تونس</span> 🇹🇳 · 2025</div>
     </div>
 
     <!-- ─── ARTICLE DETAIL PAGE ─── -->
@@ -2055,7 +2146,8 @@
             <div class="card-tag tag-purple">Comprendre</div>
             <span style="font-size:0.78rem;color:var(--text-light);font-weight:600;">5 min de lecture</span>
           </div>
-          <div class="article-detail-title"><span class="lang-fr">L'autisme, une différence de traitement de l'information</span><span class="lang-ar">التوحد، اختلاف في معالجة المعلومات</span></div>
+          <div class="article-detail-title"><span class="lang-fr">L'autisme, une différence de traitement de
+              l'information</span><span class="lang-ar">التوحد، اختلاف في معالجة المعلومات</span></div>
           <div class="article-detail-sub">Comprendre le fonctionnement neurologique unique de votre enfant pour mieux
             l'accompagner.</div>
 
@@ -2153,15 +2245,18 @@
         </div>
       </div>
 
-      <div class="footer-strip">Auti-Aura · <span class="lang-fr">Plateforme inclusive · Tunisie</span><span class="lang-ar">منصة شاملة · تونس</span> 🇹🇳 · 2025</div>
+      <div class="footer-strip">Auti-Aura · <span class="lang-fr">Plateforme inclusive · Tunisie</span><span
+          class="lang-ar">منصة شاملة · تونس</span> 🇹🇳 · 2025</div>
     </div>
 
     <!-- ─── INFORME PAGE ─── -->
     <div id="page-informe" class="page">
       <div class="topbar" style="margin-bottom:24px;">
         <div>
-          <div class="topbar-title"><span class="lang-fr">S'informer sur l'autisme</span><span class="lang-ar">التعرف على التوحد</span></div>
-          <div class="topbar-sub"><span class="lang-fr">Articles de sensibilisation pour le grand public</span><span class="lang-ar">مقالات توعوية للجمهور العام</span></div>
+          <div class="topbar-title"><span class="lang-fr">S'informer sur l'autisme</span><span class="lang-ar">التعرف
+              على التوحد</span></div>
+          <div class="topbar-sub"><span class="lang-fr">Articles de sensibilisation pour le grand public</span><span
+              class="lang-ar">مقالات توعوية للجمهور العام</span></div>
         </div>
       </div>
 
@@ -2187,7 +2282,8 @@
           </div>
           <div class="card-body">
             <div class="card-tag tag-purple">Comprendre</div>
-            <div class="card-title"><span class="lang-fr">L'autisme, une différence de traitement de l'information</span><span class="lang-ar">التوحد، اختلاف في معالجة المعلومات</span></div>
+            <div class="card-title"><span class="lang-fr">L'autisme, une différence de traitement de
+                l'information</span><span class="lang-ar">التوحد، اختلاف في معالجة المعلومات</span></div>
             <div class="card-excerpt">Les « lunettes » à travers lesquelles l'enfant voit le monde : détails vs
               globalité.</div>
             <div class="card-footer">
@@ -2214,7 +2310,8 @@
           </div>
           <div class="card-body">
             <div class="card-tag tag-gold">Histoire</div>
-            <div class="card-title"><span class="lang-fr">Histoire et évolution du concept d'autisme</span><span class="lang-ar">تاريخ وتطور مفهوم التوحد</span></div>
+            <div class="card-title"><span class="lang-fr">Histoire et évolution du concept d'autisme</span><span
+                class="lang-ar">تاريخ وتطور مفهوم التوحد</span></div>
             <div class="card-excerpt">Du terme « maladie » au Trouble du Spectre de l'Autisme : comprendre le spectre.
             </div>
             <div class="card-footer">
@@ -2243,7 +2340,8 @@
           </div>
           <div class="card-body">
             <div class="card-tag tag-teal">Sensoriel</div>
-            <div class="card-title"><span class="lang-fr">L'hypersensibilité sensorielle expliquée</span><span class="lang-ar">شرح فرط الحساسية الحسية</span></div>
+            <div class="card-title"><span class="lang-fr">L'hypersensibilité sensorielle expliquée</span><span
+                class="lang-ar">شرح فرط الحساسية الحسية</span></div>
             <div class="card-excerpt">Réactions intenses aux sons, textures et lumières — comprendre la surcharge
               sensorielle.</div>
             <div class="card-footer">
@@ -2269,7 +2367,8 @@
           </div>
           <div class="card-body">
             <div class="card-tag tag-rose">Talents</div>
-            <div class="card-title"><span class="lang-fr">Les forces et talents souvent ignorés</span><span class="lang-ar">نقاط القوة والمواهب التي غالبا ما يتم تجاهلها</span></div>
+            <div class="card-title"><span class="lang-fr">Les forces et talents souvent ignorés</span><span
+                class="lang-ar">نقاط القوة والمواهب التي غالبا ما يتم تجاهلها</span></div>
             <div class="card-excerpt">Mémoire exceptionnelle, concentration intense : des atouts remarquables à
               valoriser.</div>
             <div class="card-footer">
@@ -2297,7 +2396,8 @@
           </div>
           <div class="card-body">
             <div class="card-tag tag-green">Droits</div>
-            <div class="card-title"><span class="lang-fr">Le droit à l'éducation : un cadre mondial</span><span class="lang-ar">الحق في التعليم: إطار عالمي</span></div>
+            <div class="card-title"><span class="lang-fr">Le droit à l'éducation : un cadre mondial</span><span
+                class="lang-ar">الحق في التعليم: إطار عالمي</span></div>
             <div class="card-excerpt">Déclaration universelle et constitution tunisienne : ce que dit la loi pour votre
               enfant.</div>
             <div class="card-footer">
@@ -2323,7 +2423,8 @@
           </div>
           <div class="card-body">
             <div class="card-tag tag-gold">Dépistage</div>
-            <div class="card-title"><span class="lang-fr">Les signes qui doivent alerter</span><span class="lang-ar">العلامات التي يجب الانتباه إليها</span></div>
+            <div class="card-title"><span class="lang-fr">Les signes qui doivent alerter</span><span
+                class="lang-ar">العلامات التي يجب الانتباه إليها</span></div>
             <div class="card-excerpt">Retard du pointage, absence de réponse au prénom, écholalie : le guide de
               dépistage précoce.</div>
             <div class="card-footer">
@@ -2349,7 +2450,8 @@
           </div>
           <div class="card-body">
             <div class="card-tag tag-purple">Comprendre</div>
-            <div class="card-title"><span class="lang-fr">Mythes et réalités sur l'autisme</span><span class="lang-ar">خرافات وحقائق حول التوحد</span></div>
+            <div class="card-title"><span class="lang-fr">Mythes et réalités sur l'autisme</span><span
+                class="lang-ar">خرافات وحقائق حول التوحد</span></div>
             <div class="card-excerpt">Démêler le vrai du faux concernant les stéréotypes les plus courants sur le TSA.
             </div>
             <div class="card-footer">
@@ -2375,7 +2477,8 @@
           </div>
           <div class="card-body">
             <div class="card-tag tag-teal">Droits</div>
-            <div class="card-title"><span class="lang-fr">Démarches administratives en Tunisie</span><span class="lang-ar">الإجراءات الإدارية في تونس</span></div>
+            <div class="card-title"><span class="lang-fr">Démarches administratives en Tunisie</span><span
+                class="lang-ar">الإجراءات الإدارية في تونس</span></div>
             <div class="card-excerpt">Comment obtenir la carte d'handicap et les aides sociales pour votre enfant.</div>
             <div class="card-footer">
               <div class="card-read">
@@ -2403,15 +2506,18 @@
         <div id="quiz-feedback" class="quiz-feedback"></div>
       </div>
 
-      <div class="footer-strip">Auti-Aura · <span class="lang-fr">Plateforme inclusive · Tunisie</span><span class="lang-ar">منصة شاملة · تونس</span> 🇹🇳 · 2025</div>
+      <div class="footer-strip">Auti-Aura · <span class="lang-fr">Plateforme inclusive · Tunisie</span><span
+          class="lang-ar">منصة شاملة · تونس</span> 🇹🇳 · 2025</div>
     </div>
 
     <!-- ─── EDUCATE PAGE ─── -->
     <div id="page-educate" class="page">
       <div class="topbar" style="margin-bottom:24px;">
         <div>
-          <div class="topbar-title"><span class="lang-fr">Ressources pour éducateurs</span><span class="lang-ar">موارد للمربين</span></div>
-          <div class="topbar-sub"><span class="lang-fr">Conseils pratiques et stratégies pédagogiques adaptées</span><span class="lang-ar">نصائح عملية واستراتيجيات تعليمية مكيفة</span></div>
+          <div class="topbar-title"><span class="lang-fr">Ressources pour éducateurs</span><span class="lang-ar">موارد
+              للمربين</span></div>
+          <div class="topbar-sub"><span class="lang-fr">Conseils pratiques et stratégies pédagogiques
+              adaptées</span><span class="lang-ar">نصائح عملية واستراتيجيات تعليمية مكيفة</span></div>
         </div>
       </div>
 
@@ -2439,7 +2545,8 @@
           </div>
           <div class="card-body">
             <div class="card-tag tag-purple">Pédagogie</div>
-            <div class="card-title"><span class="lang-fr">Adapter ses consignes et son langage</span><span class="lang-ar">تكييف التعليمات واللغة</span></div>
+            <div class="card-title"><span class="lang-fr">Adapter ses consignes et son langage</span><span
+                class="lang-ar">تكييف التعليمات واللغة</span></div>
             <div class="card-excerpt">Consignes courtes, une à la fois, avec support visuel permanent.</div>
             <div class="card-footer">
               <div class="card-read">
@@ -2469,7 +2576,8 @@
           </div>
           <div class="card-body">
             <div class="card-tag tag-teal">Émotions</div>
-            <div class="card-title"><span class="lang-fr">Gérer les émotions et les crises</span><span class="lang-ar">إدارة العواطف والأزمات</span></div>
+            <div class="card-title"><span class="lang-fr">Gérer les émotions et les crises</span><span
+                class="lang-ar">إدارة العواطف والأزمات</span></div>
             <div class="card-excerpt">Le baromètre des émotions, le coin calme et les stratégies de désescalade.</div>
             <div class="card-footer">
               <div class="card-read">
@@ -2497,7 +2605,8 @@
           </div>
           <div class="card-body">
             <div class="card-tag tag-gold">Partenariat</div>
-            <div class="card-title"><span class="lang-fr">Collaborer avec la famille et les spécialistes</span><span class="lang-ar">التعاون مع الأسرة والمختصين</span></div>
+            <div class="card-title"><span class="lang-fr">Collaborer avec la famille et les spécialistes</span><span
+                class="lang-ar">التعاون مع الأسرة والمختصين</span></div>
             <div class="card-excerpt">Le cahier de communication, la coordination avec l'orthophoniste et
               l'ergothérapeute.</div>
             <div class="card-footer">
@@ -2523,7 +2632,8 @@
           </div>
           <div class="card-body">
             <div class="card-tag tag-rose">Pédagogie</div>
-            <div class="card-title"><span class="lang-fr">L'apprentissage par le jeu</span><span class="lang-ar">التعلم عن طريق اللعب</span></div>
+            <div class="card-title"><span class="lang-fr">L'apprentissage par le jeu</span><span class="lang-ar">التعلم
+                عن طريق اللعب</span></div>
             <div class="card-excerpt">Comment utiliser les intérêts spécifiques de l'enfant pour stimuler
               l'apprentissage.</div>
             <div class="card-footer">
@@ -2539,15 +2649,18 @@
           </div>
         </div>
       </div>
-      <div class="footer-strip">Auti-Aura · <span class="lang-fr">Plateforme inclusive · Tunisie</span><span class="lang-ar">منصة شاملة · تونس</span> 🇹🇳 · 2025</div>
+      <div class="footer-strip">Auti-Aura · <span class="lang-fr">Plateforme inclusive · Tunisie</span><span
+          class="lang-ar">منصة شاملة · تونس</span> 🇹🇳 · 2025</div>
     </div>
 
     <!-- ─── VIDEOS PAGE ─── -->
     <div id="page-videos" class="page">
       <div class="topbar" style="margin-bottom:24px;">
         <div>
-          <div class="topbar-title"><span class="lang-fr">Vidéos inspirantes</span><span class="lang-ar">فيديوهات ملهمة</span></div>
-          <div class="topbar-sub"><span class="lang-fr">Témoignages, explications et guides pratiques en vidéo</span><span class="lang-ar">شهادات، شروحات وأدلة عملية بالفيديو</span></div>
+          <div class="topbar-title"><span class="lang-fr">Vidéos inspirantes</span><span class="lang-ar">فيديوهات
+              ملهمة</span></div>
+          <div class="topbar-sub"><span class="lang-fr">Témoignages, explications et guides pratiques en
+              vidéo</span><span class="lang-ar">شهادات، شروحات وأدلة عملية بالفيديو</span></div>
         </div>
       </div>
 
@@ -2619,15 +2732,18 @@
         </div>
       </div>
 
-      <div class="footer-strip">Auti-Aura · <span class="lang-fr">Plateforme inclusive · Tunisie</span><span class="lang-ar">منصة شاملة · تونس</span> 🇹🇳 · 2025</div>
+      <div class="footer-strip">Auti-Aura · <span class="lang-fr">Plateforme inclusive · Tunisie</span><span
+          class="lang-ar">منصة شاملة · تونس</span> 🇹🇳 · 2025</div>
     </div>
 
     <!-- ─── CHAT PAGE ─── -->
     <div id="page-chat" class="page">
       <div class="topbar" style="margin-bottom:24px;">
         <div>
-          <div class="topbar-title"><span class="lang-fr">Assistant Auti-Aura</span><span class="lang-ar">المساعد Auti-Aura</span></div>
-          <div class="topbar-sub"><span class="lang-fr">Posez vos questions en français ou en arabe</span><span class="lang-ar">اطرح أسئلتك باللغة الفرنسية أو العربية</span></div>
+          <div class="topbar-title"><span class="lang-fr">Assistant Auti-Aura</span><span class="lang-ar">المساعد
+              Auti-Aura</span></div>
+          <div class="topbar-sub"><span class="lang-fr">Posez vos questions en français ou en arabe</span><span
+              class="lang-ar">اطرح أسئلتك باللغة الفرنسية أو العربية</span></div>
         </div>
       </div>
 
@@ -2639,7 +2755,8 @@
             </svg>
           </div>
           <div class="chat-header-info">
-            <div class="chat-header-name"><span class="lang-fr">Assistant Auti-Aura</span><span class="lang-ar">المساعد Auti-Aura</span></div>
+            <div class="chat-header-name"><span class="lang-fr">Assistant Auti-Aura</span><span class="lang-ar">المساعد
+                Auti-Aura</span></div>
             <div class="chat-header-status">
               <div class="status-dot"></div>
               En ligne · Powered by Groq
@@ -2658,11 +2775,18 @@
         <div class="chat-messages" id="chat-messages">
 
           <!-- Groq key section - hidden by default, shown when needed -->
-          <div id="groq-key-section" style="display:none; background:var(--gold-lt); border-radius:var(--radius-md); padding:14px 16px; margin-bottom:8px; border:1.5px solid var(--gold);">
-            <div style="font-size:0.82rem;font-weight:700;color:var(--text);margin-bottom:8px;">⚙️ Clé API Groq (fallback sans backend)</div>
-            <div style="font-size:0.75rem;color:var(--text-mid);margin-bottom:8px;">Le serveur backend n'est pas démarré. Entrez votre clé Groq gratuite pour utiliser le chatbot directement.<br><a href="https://console.groq.com" target="_blank" style="color:var(--teal);">Obtenir une clé sur console.groq.com →</a></div>
-            <input id="groq-key-input" type="password" placeholder="gsk_..." style="width:100%;padding:8px 12px;border-radius:var(--radius-sm);border:1.5px solid var(--cream-dark);background:var(--surface);color:var(--text);font-family:'Nunito',sans-serif;font-size:0.82rem;outline:none;" />
-            <div style="font-size:0.7rem;color:var(--text-light);margin-top:6px;">La clé reste dans votre navigateur et n'est jamais envoyée ailleurs.</div>
+          <div id="groq-key-section"
+            style="display:none; background:var(--gold-lt); border-radius:var(--radius-md); padding:14px 16px; margin-bottom:8px; border:1.5px solid var(--gold);">
+            <div style="font-size:0.82rem;font-weight:700;color:var(--text);margin-bottom:8px;">⚙️ Clé API Groq
+              (fallback sans backend)</div>
+            <div style="font-size:0.75rem;color:var(--text-mid);margin-bottom:8px;">Le serveur backend n'est pas
+              démarré. Entrez votre clé Groq gratuite pour utiliser le chatbot directement.<br><a
+                href="https://console.groq.com" target="_blank" style="color:var(--teal);">Obtenir une clé sur
+                console.groq.com →</a></div>
+            <input id="groq-key-input" type="password" placeholder="gsk_..."
+              style="width:100%;padding:8px 12px;border-radius:var(--radius-sm);border:1.5px solid var(--cream-dark);background:var(--surface);color:var(--text);font-family:'Nunito',sans-serif;font-size:0.82rem;outline:none;" />
+            <div style="font-size:0.7rem;color:var(--text-light);margin-top:6px;">La clé reste dans votre navigateur et
+              n'est jamais envoyée ailleurs.</div>
           </div>
 
           <div class="msg bot">
@@ -2697,37 +2821,40 @@
         </div>
       </div>
 
-      <div class="footer-strip">Auti-Aura · <span class="lang-fr">Plateforme inclusive · Tunisie</span><span class="lang-ar">منصة شاملة · تونس</span> 🇹🇳 · 2025</div>
+      <div class="footer-strip">Auti-Aura · <span class="lang-fr">Plateforme inclusive · Tunisie</span><span
+          class="lang-ar">منصة شاملة · تونس</span> 🇹🇳 · 2025</div>
     </div>
 
     <!-- ─── GAME PAGE ─── -->
     <div id="page-game" class="page">
-        <div class="topbar" style="margin-bottom:24px;">
-          <div>
-            <div class="topbar-title" data-i18n="game-title-main">Jeux interactifs</div>
-            <div class="topbar-sub" data-i18n="game-sub-main">Apprendre en s'amusant</div>
-          </div>
+      <div class="topbar" style="margin-bottom:24px;">
+        <div>
+          <div class="topbar-title" data-i18n="game-title-main">Jeux interactifs</div>
+          <div class="topbar-sub" data-i18n="game-sub-main">Apprendre en s'amusant</div>
+        </div>
+      </div>
+
+      <div class="game-container">
+        <div class="game-title">🧩 Jeu de Mémoire</div>
+        <div class="game-subtitle">Retrouve les paires cachées ! Retourne 2 cartes — si elles sont identiques, bravo !
         </div>
 
-        <div class="game-container">
-          <div class="game-title">🧩 Jeu de Mémoire</div>
-          <div class="game-subtitle">Retrouve les paires cachées ! Retourne 2 cartes — si elles sont identiques, bravo !</div>
-
-          <div class="game-stats-bar">
-            <div class="game-stat-pill">🎯 Paires : <span id="mem-pairs">0</span>/8</div>
-            <div class="game-stat-pill">🔁 Essais : <span id="mem-tries">0</span></div>
-          </div>
-
-          <div class="game-win-banner" id="mem-win-banner">
-            🌟 Bravo ! Tu as retrouvé toutes les paires en <span id="mem-final-tries">0</span> essais !
-          </div>
-
-          <div class="memory-grid" id="memory-grid"></div>
-
-          <button class="btn-game-restart" onclick="initMemoryGame()">🔄 Nouvelle partie</button>
+        <div class="game-stats-bar">
+          <div class="game-stat-pill">🎯 Paires : <span id="mem-pairs">0</span>/8</div>
+          <div class="game-stat-pill">🔁 Essais : <span id="mem-tries">0</span></div>
         </div>
 
-        <div class="footer-strip">Auti-Aura · <span class="lang-fr">Plateforme inclusive · Tunisie</span><span class="lang-ar">منصة شاملة · تونس</span> 🇹🇳 · 2025</div>
+        <div class="game-win-banner" id="mem-win-banner">
+          🌟 Bravo ! Tu as retrouvé toutes les paires en <span id="mem-final-tries">0</span> essais !
+        </div>
+
+        <div class="memory-grid" id="memory-grid"></div>
+
+        <button class="btn-game-restart" onclick="initMemoryGame()">🔄 Nouvelle partie</button>
+      </div>
+
+      <div class="footer-strip">Auti-Aura · <span class="lang-fr">Plateforme inclusive · Tunisie</span><span
+          class="lang-ar">منصة شاملة · تونس</span> 🇹🇳 · 2025</div>
     </div>
 
   </main>
@@ -2805,10 +2932,10 @@
       });
       // specific game prompt logic depending on language
       updateGamePromptText();
-        // Update placeholders
-        document.querySelectorAll('input[placeholder="Rechercher."]').forEach(el => {
-            el.setAttribute('placeholder', l === 'ar' ? 'بحث...' : 'Rechercher.');
-        });
+      // Update placeholders
+      document.querySelectorAll('input[placeholder="Rechercher."]').forEach(el => {
+        el.setAttribute('placeholder', l === 'ar' ? 'بحث...' : 'Rechercher.');
+      });
 
     }
 
@@ -2892,9 +3019,9 @@
       const chatMessages = document.getElementById('chat-messages');
       const loadingBubble = chatMessages.lastElementChild.querySelector('.msg-bubble');
 
-      // Try backend first (works when uvicorn is running locally)
+      // Try backend first
       try {
-        const response = await fetch('http://localhost:8000/api/chat', {
+        const response = await fetch('/api/chat', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ message: msg, history: [] })
@@ -2904,62 +3031,42 @@
           loadingBubble.innerHTML = data.reply.replace(/\n/g, '<br>');
           return;
         }
-      } catch (e) {}
+      } catch (e) { }
 
-      // Fallback: Gemini API or Groq API
+      // Fallback: Groq API
       const groqKey = document.getElementById('groq-key-input')?.value?.trim();
       if (groqKey) {
-          try {
-            const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + groqKey
-              },
-              body: JSON.stringify({
-                model: 'llama3-8b-8192',
-                max_tokens: 600,
-                messages: [
-                  {
-                    role: 'system',
-                    content: `Tu es "Aura", un assistant bienveillant spécialisé dans l'autisme chez les enfants en Tunisie.\nRéponds TOUJOURS dans la langue du message reçu (français ou arabe). Sois chaleureux, empathique et concis (max 250 mots). Ne pose jamais de diagnostic ; oriente vers un professionnel si nécessaire.`
-                  },
-                  { role: 'user', content: msg }
-                ]
-              })
-            });
-            if (!res.ok) { const err = await res.json(); throw new Error(err.error?.message || 'Erreur API'); }
-            const data = await res.json();
-            const reply = data?.choices?.[0]?.message?.content ?? "Je n'ai pas pu formuler une réponse.";
-            loadingBubble.innerHTML = reply.replace(/\n/g, '<br>').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-            return;
-          } catch (e) {
-            loadingBubble.innerText = "Erreur Groq : " + e.message;
-            return;
-          }
+        try {
+          const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + groqKey
+            },
+            body: JSON.stringify({
+              model: 'llama3-8b-8192',
+              max_tokens: 600,
+              messages: [
+                {
+                  role: 'system',
+                  content: `Tu es "Aura", un assistant bienveillant spécialisé dans l'autisme chez les enfants en Tunisie.\nRéponds TOUJOURS dans la langue du message reçu (français ou arabe). Sois chaleureux, empathique et concis (max 250 mots). Ne pose jamais de diagnostic ; oriente vers un professionnel si nécessaire.`
+                },
+                { role: 'user', content: msg }
+              ]
+            })
+          });
+          if (!res.ok) { const err = await res.json(); throw new Error(err.error?.message || 'Erreur API'); }
+          const data = await res.json();
+          const reply = data?.choices?.[0]?.message?.content ?? "Je n'ai pas pu formuler une réponse.";
+          loadingBubble.innerHTML = reply.replace(/\n/g, '<br>').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+          return;
+        } catch (e) {
+          loadingBubble.innerText = "Erreur Groq : " + e.message;
+          return;
+        }
       }
 
-      // Default Gemini Fallback
-      try {
-        const GEMINI_KEY = "AIzaSyAGbuyxXPipAS3EE8GEbdlfB0qB7UOb-ro";
-        const GEMINI_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=" + GEMINI_KEY;
-        const contents = [
-          { role: "user", parts: [{ text: "Tu es 'Aura', un assistant bienveillant spécialisé dans l'autisme chez les enfants. Réponds dans la langue de l'utilisateur (français ou arabe)." }] },
-          { role: "model", parts: [{ text: "Compris ! Comment puis-je vous aider ?" }] },
-          { role: "user", parts: [{ text: msg }] }
-        ];
-        const res = await fetch(GEMINI_URL, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ contents })
-        });
-        if (!res.ok) throw new Error("Erreur IA");
-        const data = await res.json();
-        const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text ?? "Je n'ai pas pu formuler une réponse.";
-        loadingBubble.innerHTML = reply.replace(/\n/g, '<br>').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-      } catch (e) {
-        loadingBubble.innerText = "Erreur de connexion au serveur.";
-      }
+      loadingBubble.innerText = "Erreur de connexion au serveur.";
     }
 
     function sendQuickReply(text) {
@@ -3030,7 +3137,7 @@
     }
 
     // ── MEMORY CARD GAME ──
-    const MEMORY_EMOJIS = ['🌟','🎨','🎵','🌈','🦋','🧩','🌺','🐬'];
+    const MEMORY_EMOJIS = ['🌟', '🎨', '🎵', '🌈', '🦋', '🧩', '🌺', '🐬'];
     let memoryCards = [];
     let memFlipped = [];
     let memMatched = 0;
@@ -3115,7 +3222,7 @@
       }
 
       // Save key to localStorage on input
-      document.getElementById('groq-key-input')?.addEventListener('input', function() {
+      document.getElementById('groq-key-input')?.addEventListener('input', function () {
         localStorage.setItem('groq_api_key', this.value.trim());
       });
     });
