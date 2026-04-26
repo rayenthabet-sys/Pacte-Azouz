@@ -1,1064 +1,2076 @@
 <!DOCTYPE html>
 <html lang="fr" dir="ltr">
+
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Auti-Aura — Plateforme inclusive</title>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet" />
-<style>
-  /* ===== BRAND COLORS (logo: Red, Yellow, Green, Blue) ===== */
-  :root {
-    --red:    #E63946;
-    --yellow: #F4A100;
-    --green:  #2DC653;
-    --blue:   #1565C0;
-    --dark:   #0a0f1e;
-    --dark2:  #111827;
-    --surface:#161d2e;
-    --card:   #1e2740;
-    --border: rgba(255,255,255,0.08);
-    --text:   #f0f4ff;
-    --muted:  #8a9bbf;
-    --radius: 16px;
-    --font-main: 'Nunito', sans-serif;
-    --font-ar:   'Tajawal', sans-serif;
-  }
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Auti-Aura — Plateforme inclusive</title>
+  <link rel="icon" type="image/png" sizes="64x64" href="./logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Tajawal:wght@400;500;700&display=swap"
+    rel="stylesheet" />
+  <style>
+    /* ===== BRAND COLORS (logo: Red, Yellow, Green, Blue) ===== */
+    :root {
+      --red: #E63946;
+      --yellow: #F4A100;
+      --green: #2DC653;
+      --blue: #1565C0;
+      --dark: #0a0f1e;
+      --dark2: #111827;
+      --surface: #161d2e;
+      --card: #1e2740;
+      --border: rgba(255, 255, 255, 0.08);
+      --text: #f0f4ff;
+      --muted: #8a9bbf;
+      --radius: 16px;
+      --font-main: 'Nunito', sans-serif;
+      --font-ar: 'Tajawal', sans-serif;
+    }
 
-  body {
-    background: var(--dark);
-    color: var(--text);
-    font-family: var(--font-main);
-    font-size: 16px;
-    line-height: 1.7;
-    min-height: 100vh;
-  }
-  body[data-theme="light"] {
-    --dark:   #eff6ff;
-    --dark2:  #ffffff;
-    --surface:#e2e8f0;
-    --card:   #ffffff;
-    --text:   #0f172a;
-    --muted:  #475569;
-    --border: rgba(0,0,0,0.1);
-  }
-  body[data-theme="light"] .navbar { background: rgba(255,255,255,0.85); }
-  body[lang="ar"], body[lang="ar"] * { font-family: var(--font-ar) !important; direction: rtl; }
-  body[lang="ar"] .footer-grid { direction: rtl; }
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-  a { color: inherit; text-decoration: none; }
-  button { font-family: inherit; cursor: pointer; border: none; outline: none; }
+    body {
+      background: var(--dark);
+      color: var(--text);
+      font-family: var(--font-main);
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
 
-  /* ===== PAGE SWITCHER (SPA) ===== */
-  .page { display: none; }
-  .page.active { display: block; }
+    body[data-theme="light"] {
+      --dark: #eff6ff;
+      --dark2: #ffffff;
+      --surface: #e2e8f0;
+      --card: #ffffff;
+      --text: #0f172a;
+      --muted: #475569;
+      --border: rgba(0, 0, 0, 0.1);
+    }
 
-  /* ===== NAVBAR ===== */
-  .navbar {
-    position: sticky; top: 0; z-index: 100;
-    background: rgba(10,15,30,0.85);
-    backdrop-filter: blur(14px);
-    border-bottom: 1px solid var(--border);
-    padding: 0 2rem;
-    display: flex; align-items: center; justify-content: space-between;
-    height: 64px;
-  }
-  .navbar-brand { display: flex; align-items: center; gap: 10px; cursor: pointer; }
-  .brand-logo { height: 38px; width: auto; }
-  .brand-name { font-size: 1.3rem; font-weight: 800; letter-spacing: -0.5px; }
-  .brand-name span:nth-child(1) { color: var(--red); }
-  .brand-name span:nth-child(2) { color: var(--yellow); }
-  .brand-name span:nth-child(3) { color: var(--text); }
-  .brand-name span:nth-child(4) { color: var(--blue); }
-  .brand-name span:nth-child(5) { color: var(--green); }
-  .brand-name span:nth-child(6) { color: var(--red); }
+    body[data-theme="light"] .navbar {
+      background: rgba(255, 255, 255, 0.85);
+    }
 
-  .navbar-links { display: flex; align-items: center; gap: 0.25rem; }
-  .nav-btn {
-    background: none; color: var(--muted);
-    padding: 0.4rem 0.85rem; border-radius: 10px;
-    font-size: 0.88rem; font-weight: 600; transition: all 0.2s;
-  }
-  .nav-btn:hover, .nav-btn.active { color: var(--text); background: var(--surface); }
+    body[lang="ar"],
+    body[lang="ar"] * {
+      font-family: var(--font-ar) !important;
+      direction: rtl;
+    }
 
-  .navbar-right { display: flex; align-items: center; gap: 0.5rem; }
-  .lang-btn {
-    background: var(--surface); color: var(--text);
-    border: 1px solid var(--border);
-    padding: 0.35rem 0.8rem; border-radius: 10px;
-    font-size: 0.82rem; font-weight: 700; transition: all 0.2s;
-  }
-  .lang-btn:hover { border-color: var(--blue); color: var(--blue); }
-  .theme-btn { background: var(--surface); border: 1px solid var(--border); color: var(--text); border-radius: 10px; padding: 0.35rem 0.6rem; font-size: 1rem; }
+    body[lang="ar"] .footer-grid {
+      direction: rtl;
+    }
 
-  /* ===== HOME PAGE ===== */
-  .hero {
-    min-height: 88vh;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    text-align: center; padding: 3rem 2rem;
-    background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(21,101,192,0.18) 0%, transparent 70%);
-  }
-  .hero-badge {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: var(--surface); border: 1px solid var(--border);
-    padding: 0.35rem 1rem; border-radius: 100px; font-size: 0.82rem; color: var(--muted);
-    margin-bottom: 2rem;
-  }
-  .hero-badge .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); }
-  .hero h1 {
-    font-size: clamp(2.2rem, 5vw, 3.8rem); font-weight: 800;
-    line-height: 1.15; max-width: 800px; margin-bottom: 1.25rem;
-  }
-  .hero h1 em { font-style: normal; color: var(--blue); }
-  .hero p { font-size: 1.1rem; color: var(--muted); max-width: 540px; margin: 0 auto 2.5rem; }
-  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
-  .btn-primary {
-    background: var(--blue); color: #fff;
-    padding: 0.75rem 1.75rem; border-radius: 12px;
-    font-weight: 700; font-size: 0.95rem; transition: all 0.2s;
-    display: inline-flex; align-items: center; gap: 8px;
-  }
-  .btn-primary:hover { background: #1976d2; transform: translateY(-1px); }
-  .btn-outline {
-    background: transparent; color: var(--text);
-    border: 1px solid var(--border);
-    padding: 0.75rem 1.75rem; border-radius: 12px;
-    font-weight: 700; font-size: 0.95rem; transition: all 0.2s;
-    display: inline-flex; align-items: center; gap: 8px;
-  }
-  .btn-outline:hover { border-color: rgba(255,255,255,0.3); background: var(--surface); }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
-  .stats-row {
-    display: flex; gap: 2.5rem; justify-content: center; flex-wrap: wrap;
-    margin-top: 3.5rem; padding-top: 3rem; border-top: 1px solid var(--border);
-    width: 100%; max-width: 700px;
-  }
-  .stat { text-align: center; }
-  .stat-num { font-size: 2rem; font-weight: 800; line-height: 1; }
-  .stat-num.red { color: var(--red); }
-  .stat-num.yellow { color: var(--yellow); }
-  .stat-num.green { color: var(--green); }
-  .stat-num.blue { color: var(--blue); }
-  .stat-label { font-size: 0.8rem; color: var(--muted); margin-top: 2px; }
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      outline: none;
+    }
 
-  /* ===== FEATURE ARTICLE CARD ===== */
-  .section { padding: 4rem 2rem; max-width: 1100px; margin: 0 auto; }
-  .section-title {
-    font-size: 1.5rem; font-weight: 800; margin-bottom: 0.5rem;
-    display: flex; align-items: center; gap: 12px;
-  }
-  .section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-  .view-all { font-size: 0.82rem; color: var(--blue); font-weight: 700; cursor: pointer; white-space: nowrap; background: transparent; border: none; padding: 0; font-family: inherit; }
-  .view-all:hover { text-decoration: underline; }
+    /* ===== PAGE SWITCHER (SPA) ===== */
+    .page {
+      display: none;
+    }
 
-  .featured-card {
-    background: linear-gradient(135deg, var(--card) 0%, rgba(21,101,192,0.18) 100%);
-    border: 1px solid var(--border); border-radius: var(--radius);
-    padding: 2.5rem; margin: 1.5rem 0 2.5rem;
-    display: grid; grid-template-columns: 1fr auto;
-    gap: 2rem; align-items: center;
-  }
-  .featured-tag {
-    display: inline-block; background: rgba(21,101,192,0.35); color: #bfdbfe;
-    font-size: 0.75rem; font-weight: 800; padding: 4px 12px; border-radius: 100px;
-    margin-bottom: 0.75rem; border: 1px solid rgba(147,197,253,0.3);
-  }
-  body[data-theme="light"] .featured-tag { background: #dbeafe; color: #1e40af; border-color: #93c5fd; }
-  .featured-card h2 { font-size: 1.45rem; font-weight: 800; margin-bottom: 0.75rem; line-height: 1.3; }
-  .featured-card p { color: var(--muted); font-size: 0.92rem; margin-bottom: 1.25rem; }
-  .read-btn {
-    background: var(--blue); color: #fff;
-    padding: 0.55rem 1.25rem; border-radius: 10px;
-    font-weight: 700; font-size: 0.85rem; transition: all 0.2s;
-    display: inline-flex; align-items: center; gap: 6px; cursor: pointer;
-  }
-  .read-btn:hover { background: #1976d2; }
-  .time-badge { color: var(--muted); font-size: 0.8rem; margin-top: 0.75rem; }
-  .featured-visual {
-    width: 130px; height: 130px; border-radius: 50%;
-    background: radial-gradient(circle, rgba(21,101,192,0.3), rgba(46,214,99,0.15));
-    display: flex; align-items: center; justify-content: center; font-size: 3.5rem;
-    flex-shrink: 0; border: 2px solid rgba(255,255,255,0.08);
-  }
+    .page.active {
+      display: block;
+    }
 
-  /* ===== ARTICLES GRID ===== */
-  .articles-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.25rem; }
-  .article-card {
-    background: var(--card); border: 1px solid var(--border);
-    border-radius: var(--radius); padding: 1.5rem;
-    transition: all 0.2s; cursor: pointer;
-    display: flex; flex-direction: column;
-  }
-  .article-card:hover { border-color: rgba(255,255,255,0.2); transform: translateY(-2px); }
-  .article-tag {
-    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.5px;
-    padding: 3px 9px; border-radius: 100px; display: inline-block; width: fit-content;
-    margin-bottom: 0.65rem;
-  }
-  .tag-red { background: rgba(230,57,70,0.2); color: #ff8a8a; }
-  .tag-yellow { background: rgba(244,161,0,0.2); color: #ffc947; }
-  .tag-green { background: rgba(45,198,83,0.2); color: #69e88a; }
-  .tag-blue { background: rgba(21,101,192,0.2); color: #90caf9; }
-  body[data-theme="light"] .tag-red { background: rgba(230,57,70,0.15); color: #b91c1c; }
-  body[data-theme="light"] .tag-yellow { background: rgba(244,161,0,0.15); color: #92400e; }
-  body[data-theme="light"] .tag-green { background: rgba(45,198,83,0.15); color: #166534; }
-  body[data-theme="light"] .tag-blue { background: rgba(21,101,192,0.15); color: #1e40af; }
-  .article-card h3 { font-size: 1rem; font-weight: 700; line-height: 1.35; margin-bottom: 0.5rem; }
-  .article-card p { color: var(--muted); font-size: 0.85rem; flex: 1; }
-  .article-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; }
-  .article-meta { color: var(--muted); font-size: 0.78rem; }
+    /* ===== NAVBAR ===== */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10, 15, 30, 0.85);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
 
-  /* ===== INFORM / EDUCATE PAGES ===== */
-  .page-hero {
-    background: var(--dark2); border-bottom: 1px solid var(--border);
-    padding: 3rem 2rem 2rem; text-align: center;
-  }
-  .page-hero h1 { font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem; }
-  .page-hero p { color: var(--muted); max-width: 520px; margin: 0 auto; }
-  .filter-row { display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; margin-top: 1.5rem; }
-  .filter-btn {
-    background: var(--card); border: 1px solid var(--border);
-    color: var(--muted); padding: 0.4rem 1rem; border-radius: 100px;
-    font-size: 0.82rem; font-weight: 700; transition: all 0.2s; cursor: pointer;
-  }
-  .filter-btn:hover, .filter-btn.active { background: var(--blue); color: #fff; border-color: var(--blue); }
-  .articles-section { padding: 2.5rem 2rem; max-width: 1100px; margin: 0 auto; }
+    .navbar-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+    }
 
-  /* ===== VIDEOS PAGE ===== */
-  .video-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.25rem; }
-  .video-card {
-    background: var(--card); border: 1px solid var(--border);
-    border-radius: var(--radius); overflow: hidden; cursor: pointer; transition: all 0.2s;
-  }
-  .video-card:hover { border-color: rgba(255,255,255,0.2); transform: translateY(-2px); }
-  .video-thumb {
-    width: 100%; height: 170px;
-    background: linear-gradient(135deg, rgba(21,101,192,0.3), rgba(45,198,83,0.15));
-    display: flex; align-items: center; justify-content: center;
-    font-size: 3rem; position: relative;
-  }
-  .play-btn {
-    position: absolute; width: 48px; height: 48px; border-radius: 50%;
-    background: rgba(255,255,255,0.9); display: flex; align-items: center; justify-content: center;
-    font-size: 1.2rem; bottom: 12px; right: 12px; color: var(--dark);
-  }
-  .video-info { padding: 1.25rem; }
-  .video-info h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.35rem; }
-  .video-info p { color: var(--muted); font-size: 0.82rem; }
+    .brand-logo {
+      height: 50px;
+      width: auto;
+    }
 
-  /* ===== GAME PAGE ===== */
-  .game-section { padding: 3rem 2rem; max-width: 900px; margin: 0 auto; }
-  .game-why {
-    background: var(--card); border: 1px solid var(--border);
-    border-radius: var(--radius); padding: 2rem;
-    margin-bottom: 2.5rem; display: grid;
-    grid-template-columns: 80px 1fr; gap: 1.5rem; align-items: start;
-  }
-  .game-why-icon { font-size: 3.5rem; text-align: center; }
-  .game-why h2 { font-size: 1.25rem; font-weight: 800; margin-bottom: 0.5rem; }
-  .game-why p { color: var(--muted); font-size: 0.9rem; line-height: 1.75; }
-  .game-benefits { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 1rem; }
-  .benefit-pill {
-    font-size: 0.78rem; font-weight: 700; padding: 4px 12px; border-radius: 100px;
-    display: flex; align-items: center; gap: 6px;
-  }
-  .bp-red { background: rgba(230,57,70,0.15); color: #ff8a8a; }
-  .bp-blue { background: rgba(21,101,192,0.15); color: #90caf9; }
-  .bp-green { background: rgba(45,198,83,0.15); color: #69e88a; }
-  .bp-yellow { background: rgba(244,161,0,0.15); color: #ffc947; }
+    .brand-name {
+      font-size: 1.4rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
 
-  /* === EMOTION MATCH GAME === */
-  .game-container {
-    background: var(--card); border: 1px solid var(--border);
-    border-radius: var(--radius); padding: 2rem; text-align: center;
-  }
-  .game-header { margin-bottom: 1.5rem; }
-  .game-title { font-size: 1.4rem; font-weight: 800; margin-bottom: 0.35rem; }
-  .game-subtitle { color: var(--muted); font-size: 0.88rem; }
-  .game-score-row {
-    display: flex; justify-content: center; gap: 2.5rem; margin-bottom: 1.5rem;
-    padding: 1rem; background: var(--surface); border-radius: 12px;
-  }
-  .score-item { text-align: center; }
-  .score-num { font-size: 1.8rem; font-weight: 800; }
-  .score-label { font-size: 0.75rem; color: var(--muted); }
-  .emoji-display {
-    font-size: 5rem; margin-bottom: 0.75rem; line-height: 1;
-    background: var(--surface); width: 130px; height: 130px;
-    border-radius: 50%; display: flex; align-items: center; justify-content: center;
-    margin: 0 auto 1rem; border: 3px solid var(--border);
-    transition: transform 0.2s;
-  }
-  .emoji-display.correct { border-color: var(--green); transform: scale(1.08); }
-  .emoji-display.wrong { border-color: var(--red); animation: shake 0.4s; }
-  @keyframes shake {
-    0%,100%{transform:translateX(0)} 25%{transform:translateX(-8px)} 75%{transform:translateX(8px)}
-  }
-  .game-question { font-size: 1rem; font-weight: 700; margin-bottom: 1.5rem; color: var(--muted); }
-  .answers-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem; max-width: 420px; margin: 0 auto; }
-  .answer-btn {
-    background: var(--surface); border: 2px solid var(--border);
-    color: var(--text); padding: 1rem; border-radius: 14px;
-    font-size: 1.5rem; font-weight: 700; transition: all 0.2s; cursor: pointer;
-    display: flex; flex-direction: column; align-items: center; gap: 6px;
-  }
-  .answer-btn span { font-size: 0.8rem; font-weight: 600; color: var(--muted); }
-  .answer-btn:hover { border-color: var(--blue); background: rgba(21,101,192,0.1); }
-  .answer-btn.correct { border-color: var(--green); background: rgba(45,198,83,0.15); }
-  .answer-btn.wrong { border-color: var(--red); background: rgba(230,57,70,0.15); }
-  .answer-btn:disabled { cursor: not-allowed; opacity: 0.7; }
-  .game-feedback {
-    min-height: 42px; font-size: 1.1rem; font-weight: 700;
-    padding: 0.6rem 1.5rem; border-radius: 10px; margin: 1rem auto;
-    max-width: 320px; transition: all 0.3s;
-  }
-  .fb-correct { background: rgba(45,198,83,0.15); color: var(--green); }
-  .fb-wrong { background: rgba(230,57,70,0.15); color: var(--red); }
-  .progress-bar-wrap {
-    background: var(--surface); border-radius: 100px; height: 8px; margin: 1.5rem 0 0;
-    overflow: hidden;
-  }
-  .progress-bar-fill {
-    height: 100%; background: linear-gradient(90deg, var(--blue), var(--green));
-    border-radius: 100px; transition: width 0.5s;
-  }
-  .game-complete {
-    padding: 2rem; text-align: center; display: none;
-  }
-  .game-complete h2 { font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem; }
-  .gc-emoji { font-size: 4rem; margin-bottom: 1rem; }
-  .gc-score { font-size: 3rem; font-weight: 800; margin: 1rem 0; }
-  .gc-red { color: var(--red); }
-  .gc-yellow { color: var(--yellow); }
-  .gc-green { color: var(--green); }
-  .gc-blue { color: var(--blue); }
-  .restart-btn {
-    background: var(--blue); color: #fff; border: none;
-    padding: 0.75rem 2rem; border-radius: 12px;
-    font-size: 1rem; font-weight: 700; cursor: pointer; margin-top: 1rem;
-    transition: all 0.2s;
-  }
-  .restart-btn:hover { background: #1976d2; }
+    /* AU = red (1-2), TI' = green (3-5), AU = yellow (6-7), RA = blue (8-9) */
+    .brand-name span:nth-child(1) { color: var(--red); }
+    .brand-name span:nth-child(2) { color: var(--red); }
+    .brand-name span:nth-child(3) { color: var(--green); }
+    .brand-name span:nth-child(4) { color: var(--green); }
+    .brand-name span:nth-child(5) { color: var(--green); }
+    .brand-name span:nth-child(6) { color: var(--yellow); }
+    .brand-name span:nth-child(7) { color: var(--yellow); }
+    .brand-name span:nth-child(8) { color: var(--blue); }
+    .brand-name span:nth-child(9) { color: var(--blue); }
 
-  /* ===== CHATBOT PAGE ===== */
-  .chat-wrap { max-width: 720px; margin: 0 auto; padding: 2rem; }
-  .chat-header { text-align: center; padding: 2rem 0 1.5rem; }
-  .chat-header h1 { font-size: 1.8rem; font-weight: 800; }
-  .chat-header p { color: var(--muted); font-size: 0.9rem; }
-  .chat-box {
-    background: var(--card); border: 1px solid var(--border);
-    border-radius: var(--radius); height: 420px;
-    overflow-y: auto; padding: 1.25rem; display: flex; flex-direction: column; gap: 1rem;
-  }
-  .chat-msg { max-width: 80%; }
-  .chat-msg.bot { align-self: flex-start; }
-  .chat-msg.user { align-self: flex-end; }
-  .chat-bubble {
-    padding: 0.75rem 1rem; border-radius: 14px; font-size: 0.9rem;
-    line-height: 1.6;
-  }
-  .chat-msg.bot .chat-bubble { background: var(--surface); color: var(--text); border-radius: 4px 14px 14px 14px; }
-  .chat-msg.user .chat-bubble { background: var(--blue); color: #fff; border-radius: 14px 14px 4px 14px; }
-  .chat-meta { font-size: 0.72rem; color: var(--muted); margin-top: 3px; padding: 0 4px; }
-  .chat-suggestions { display: flex; gap: 0.5rem; flex-wrap: wrap; margin: 1rem 0; }
-  .suggestion-btn {
-    background: var(--card); border: 1px solid var(--border);
-    color: var(--muted); padding: 0.4rem 1rem; border-radius: 100px;
-    font-size: 0.8rem; font-weight: 600; transition: all 0.2s; cursor: pointer;
-  }
-  .suggestion-btn:hover { border-color: var(--blue); color: var(--blue); }
-  .chat-input-row { display: flex; gap: 0.75rem; margin-top: 0.75rem; }
-  .chat-input {
-    flex: 1; background: var(--card); border: 1px solid var(--border);
-    color: var(--text); padding: 0.75rem 1rem; border-radius: 12px;
-    font-size: 0.9rem; font-family: inherit;
-    transition: border-color 0.2s;
-  }
-  .chat-input:focus { outline: none; border-color: var(--blue); }
-  .chat-send {
-    background: var(--blue); color: #fff; border: none;
-    padding: 0.75rem 1.25rem; border-radius: 12px;
-    font-weight: 700; font-size: 0.9rem; cursor: pointer; transition: all 0.2s;
-  }
-  .chat-send:hover { background: #1976d2; }
-  .chat-send:disabled { opacity: 0.5; cursor: not-allowed; }
 
-  /* ===== FLOATING AI BUTTON ===== */
-  .fab-ai {
-    position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 999;
-    width: 60px; height: 60px; border-radius: 50%;
-    background: linear-gradient(135deg, var(--blue), #1976d2);
-    color: #fff; border: none; cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 6px 24px rgba(21,101,192,0.45);
-    font-size: 1.6rem; transition: all 0.25s;
-    animation: fab-pulse 2.5s infinite;
-  }
-  .fab-ai:hover { transform: scale(1.1); box-shadow: 0 8px 32px rgba(21,101,192,0.6); }
-  @keyframes fab-pulse {
-    0%,100% { box-shadow: 0 6px 24px rgba(21,101,192,0.45); }
-    50% { box-shadow: 0 6px 32px rgba(21,101,192,0.7); }
-  }
-  /* Hide FAB when on chat page */
-  .page-chat-active .fab-ai { display: none; }
 
-  /* Make chat input row sticky at bottom of viewport */
-  .chat-wrap { display: flex; flex-direction: column; height: calc(100vh - 64px); }
-  .chat-box { flex: 1; }
-  .chat-input-row { position: sticky; bottom: 0; background: var(--dark); padding-bottom: 1rem; }
+    
+    .navbar-links {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
 
-  /* ===== FOOTER ===== */
-  .footer {
-    background: var(--dark2); border-top: 1px solid var(--border);
-    padding: 4rem 2rem 2rem; margin-top: 4rem;
-  }
-  .footer-grid {
-    display: grid; grid-template-columns: 2fr 1fr 1fr;
-    gap: 3rem; max-width: 1100px; margin: 0 auto;
-    padding-bottom: 3rem; border-bottom: 1px solid var(--border);
-  }
-  .footer-brand-name { font-size: 1.25rem; font-weight: 800; margin-bottom: 0.75rem; }
-  .footer-brand-name span:nth-child(1) { color: var(--red); }
-  .footer-brand-name span:nth-child(2) { color: var(--yellow); }
-  .footer-brand-name span:nth-child(3) { color: var(--text); }
-  .footer-brand-name span:nth-child(4) { color: var(--blue); }
-  .footer-brand-name span:nth-child(5) { color: var(--green); }
-  .footer-brand-name span:nth-child(6) { color: var(--red); }
-  .footer-desc { color: var(--muted); font-size: 0.9rem; line-height: 1.7; margin-bottom: 1.25rem; }
-  .social-row { display: flex; gap: 0.75rem; }
-  .social-btn {
-    width: 40px; height: 40px; border-radius: 10px;
-    background: var(--card); border: 1px solid var(--border);
-    display: flex; align-items: center; justify-content: center;
-    transition: all 0.2s; cursor: pointer;
-  }
-  .social-btn:hover { border-color: rgba(255,255,255,0.3); background: var(--surface); }
-  .social-btn svg { width: 18px; height: 18px; fill: var(--text); }
+    .nav-btn {
+      background: none;
+      color: var(--muted);
+      padding: 0.4rem 0.85rem;
+      border-radius: 10px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
 
-  .footer-col h4 { font-size: 0.88rem; font-weight: 800; margin-bottom: 1rem; letter-spacing: 0.5px; color: var(--text); }
-  .footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
-  .footer-links li button {
-    background: none; color: var(--muted); font-size: 0.88rem;
-    padding: 0; cursor: pointer; transition: color 0.2s; font-family: inherit;
-  }
-  .footer-links li button:hover { color: var(--text); }
-  .footer-contact { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
-  .footer-contact li { display: flex; align-items: flex-start; gap: 10px; color: var(--muted); font-size: 0.88rem; }
-  .footer-contact li svg { width: 16px; height: 16px; fill: var(--muted); flex-shrink: 0; margin-top: 3px; }
-  .footer-what-we-do {
-    max-width: 1100px; margin: 2.5rem auto 0;
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 1.25rem;
-  }
-  .what-card {
-    background: var(--card); border: 1px solid var(--border);
-    border-radius: 14px; padding: 1.25rem;
-  }
-  .what-icon { font-size: 1.5rem; margin-bottom: 0.65rem; }
-  .what-card h5 { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.35rem; }
-  .what-card p { color: var(--muted); font-size: 0.8rem; line-height: 1.6; }
-  .footer-bottom {
-    max-width: 1100px; margin: 2rem auto 0;
-    display: flex; justify-content: space-between; align-items: center;
-    font-size: 0.8rem; color: var(--muted); flex-wrap: wrap; gap: 0.5rem;
-  }
-  .footer-accent-bar {
-    height: 4px;
-    background: linear-gradient(90deg, var(--red) 25%, var(--yellow) 50%, var(--green) 75%, var(--blue) 100%);
-    margin-bottom: 4rem;
-  }
+    .nav-btn:hover,
+    .nav-btn.active {
+      color: var(--text);
+      background: var(--surface);
+    }
 
-  /* ===== ARTICLE DETAIL PAGE ===== */
-  .article-detail { max-width: 740px; margin: 0 auto; padding: 3rem 2rem; }
-  .article-detail h1 { font-size: 2rem; font-weight: 800; line-height: 1.3; margin-bottom: 1rem; }
-  .article-detail .lead { color: var(--muted); font-size: 1.05rem; margin-bottom: 2rem; }
-  .article-detail h3 { font-size: 1.15rem; font-weight: 800; margin: 2rem 0 0.75rem; }
-  .article-detail p { color: var(--text); font-size: 0.95rem; margin-bottom: 1rem; }
-  .article-detail strong { color: var(--text); }
-  .back-btn {
-    background: var(--card); border: 1px solid var(--border);
-    color: var(--muted); padding: 0.5rem 1rem; border-radius: 10px;
-    font-size: 0.85rem; font-weight: 700; display: inline-flex;
-    align-items: center; gap: 6px; margin-bottom: 2rem; cursor: pointer; transition: all 0.2s;
-  }
-  .back-btn:hover { color: var(--text); border-color: rgba(255,255,255,0.25); }
-  .lang-toggle-row { display: flex; gap: 0.5rem; margin-bottom: 2rem; }
-  .lang-toggle-btn {
-    background: var(--card); border: 1px solid var(--border);
-    color: var(--muted); padding: 0.4rem 1rem; border-radius: 100px;
-    font-size: 0.82rem; font-weight: 700; cursor: pointer; transition: all 0.2s;
-  }
-  .lang-toggle-btn.active { background: var(--blue); color: #fff; border-color: var(--blue); }
+    .navbar-right {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
 
-  /* ===== RESPONSIVE ===== */
-  @media (max-width: 700px) {
-    .navbar-links { display: none; }
-    .featured-card { grid-template-columns: 1fr; }
-    .featured-visual { display: none; }
-    .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
-    .game-why { grid-template-columns: 1fr; }
-  }
-</style>
+    .lang-btn {
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 0.35rem 0.8rem;
+      border-radius: 10px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      transition: all 0.2s;
+    }
+
+    .lang-btn:hover {
+      border-color: var(--blue);
+      color: var(--blue);
+    }
+
+    .theme-btn {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      border-radius: 10px;
+      padding: 0.35rem 0.6rem;
+      font-size: 1rem;
+    }
+
+    /* ===== HOME PAGE ===== */
+    .hero {
+      min-height: 88vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 3rem 2rem;
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(21, 101, 192, 0.18) 0%, transparent 70%);
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 0.35rem 1rem;
+      border-radius: 100px;
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-bottom: 2rem;
+    }
+
+    .hero-badge .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+    }
+
+    .hero h1 {
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 800;
+      line-height: 1.15;
+      max-width: 800px;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: var(--blue);
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      color: var(--muted);
+      max-width: 540px;
+      margin: 0 auto 2.5rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn-primary {
+      background: var(--blue);
+      color: #fff;
+      padding: 0.75rem 1.75rem;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-primary:hover {
+      background: #1976d2;
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 0.75rem 1.75rem;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-outline:hover {
+      border-color: rgba(255, 255, 255, 0.3);
+      background: var(--surface);
+    }
+
+    .stats-row {
+      display: flex;
+      gap: 2.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 3.5rem;
+      padding-top: 3rem;
+      border-top: 1px solid var(--border);
+      width: 100%;
+      max-width: 700px;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-num {
+      font-size: 2rem;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .stat-num.red {
+      color: var(--red);
+    }
+
+    .stat-num.yellow {
+      color: var(--yellow);
+    }
+
+    .stat-num.green {
+      color: var(--green);
+    }
+
+    .stat-num.blue {
+      color: var(--blue);
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    /* ===== FEATURE ARTICLE CARD ===== */
+    .section {
+      padding: 4rem 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .view-all {
+      font-size: 0.82rem;
+      color: var(--blue);
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      background: transparent;
+      border: none;
+      padding: 0;
+      font-family: inherit;
+    }
+
+    .view-all:hover {
+      text-decoration: underline;
+    }
+
+    .featured-card {
+      background: linear-gradient(135deg, var(--card) 0%, rgba(21, 101, 192, 0.18) 100%);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2.5rem;
+      margin: 1.5rem 0 2.5rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .featured-tag {
+      display: inline-block;
+      background: rgba(21, 101, 192, 0.35);
+      color: #bfdbfe;
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 4px 12px;
+      border-radius: 100px;
+      margin-bottom: 0.75rem;
+      border: 1px solid rgba(147, 197, 253, 0.3);
+    }
+
+    body[data-theme="light"] .featured-tag {
+      background: #dbeafe;
+      color: #1e40af;
+      border-color: #93c5fd;
+    }
+
+    .featured-card h2 {
+      font-size: 1.45rem;
+      font-weight: 800;
+      margin-bottom: 0.75rem;
+      line-height: 1.3;
+    }
+
+    .featured-card p {
+      color: var(--muted);
+      font-size: 0.92rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .read-btn {
+      background: var(--blue);
+      color: #fff;
+      padding: 0.55rem 1.25rem;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+    }
+
+    .read-btn:hover {
+      background: #1976d2;
+    }
+
+    .time-badge {
+      color: var(--muted);
+      font-size: 0.8rem;
+      margin-top: 0.75rem;
+    }
+
+    .featured-visual {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(21, 101, 192, 0.3), rgba(46, 214, 99, 0.15));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3.5rem;
+      flex-shrink: 0;
+      border: 2px solid rgba(255, 255, 255, 0.08);
+    }
+
+    /* ===== ARTICLES GRID ===== */
+    .articles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .article-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      transition: all 0.2s;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .article-card:hover {
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .article-tag {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      padding: 3px 9px;
+      border-radius: 100px;
+      display: inline-block;
+      width: fit-content;
+      margin-bottom: 0.65rem;
+    }
+
+    .tag-red {
+      background: rgba(230, 57, 70, 0.2);
+      color: #ff8a8a;
+    }
+
+    .tag-yellow {
+      background: rgba(244, 161, 0, 0.2);
+      color: #ffc947;
+    }
+
+    .tag-green {
+      background: rgba(45, 198, 83, 0.2);
+      color: #69e88a;
+    }
+
+    .tag-blue {
+      background: rgba(21, 101, 192, 0.2);
+      color: #90caf9;
+    }
+
+    body[data-theme="light"] .tag-red {
+      background: rgba(230, 57, 70, 0.15);
+      color: #b91c1c;
+    }
+
+    body[data-theme="light"] .tag-yellow {
+      background: rgba(244, 161, 0, 0.15);
+      color: #92400e;
+    }
+
+    body[data-theme="light"] .tag-green {
+      background: rgba(45, 198, 83, 0.15);
+      color: #166534;
+    }
+
+    body[data-theme="light"] .tag-blue {
+      background: rgba(21, 101, 192, 0.15);
+      color: #1e40af;
+    }
+
+    .article-card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      line-height: 1.35;
+      margin-bottom: 0.5rem;
+    }
+
+    .article-card p {
+      color: var(--muted);
+      font-size: 0.85rem;
+      flex: 1;
+    }
+
+    .article-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1rem;
+    }
+
+    .article-meta {
+      color: var(--muted);
+      font-size: 0.78rem;
+    }
+
+    /* ===== INFORM / EDUCATE PAGES ===== */
+    .page-hero {
+      background: var(--dark2);
+      border-bottom: 1px solid var(--border);
+      padding: 3rem 2rem 2rem;
+      text-align: center;
+    }
+
+    .page-hero h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+    }
+
+    .page-hero p {
+      color: var(--muted);
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    .filter-row {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 1.5rem;
+    }
+
+    .filter-btn {
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 0.4rem 1rem;
+      border-radius: 100px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: var(--blue);
+      color: #fff;
+      border-color: var(--blue);
+    }
+
+    .articles-section {
+      padding: 2.5rem 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    /* ===== VIDEOS PAGE ===== */
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .video-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .video-card:hover {
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .video-thumb {
+      width: 100%;
+      height: 170px;
+      background: linear-gradient(135deg, rgba(21, 101, 192, 0.3), rgba(45, 198, 83, 0.15));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      position: relative;
+    }
+
+    .play-btn {
+      position: absolute;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      bottom: 12px;
+      right: 12px;
+      color: var(--dark);
+    }
+
+    .video-info {
+      padding: 1.25rem;
+    }
+
+    .video-info h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 0.35rem;
+    }
+
+    .video-info p {
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+
+    /* ===== GAME PAGE ===== */
+    .game-section {
+      padding: 3rem 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .game-why {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      margin-bottom: 2.5rem;
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 1.5rem;
+      align-items: start;
+    }
+
+    .game-why-icon {
+      font-size: 3.5rem;
+      text-align: center;
+    }
+
+    .game-why h2 {
+      font-size: 1.25rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+    }
+
+    .game-why p {
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.75;
+    }
+
+    .game-benefits {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+
+    .benefit-pill {
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 100px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .bp-red {
+      background: rgba(230, 57, 70, 0.15);
+      color: #ff8a8a;
+    }
+
+    .bp-blue {
+      background: rgba(21, 101, 192, 0.15);
+      color: #90caf9;
+    }
+
+    .bp-green {
+      background: rgba(45, 198, 83, 0.15);
+      color: #69e88a;
+    }
+
+    .bp-yellow {
+      background: rgba(244, 161, 0, 0.15);
+      color: #ffc947;
+    }
+
+    /* === EMOTION MATCH GAME === */
+    .game-container {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .game-header {
+      margin-bottom: 1.5rem;
+    }
+
+    .game-title {
+      font-size: 1.4rem;
+      font-weight: 800;
+      margin-bottom: 0.35rem;
+    }
+
+    .game-subtitle {
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .game-score-row {
+      display: flex;
+      justify-content: center;
+      gap: 2.5rem;
+      margin-bottom: 1.5rem;
+      padding: 1rem;
+      background: var(--surface);
+      border-radius: 12px;
+    }
+
+    .score-item {
+      text-align: center;
+    }
+
+    .score-num {
+      font-size: 1.8rem;
+      font-weight: 800;
+    }
+
+    .score-label {
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    .emoji-display {
+      font-size: 5rem;
+      margin-bottom: 0.75rem;
+      line-height: 1;
+      background: var(--surface);
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1rem;
+      border: 3px solid var(--border);
+      transition: transform 0.2s;
+    }
+
+    .emoji-display.correct {
+      border-color: var(--green);
+      transform: scale(1.08);
+    }
+
+    .emoji-display.wrong {
+      border-color: var(--red);
+      animation: shake 0.4s;
+    }
+
+    @keyframes shake {
+
+      0%,
+      100% {
+        transform: translateX(0)
+      }
+
+      25% {
+        transform: translateX(-8px)
+      }
+
+      75% {
+        transform: translateX(8px)
+      }
+    }
+
+    .game-question {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      color: var(--muted);
+    }
+
+    .answers-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+      max-width: 420px;
+      margin: 0 auto;
+    }
+
+    .answer-btn {
+      background: var(--surface);
+      border: 2px solid var(--border);
+      color: var(--text);
+      padding: 1rem;
+      border-radius: 14px;
+      font-size: 1.5rem;
+      font-weight: 700;
+      transition: all 0.2s;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .answer-btn span {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--muted);
+    }
+
+    .answer-btn:hover {
+      border-color: var(--blue);
+      background: rgba(21, 101, 192, 0.1);
+    }
+
+    .answer-btn.correct {
+      border-color: var(--green);
+      background: rgba(45, 198, 83, 0.15);
+    }
+
+    .answer-btn.wrong {
+      border-color: var(--red);
+      background: rgba(230, 57, 70, 0.15);
+    }
+
+    .answer-btn:disabled {
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
+
+    .game-feedback {
+      min-height: 42px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      padding: 0.6rem 1.5rem;
+      border-radius: 10px;
+      margin: 1rem auto;
+      max-width: 320px;
+      transition: all 0.3s;
+    }
+
+    .fb-correct {
+      background: rgba(45, 198, 83, 0.15);
+      color: var(--green);
+    }
+
+    .fb-wrong {
+      background: rgba(230, 57, 70, 0.15);
+      color: var(--red);
+    }
+
+    .progress-bar-wrap {
+      background: var(--surface);
+      border-radius: 100px;
+      height: 8px;
+      margin: 1.5rem 0 0;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--blue), var(--green));
+      border-radius: 100px;
+      transition: width 0.5s;
+    }
+
+    .game-complete {
+      padding: 2rem;
+      text-align: center;
+      display: none;
+    }
+
+    .game-complete h2 {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+    }
+
+    .gc-emoji {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+    }
+
+    .gc-score {
+      font-size: 3rem;
+      font-weight: 800;
+      margin: 1rem 0;
+    }
+
+    .gc-red {
+      color: var(--red);
+    }
+
+    .gc-yellow {
+      color: var(--yellow);
+    }
+
+    .gc-green {
+      color: var(--green);
+    }
+
+    .gc-blue {
+      color: var(--blue);
+    }
+
+    .restart-btn {
+      background: var(--blue);
+      color: #fff;
+      border: none;
+      padding: 0.75rem 2rem;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 1rem;
+      transition: all 0.2s;
+    }
+
+    .restart-btn:hover {
+      background: #1976d2;
+    }
+
+    /* ===== CHATBOT PAGE ===== */
+    .chat-wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .chat-header {
+      text-align: center;
+      padding: 2rem 0 1.5rem;
+    }
+
+    .chat-header h1 {
+      font-size: 1.8rem;
+      font-weight: 800;
+    }
+
+    .chat-header p {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .chat-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      height: 420px;
+      overflow-y: auto;
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .chat-msg {
+      max-width: 80%;
+    }
+
+    .chat-msg.bot {
+      align-self: flex-start;
+    }
+
+    .chat-msg.user {
+      align-self: flex-end;
+    }
+
+    .chat-bubble {
+      padding: 0.75rem 1rem;
+      border-radius: 14px;
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .chat-msg.bot .chat-bubble {
+      background: var(--surface);
+      color: var(--text);
+      border-radius: 4px 14px 14px 14px;
+    }
+
+    .chat-msg.user .chat-bubble {
+      background: var(--blue);
+      color: #fff;
+      border-radius: 14px 14px 4px 14px;
+    }
+
+    .chat-meta {
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-top: 3px;
+      padding: 0 4px;
+    }
+
+    .chat-suggestions {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin: 1rem 0;
+    }
+
+    .suggestion-btn {
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 0.4rem 1rem;
+      border-radius: 100px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+
+    .suggestion-btn:hover {
+      border-color: var(--blue);
+      color: var(--blue);
+    }
+
+    .chat-input-row {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 0.75rem;
+    }
+
+    .chat-input {
+      flex: 1;
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.75rem 1rem;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      font-family: inherit;
+      transition: border-color 0.2s;
+    }
+
+    .chat-input:focus {
+      outline: none;
+      border-color: var(--blue);
+    }
+
+    .chat-send {
+      background: var(--blue);
+      color: #fff;
+      border: none;
+      padding: 0.75rem 1.25rem;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .chat-send:hover {
+      background: #1976d2;
+    }
+
+    .chat-send:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* ===== FLOATING AI BUTTON ===== */
+    .fab-ai {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      z-index: 999;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--blue), #1976d2);
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 24px rgba(21, 101, 192, 0.45);
+      font-size: 1.6rem;
+      transition: all 0.25s;
+      animation: fab-pulse 2.5s infinite;
+    }
+
+    .fab-ai:hover {
+      transform: scale(1.1);
+      box-shadow: 0 8px 32px rgba(21, 101, 192, 0.6);
+    }
+
+    @keyframes fab-pulse {
+
+      0%,
+      100% {
+        box-shadow: 0 6px 24px rgba(21, 101, 192, 0.45);
+      }
+
+      50% {
+        box-shadow: 0 6px 32px rgba(21, 101, 192, 0.7);
+      }
+    }
+
+    /* Hide FAB when on chat page */
+    .page-chat-active .fab-ai {
+      display: none;
+    }
+
+    /* Make chat input row sticky at bottom of viewport */
+    .chat-wrap {
+      display: flex;
+      flex-direction: column;
+      height: calc(100vh - 64px);
+    }
+
+    .chat-box {
+      flex: 1;
+    }
+
+    .chat-input-row {
+      position: sticky;
+      bottom: 0;
+      background: var(--dark);
+      padding-bottom: 1rem;
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      background: var(--dark2);
+      border-top: 1px solid var(--border);
+      padding: 4rem 2rem 2rem;
+      margin-top: 4rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 3rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .footer-brand-name {
+      font-size: 1.25rem;
+      font-weight: 800;
+      margin-bottom: 0.75rem;
+    }
+
+    /* AU = red (1-2), TI' = green (3-5), AU = yellow (6-7), RA = blue (8-9) */
+    .footer-brand-name span:nth-child(1) { color: var(--red); }
+    .footer-brand-name span:nth-child(2) { color: var(--red); }
+    .footer-brand-name span:nth-child(3) { color: var(--green); }
+    .footer-brand-name span:nth-child(4) { color: var(--green); }
+    .footer-brand-name span:nth-child(5) { color: var(--green); }
+    .footer-brand-name span:nth-child(6) { color: var(--yellow); }
+    .footer-brand-name span:nth-child(7) { color: var(--yellow); }
+    .footer-brand-name span:nth-child(8) { color: var(--blue); }
+    .footer-brand-name span:nth-child(9) { color: var(--blue); }
+
+    .footer-desc {
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.7;
+      margin-bottom: 1.25rem;
+    }
+
+    .social-row {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .social-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+
+    .social-btn:hover {
+      border-color: rgba(255, 255, 255, 0.3);
+      background: var(--surface);
+    }
+
+    .social-btn svg {
+      width: 18px;
+      height: 18px;
+      fill: var(--text);
+    }
+
+    .footer-col h4 {
+      font-size: 0.88rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      letter-spacing: 0.5px;
+      color: var(--text);
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .footer-links li button {
+      background: none;
+      color: var(--muted);
+      font-size: 0.88rem;
+      padding: 0;
+      cursor: pointer;
+      transition: color 0.2s;
+      font-family: inherit;
+    }
+
+    .footer-links li button:hover {
+      color: var(--text);
+    }
+
+    .footer-contact {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    .footer-contact li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .footer-contact li svg {
+      width: 16px;
+      height: 16px;
+      fill: var(--muted);
+      flex-shrink: 0;
+      margin-top: 3px;
+    }
+
+    .footer-what-we-do {
+      max-width: 1100px;
+      margin: 2.5rem auto 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .what-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.25rem;
+    }
+
+    .what-icon {
+      font-size: 1.5rem;
+      margin-bottom: 0.65rem;
+    }
+
+    .what-card h5 {
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-bottom: 0.35rem;
+    }
+
+    .what-card p {
+      color: var(--muted);
+      font-size: 0.8rem;
+      line-height: 1.6;
+    }
+
+    .footer-bottom {
+      max-width: 1100px;
+      margin: 2rem auto 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+      color: var(--muted);
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .footer-accent-bar {
+      height: 4px;
+      background: linear-gradient(90deg, var(--red) 25%, var(--yellow) 50%, var(--green) 75%, var(--blue) 100%);
+      margin-bottom: 4rem;
+    }
+
+    /* ===== ARTICLE DETAIL PAGE ===== */
+    .article-detail {
+      max-width: 740px;
+      margin: 0 auto;
+      padding: 3rem 2rem;
+    }
+
+    .article-detail h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      line-height: 1.3;
+      margin-bottom: 1rem;
+    }
+
+    .article-detail .lead {
+      color: var(--muted);
+      font-size: 1.05rem;
+      margin-bottom: 2rem;
+    }
+
+    .article-detail h3 {
+      font-size: 1.15rem;
+      font-weight: 800;
+      margin: 2rem 0 0.75rem;
+    }
+
+    .article-detail p {
+      color: var(--text);
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+    }
+
+    .article-detail strong {
+      color: var(--text);
+    }
+
+    .back-btn {
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 0.5rem 1rem;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 2rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .back-btn:hover {
+      color: var(--text);
+      border-color: rgba(255, 255, 255, 0.25);
+    }
+
+    .lang-toggle-row {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .lang-toggle-btn {
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 0.4rem 1rem;
+      border-radius: 100px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .lang-toggle-btn.active {
+      background: var(--blue);
+      color: #fff;
+      border-color: var(--blue);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 700px) {
+      .navbar-links {
+        display: none;
+      }
+
+      .featured-card {
+        grid-template-columns: 1fr;
+      }
+
+      .featured-visual {
+        display: none;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .game-why {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-<!-- ===== NAVBAR ===== -->
-<nav class="navbar">
-  <div class="navbar-brand" onclick="showPage('home')">
-    <svg class="brand-logo" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <!-- Puzzle pieces in 4 brand colors -->
-      <path d="M40 8 L52 20 Q58 20 58 26 L70 38 L58 50 Q58 56 52 56 L40 68 L28 56 Q22 56 22 50 L10 38 L22 26 Q22 20 28 20 Z" fill="none"/>
-      <!-- Red piece top -->
-      <path d="M40 8 L52 20 Q48 20 48 26 L40 26 L32 26 Q32 20 28 20 Z" fill="#E63946"/>
-      <!-- Yellow piece right -->
-      <path d="M52 20 L64 32 Q64 36 58 36 L58 44 Q64 44 64 48 L52 60 L48 56 Q48 50 54 50 L54 30 Q48 30 48 26 Z" fill="#F4A100"/>
-      <!-- Green piece bottom -->
-      <path d="M40 68 L28 56 Q32 56 32 50 L40 50 L48 50 Q48 56 52 56 Z" fill="#2DC653"/>
-      <!-- Blue piece left -->
-      <path d="M28 20 L32 26 Q26 26 26 32 L26 50 Q32 50 32 56 L28 60 L16 48 Q16 44 22 44 L22 36 Q16 36 16 32 Z" fill="#1565C0"/>
-      <!-- Center head silhouette -->
-      <circle cx="40" cy="36" r="10" fill="rgba(255,255,255,0.12)"/>
-      <path d="M34 38 Q36 32 40 32 Q44 32 46 38 L45 42 Q43 44 40 44 Q37 44 35 42 Z" fill="rgba(255,255,255,0.25)"/>
-    </svg>
-    <div class="brand-name">
-      <span>A</span><span>U</span><span>T</span><span>I</span><span>'</span><span>A</span><span data-i18n="brand-ura">URA</span>
-    </div>
-  </div>
-  <div class="navbar-links">
-    <button class="nav-btn active" onclick="showPage('home')" data-i18n="nav-home">Accueil</button>
-    <button class="nav-btn" onclick="showPage('inform')" data-i18n="nav-inform">Je m'informe</button>
-    <button class="nav-btn" onclick="showPage('educate')" data-i18n="nav-educate">Je suis Enseignant</button>
-    <button class="nav-btn" onclick="showPage('videos')" data-i18n="nav-videos">Vidéos</button>
-    <button class="nav-btn" onclick="showPage('game')" data-i18n="nav-game">Espace Jeux</button>
-    <button class="nav-btn" onclick="showPage('chat')" data-i18n="nav-chat">Assistant IA</button>
-  </div>
-  <div class="navbar-right">
-    <button class="theme-btn" onclick="toggleTheme()" id="theme-btn">☀️</button>
-    <button class="lang-btn" onclick="toggleLang()" id="lang-btn">AR</button>
-  </div>
-</nav>
-
-<!-- ===== HOME PAGE ===== -->
-<div id="page-home" class="page active">
-  <div class="hero">
-    <div class="hero-badge"><span class="dot"></span><span data-i18n="badge">Plateforme inclusive · Tunisie</span></div>
-    <h1 data-i18n="hero-title">Chaque enfant mérite d'être <em>compris</em></h1>
-    <p data-i18n="hero-sub">Ressources éducatives, vidéos et assistant IA pour accompagner les parents et éducateurs d'enfants autistes.</p>
-    <div class="hero-actions">
-      <button class="btn-primary" onclick="showPage('inform')">
-        <span data-i18n="cta-inform">S'informer</span> →
-      </button>
-      <button class="btn-outline" onclick="showPage('chat')">
-        <span data-i18n="cta-chat">Parler à l'assistant</span>
-      </button>
-    </div>
-    <div class="stats-row">
-      <div class="stat"><div class="stat-num red">22</div><div class="stat-label" data-i18n="stat-articles">Articles éducatifs</div></div>
-      <div class="stat"><div class="stat-num yellow">5</div><div class="stat-label" data-i18n="stat-videos">Vidéos inspirantes</div></div>
-      <div class="stat"><div class="stat-num green">IA</div><div class="stat-label" data-i18n="stat-ai">Assistant 24/7</div></div>
-      <div class="stat"><div class="stat-num blue">FR/AR</div><div class="stat-label" data-i18n="stat-bilingual">Bilingue</div></div>
-    </div>
-  </div>
-
-  <div class="section">
-    <div class="section-title">
-      <span data-i18n="featured-label">Article à la une</span>
-      <button class="view-all" onclick="showPage('inform')" data-i18n="view-all">Voir tout</button>
-    </div>
-    <div class="featured-card">
-      <div>
-        <div class="featured-tag" data-i18n="featured-tag">Article vedette · Comprendre</div>
-        <h2 data-i18n="featured-title">L'autisme : une différence de traitement de l'information</h2>
-        <p data-i18n="featured-desc">L'autisme n'est pas une maladie mentale — c'est un fonctionnement neurologique différent. Découvrez comment votre enfant perçoit le monde et comment l'accompagner avec bienveillance.</p>
-        <button class="read-btn" onclick="showArticle('autism-info')"><span data-i18n="read-article">Lire l'article</span> →</button>
-        <div class="time-badge">⏱ <span data-i18n="5min">5 min de lecture</span></div>
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar">
+    <div class="navbar-brand" onclick="showPage('home')">
+      <img src="./logo.png" alt="Auti-Aura Logo" class="brand-logo" />
+      <div class="brand-name">
+        <span>A</span><span>U</span><span>T</span><span>I</span><span>'</span><span>A</span><span>U</span><span>R</span><span>A</span>
       </div>
-      <div class="featured-visual">🧠</div>
     </div>
-
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem;">
-      <h2 style="font-size:1.2rem;font-weight:800;" data-i18n="recent-articles">Articles récents</h2>
-      <button class="view-all" onclick="showPage('inform')" data-i18n="view-all">Voir tout</button>
+    <div class="navbar-links">
+      <button class="nav-btn active" onclick="showPage('home')" data-i18n="nav-home">Accueil</button>
+      <button class="nav-btn" onclick="showPage('inform')" data-i18n="nav-inform">Je m'informe</button>
+      <button class="nav-btn" onclick="showPage('educate')" data-i18n="nav-educate">Je suis Enseignant</button>
+      <button class="nav-btn" onclick="showPage('videos')" data-i18n="nav-videos">Vidéos</button>
+      <button class="nav-btn" onclick="showPage('game')" data-i18n="nav-game">Espace Jeux</button>
+      <button class="nav-btn" onclick="showPage('chat')" data-i18n="nav-chat">Assistant IA</button>
     </div>
-    <div class="articles-grid" id="home-articles"></div>
-  </div>
-</div>
-
-<!-- ===== INFORM PAGE ===== -->
-<div id="page-inform" class="page">
-  <div class="page-hero">
-    <h1 data-i18n="inform-title">S'informer sur l'autisme</h1>
-    <p data-i18n="inform-sub">Articles de sensibilisation pour le grand public</p>
-    <div class="filter-row">
-      <button class="filter-btn active" data-filter="all" onclick="filterArticles(this, 'inform')" data-i18n="filter-all">Tous</button>
-      <button class="filter-btn" data-filter="Comprendre" onclick="filterArticles(this, 'inform')" data-i18n="tag-Comprendre">Comprendre</button>
-      <button class="filter-btn" data-filter="Dépistage" onclick="filterArticles(this, 'inform')" data-i18n="tag-Dépistage">Dépistage</button>
-      <button class="filter-btn" data-filter="Droits" onclick="filterArticles(this, 'inform')" data-i18n="tag-Droits">Droits</button>
-      <button class="filter-btn" data-filter="Sensoriel" onclick="filterArticles(this, 'inform')" data-i18n="tag-Sensoriel">Sensoriel</button>
+    <div class="navbar-right">
+      <button class="theme-btn" onclick="toggleTheme()" id="theme-btn">☀️</button>
+      <button class="lang-btn" onclick="toggleLang()" id="lang-btn">AR</button>
     </div>
-  </div>
-  <div class="articles-section"><div class="articles-grid" id="inform-articles"></div></div>
-</div>
+  </nav>
 
-<!-- ===== EDUCATE PAGE ===== -->
-<div id="page-educate" class="page">
-  <div class="page-hero">
-    <h1 data-i18n="educate-title">Ressources pour éducateurs</h1>
-    <p data-i18n="educate-sub">Conseils pratiques et stratégies pédagogiques adaptées</p>
-    <div class="filter-row">
-      <button class="filter-btn active" data-filter="all" onclick="filterArticles(this, 'educate')" data-i18n="filter-all">Tous</button>
-      <button class="filter-btn" data-filter="Pédagogie" onclick="filterArticles(this, 'educate')" data-i18n="tag-Pédagogie">Pédagogie</button>
-      <button class="filter-btn" data-filter="Émotions" onclick="filterArticles(this, 'educate')" data-i18n="tag-Émotions">Émotions</button>
-      <button class="filter-btn" data-filter="Partenariat" onclick="filterArticles(this, 'educate')" data-i18n="tag-Partenariat">Partenariat</button>
-    </div>
-  </div>
-  <div class="articles-section"><div class="articles-grid" id="educate-articles"></div></div>
-</div>
-
-<!-- ===== VIDEOS PAGE ===== -->
-<div id="page-videos" class="page">
-  <div class="page-hero">
-    <h1 data-i18n="videos-title">Vidéos inspirantes</h1>
-    <p data-i18n="videos-sub">Témoignages, explications et guides pratiques en vidéo</p>
-  </div>
-  <div class="articles-section">
-    <div class="video-grid" id="videos-grid"></div>
-  </div>
-</div>
-
-<!-- ===== GAME PAGE ===== -->
-<div id="page-game" class="page">
-  <div class="page-hero">
-    <h1 data-i18n="game-title">Espace Détente & Apprentissage</h1>
-    <p data-i18n="game-sub">Des jeux interactifs conçus pour les enfants autistes</p>
-  </div>
-  <div class="game-section">
-    <!-- WHY THIS GAME -->
-    <div class="game-why">
-      <div class="game-why-icon">🎮</div>
-      <div>
-        <h2 data-i18n="game-why-title">Pourquoi ce jeu ?</h2>
-        <p data-i18n="game-why-text">Les enfants autistes ont souvent du mal à identifier et nommer leurs émotions, ce qui peut provoquer des crises ou une frustration silencieuse. Le jeu <strong>Reconnais l'émotion</strong> entraîne la reconnaissance des expressions faciales de manière amusante, répétitive et sans pression. La répétition visuelle et le feedback immédiat (correct / incorrect) aident le cerveau à construire des associations émotionnelles durables, favorisant une meilleure communication et une meilleure gestion des émotions au quotidien.</p>
-        <div class="game-benefits">
-          <div class="benefit-pill bp-blue">🧠 <span data-i18n="benefit-cog">Stimulation cognitive</span></div>
-          <div class="benefit-pill bp-green">😊 <span data-i18n="benefit-emotion">Reconnaissance émotionnelle</span></div>
-          <div class="benefit-pill bp-yellow">🔁 <span data-i18n="benefit-repeat">Apprentissage par répétition</span></div>
-          <div class="benefit-pill bp-red">🎯 <span data-i18n="benefit-focus">Attention et concentration</span></div>
+  <!-- ===== HOME PAGE ===== -->
+  <div id="page-home" class="page active">
+    <div class="hero">
+      <div class="hero-badge"><span class="dot"></span><span data-i18n="badge">Plateforme inclusive · Tunisie</span>
+      </div>
+      <h1 data-i18n="hero-title">Chaque enfant mérite d'être <em>compris</em></h1>
+      <p data-i18n="hero-sub">Ressources éducatives, vidéos et assistant IA pour accompagner les parents et éducateurs
+        d'enfants autistes.</p>
+      <div class="hero-actions">
+        <button class="btn-primary" onclick="showPage('inform')">
+          <span data-i18n="cta-inform">S'informer</span> →
+        </button>
+        <button class="btn-outline" onclick="showPage('chat')">
+          <span data-i18n="cta-chat">Parler à l'assistant</span>
+        </button>
+      </div>
+      <div class="stats-row">
+        <div class="stat">
+          <div class="stat-num red">22</div>
+          <div class="stat-label" data-i18n="stat-articles">Articles éducatifs</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num yellow">5</div>
+          <div class="stat-label" data-i18n="stat-videos">Vidéos inspirantes</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num green">IA</div>
+          <div class="stat-label" data-i18n="stat-ai">Assistant 24/7</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num blue">FR/AR</div>
+          <div class="stat-label" data-i18n="stat-bilingual">Bilingue</div>
         </div>
       </div>
     </div>
 
-    <!-- EMOTION MATCH GAME -->
-    <div class="game-container" id="game-main">
-      <div class="game-header">
-        <div class="game-title" data-i18n="game-name">🎭 Reconnais l'émotion</div>
-        <div class="game-subtitle" data-i18n="game-inst">Regarde l'emoji et choisis la bonne émotion !</div>
+    <div class="section">
+      <div class="section-title">
+        <span data-i18n="featured-label">Article à la une</span>
+        <button class="view-all" onclick="showPage('inform')" data-i18n="view-all">Voir tout</button>
       </div>
-      <div class="game-score-row">
-        <div class="score-item"><div class="score-num" id="score-correct" style="color:var(--green)">0</div><div class="score-label" data-i18n="score-correct">Correct</div></div>
-        <div class="score-item"><div class="score-num" id="score-q">1</div><div class="score-label" data-i18n="score-question">Question</div></div>
-        <div class="score-item"><div class="score-num" id="score-total">10</div><div class="score-label" data-i18n="score-total">Total</div></div>
+      <div class="featured-card">
+        <div>
+          <div class="featured-tag" data-i18n="featured-tag">Article vedette · Comprendre</div>
+          <h2 data-i18n="featured-title">L'autisme : une différence de traitement de l'information</h2>
+          <p data-i18n="featured-desc">L'autisme n'est pas une maladie mentale — c'est un fonctionnement neurologique
+            différent. Découvrez comment votre enfant perçoit le monde et comment l'accompagner avec bienveillance.</p>
+          <button class="read-btn" onclick="showArticle('autism-info')"><span data-i18n="read-article">Lire
+              l'article</span> →</button>
+          <div class="time-badge">⏱ <span data-i18n="5min">5 min de lecture</span></div>
+        </div>
+        <div class="featured-visual">🧠</div>
       </div>
-      <div class="emoji-display" id="game-emoji">😊</div>
-      <div class="game-question" data-i18n="game-q">Quelle est cette émotion ?</div>
-      <div class="answers-grid" id="answers-grid"></div>
-      <div class="game-feedback" id="game-feedback"></div>
-      <div class="progress-bar-wrap"><div class="progress-bar-fill" id="progress-bar" style="width:10%"></div></div>
-    </div>
 
-    <!-- GAME COMPLETE -->
-    <div class="game-container game-complete" id="game-complete">
-      <div class="gc-emoji" id="gc-emoji">🎉</div>
-      <h2 data-i18n="gc-title">Bravo !</h2>
-      <div class="gc-score" id="gc-score-display"></div>
-      <p id="gc-message" style="color:var(--muted);"></p>
-      <button class="restart-btn" onclick="restartGame()" data-i18n="restart">Rejouer</button>
-    </div>
-  </div>
-</div>
-
-<!-- ===== CHAT PAGE ===== -->
-<div id="page-chat" class="page">
-  <div class="chat-wrap">
-    <div class="chat-header">
-      <h1 data-i18n="chat-title">Assistant Auti-Aura</h1>
-      <p data-i18n="chat-sub">Posez vos questions en français ou en arabe</p>
-    </div>
-    <div class="chat-box" id="chat-box">
-      <div class="chat-msg bot">
-        <div class="chat-bubble" data-i18n="chat-welcome">Bonjour ! Je suis l'assistant Auti-Aura. Je suis là pour répondre à vos questions sur l'autisme — en français ou en arabe. Comment puis-je vous aider aujourd'hui ?</div>
-        <div class="chat-meta" data-i18n="now">Maintenant</div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem;">
+        <h2 style="font-size:1.2rem;font-weight:800;" data-i18n="recent-articles">Articles récents</h2>
+        <button class="view-all" onclick="showPage('inform')" data-i18n="view-all">Voir tout</button>
       </div>
-    </div>
-    <div class="chat-suggestions">
-      <button class="suggestion-btn" onclick="sendSuggestion(this)" data-i18n="sugg-1">Qu'est-ce que le TSA ?</button>
-      <button class="suggestion-btn" onclick="sendSuggestion(this)" data-i18n="sugg-2">Crises sensorielles</button>
-      <button class="suggestion-btn" onclick="sendSuggestion(this)" data-i18n="sugg-3">Signes précoces</button>
-    </div>
-    <div class="chat-input-row">
-      <input class="chat-input" id="chat-input" type="text" placeholder="Écrivez votre message..." data-i18n-placeholder="chat-placeholder" />
-      <button class="chat-send" onclick="sendChatMessage()" data-i18n="send">Envoyer</button>
-    </div>
-  </div>
-</div>
-
-<!-- ===== ARTICLE DETAIL PAGE ===== -->
-<div id="page-article" class="page">
-  <div class="article-detail" id="article-content"></div>
-</div>
-
-<!-- ===== FOOTER (on all pages except article detail) ===== -->
-<footer class="footer" id="main-footer">
-  <div class="footer-accent-bar"></div>
-
-  <!-- WHAT WE DO -->
-  <div style="max-width:1100px;margin:0 auto 3rem;">
-    <h3 style="font-size:1.2rem;font-weight:800;margin-bottom:1.5rem;" data-i18n="what-we-do">Ce que nous faisons</h3>
-    <div class="footer-what-we-do">
-      <div class="what-card">
-        <div class="what-icon">📚</div>
-        <h5 data-i18n="what-1-title">Sensibilisation</h5>
-        <p data-i18n="what-1-desc">Articles bilingues FR/AR sur le spectre autistique, les droits et les ressources en Tunisie.</p>
-      </div>
-      <div class="what-card">
-        <div class="what-icon">👩‍🏫</div>
-        <h5 data-i18n="what-2-title">Soutien aux éducateurs</h5>
-        <p data-i18n="what-2-desc">Stratégies pédagogiques validées pour inclure chaque enfant avec bienveillance.</p>
-      </div>
-      <div class="what-card">
-        <div class="what-icon">🤖</div>
-        <h5 data-i18n="what-3-title">Assistant IA</h5>
-        <p data-i18n="what-3-desc">Un chatbot disponible 24h/24 pour répondre aux questions des parents et professionnels.</p>
-      </div>
-      <div class="what-card">
-        <div class="what-icon">🎮</div>
-        <h5 data-i18n="what-4-title">Jeux thérapeutiques</h5>
-        <p data-i18n="what-4-desc">Des activités interactives qui aident les enfants à reconnaître et gérer leurs émotions.</p>
-      </div>
-      <div class="what-card">
-        <div class="what-icon">🎬</div>
-        <h5 data-i18n="what-5-title">Vidéos & témoignages</h5>
-        <p data-i18n="what-5-desc">Des contenus vidéo inspirants — témoignages de familles tunisiennes et guides pratiques.</p>
-      </div>
+      <div class="articles-grid" id="home-articles"></div>
     </div>
   </div>
 
-  <div class="footer-grid">
-    <div>
-      <div class="footer-brand-name">
-        <span>A</span><span>U</span><span>T</span><span>I</span><span>'</span><span>A</span><span>URA</span>
-      </div>
-      <p class="footer-desc" data-i18n="footer-mission">Notre mission est de sensibiliser, éduquer et soutenir les familles touchées par l'autisme pour une société plus inclusive.</p>
-      <div class="social-row">
-        <!-- Facebook -->
-        <a class="social-btn" href="https://www.facebook.com/profile.php?id=61587332244018" target="_blank" rel="noopener" title="Facebook Auti-Aura">
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-        </a>
-        <!-- Instagram -->
-        <a class="social-btn" href="https://www.instagram.com/auti_aura/" target="_blank" rel="noopener" title="Instagram Auti-Aura">
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-        </a>
+  <!-- ===== INFORM PAGE ===== -->
+  <div id="page-inform" class="page">
+    <div class="page-hero">
+      <h1 data-i18n="inform-title">S'informer sur l'autisme</h1>
+      <p data-i18n="inform-sub">Articles de sensibilisation pour le grand public</p>
+      <div class="filter-row">
+        <button class="filter-btn active" data-filter="all" onclick="filterArticles(this, 'inform')"
+          data-i18n="filter-all">Tous</button>
+        <button class="filter-btn" data-filter="Comprendre" onclick="filterArticles(this, 'inform')"
+          data-i18n="tag-Comprendre">Comprendre</button>
+        <button class="filter-btn" data-filter="Dépistage" onclick="filterArticles(this, 'inform')"
+          data-i18n="tag-Dépistage">Dépistage</button>
+        <button class="filter-btn" data-filter="Droits" onclick="filterArticles(this, 'inform')"
+          data-i18n="tag-Droits">Droits</button>
+        <button class="filter-btn" data-filter="Sensoriel" onclick="filterArticles(this, 'inform')"
+          data-i18n="tag-Sensoriel">Sensoriel</button>
       </div>
     </div>
-
-    <div class="footer-col">
-      <h4 data-i18n="footer-nav">Navigation</h4>
-      <ul class="footer-links">
-        <li><button onclick="showPage('home')" data-i18n="nav-home">Accueil</button></li>
-        <li><button onclick="showPage('inform')" data-i18n="nav-inform">Je m'informe</button></li>
-        <li><button onclick="showPage('educate')" data-i18n="nav-educate">Je suis Enseignant</button></li>
-        <li><button onclick="showPage('videos')" data-i18n="nav-videos">Vidéos</button></li>
-        <li><button onclick="showPage('game')" data-i18n="nav-game">Espace Jeux</button></li>
-        <li><button onclick="showPage('chat')" data-i18n="nav-chat">Assistant IA</button></li>
-      </ul>
-    </div>
-
-    <div class="footer-col">
-      <h4 data-i18n="footer-contact">Contact</h4>
-      <ul class="footer-contact">
-        <li>
-          <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-          auti.aura.supcom@gmail.com
-        </li>
-        <li>
-          <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-          <span data-i18n="footer-location">Tunis, Tunisie</span>
-        </li>
-      </ul>
+    <div class="articles-section">
+      <div class="articles-grid" id="inform-articles"></div>
     </div>
   </div>
 
-  <div class="footer-bottom">
-    <span>© 2026 Auti-Aura. <span data-i18n="footer-rights">Tous droits réservés.</span></span>
-    <span data-i18n="footer-made">Fait avec ❤️ pour les familles tunisiennes</span>
+  <!-- ===== EDUCATE PAGE ===== -->
+  <div id="page-educate" class="page">
+    <div class="page-hero">
+      <h1 data-i18n="educate-title">Ressources pour éducateurs</h1>
+      <p data-i18n="educate-sub">Conseils pratiques et stratégies pédagogiques adaptées</p>
+      <div class="filter-row">
+        <button class="filter-btn active" data-filter="all" onclick="filterArticles(this, 'educate')"
+          data-i18n="filter-all">Tous</button>
+        <button class="filter-btn" data-filter="Pédagogie" onclick="filterArticles(this, 'educate')"
+          data-i18n="tag-Pédagogie">Pédagogie</button>
+        <button class="filter-btn" data-filter="Émotions" onclick="filterArticles(this, 'educate')"
+          data-i18n="tag-Émotions">Émotions</button>
+        <button class="filter-btn" data-filter="Partenariat" onclick="filterArticles(this, 'educate')"
+          data-i18n="tag-Partenariat">Partenariat</button>
+      </div>
+    </div>
+    <div class="articles-section">
+      <div class="articles-grid" id="educate-articles"></div>
+    </div>
   </div>
-</footer>
 
-<!-- FLOATING AI BUTTON -->
-<button class="fab-ai" id="fab-ai" onclick="showPage('chat')" title="Assistant IA">🤖</button>
+  <!-- ===== VIDEOS PAGE ===== -->
+  <div id="page-videos" class="page">
+    <div class="page-hero">
+      <h1 data-i18n="videos-title">Vidéos inspirantes</h1>
+      <p data-i18n="videos-sub">Témoignages, explications et guides pratiques en vidéo</p>
+    </div>
+    <div class="articles-section">
+      <div class="video-grid" id="videos-grid"></div>
+    </div>
+  </div>
 
-<script>
-// ===== TRANSLATIONS =====
-const t = {
-  fr: {
-    'badge': 'Plateforme inclusive · Tunisie',
-    'hero-title': 'Chaque enfant mérite d\'être compris',
-    'hero-sub': 'Ressources éducatives, vidéos et assistant IA pour accompagner les parents et éducateurs d\'enfants autistes.',
-    'cta-inform': 'S\'informer',
-    'cta-chat': 'Parler à l\'assistant',
-    'stat-articles': 'Articles éducatifs',
-    'stat-videos': 'Vidéos inspirantes',
-    'stat-ai': 'Assistant 24/7',
-    'stat-bilingual': 'Bilingue',
-    'featured-label': 'Article à la une',
-    'view-all': 'Voir tout',
-    'featured-tag': 'Article vedette · Comprendre',
-    'featured-title': 'L\'autisme : une différence de traitement de l\'information',
-    'featured-desc': 'L\'autisme n\'est pas une maladie mentale — c\'est un fonctionnement neurologique différent. Découvrez comment votre enfant perçoit le monde et comment l\'accompagner avec bienveillance.',
-    'read-article': 'Lire l\'article',
-    '5min': '5 min de lecture',
-    'recent-articles': 'Articles récents',
-    'nav-home': 'Accueil',
-    'nav-inform': 'Je m\'informe',
-    'nav-educate': 'Je suis Enseignant',
-    'nav-videos': 'Vidéos',
-    'nav-game': 'Espace Jeux',
-    'nav-chat': 'Assistant IA',
-    'inform-title': 'S\'informer sur l\'autisme',
-    'inform-sub': 'Articles de sensibilisation pour le grand public',
-    'educate-title': 'Ressources pour éducateurs',
-    'educate-sub': 'Conseils pratiques et stratégies pédagogiques adaptées',
-    'videos-title': 'Vidéos inspirantes',
-    'videos-sub': 'Témoignages, explications et guides pratiques en vidéo',
-    'game-title': 'Espace Détente & Apprentissage',
-    'game-sub': 'Des jeux interactifs conçus pour les enfants autistes',
-    'game-why-title': 'Pourquoi ce jeu ?',
-    'game-why-text': 'Les enfants autistes ont souvent du mal à identifier et nommer leurs émotions, ce qui peut provoquer des crises ou une frustration silencieuse. Le jeu <strong>Reconnais l\'émotion</strong> entraîne la reconnaissance des expressions faciales de manière amusante, répétitive et sans pression. La répétition visuelle et le feedback immédiat aident le cerveau à construire des associations émotionnelles durables.',
-    'benefit-cog': 'Stimulation cognitive',
-    'benefit-emotion': 'Reconnaissance émotionnelle',
-    'benefit-repeat': 'Apprentissage par répétition',
-    'benefit-focus': 'Attention et concentration',
-    'game-name': '🎭 Reconnais l\'émotion',
-    'game-inst': 'Regarde l\'emoji et choisis la bonne émotion !',
-    'score-correct': 'Correct',
-    'score-question': 'Question',
-    'score-total': 'Total',
-    'game-q': 'Quelle est cette émotion ?',
-    'gc-title': 'Bravo !',
-    'restart': 'Rejouer',
-    'filter-all': 'Tous',
-    'chat-title': 'Assistant Auti-Aura',
-    'chat-sub': 'Posez vos questions en français ou en arabe',
-    'chat-welcome': 'Bonjour ! Je suis l\'assistant Auti-Aura. Je suis là pour répondre à vos questions sur l\'autisme — en français ou en arabe. Comment puis-je vous aider aujourd\'hui ?',
-    'now': 'Maintenant',
-    'sugg-1': 'Qu\'est-ce que le TSA ?',
-    'sugg-2': 'Crises sensorielles',
-    'sugg-3': 'Signes précoces',
-    'chat-placeholder': 'Écrivez votre message...',
-    'send': 'Envoyer',
-    'what-we-do': 'Ce que nous faisons',
-    'what-1-title': 'Sensibilisation',
-    'what-1-desc': 'Articles bilingues FR/AR sur le spectre autistique, les droits et les ressources en Tunisie.',
-    'what-2-title': 'Soutien aux éducateurs',
-    'what-2-desc': 'Stratégies pédagogiques validées pour inclure chaque enfant avec bienveillance.',
-    'what-3-title': 'Assistant IA',
-    'what-3-desc': 'Un chatbot disponible 24h/24 pour répondre aux questions des parents et professionnels.',
-    'what-4-title': 'Jeux thérapeutiques',
-    'what-4-desc': 'Des activités interactives qui aident les enfants à reconnaître et gérer leurs émotions.',
-    'what-5-title': 'Vidéos & témoignages',
-    'what-5-desc': 'Des contenus vidéo inspirants — témoignages de familles tunisiennes et guides pratiques.',
-    'footer-mission': 'Notre mission est de sensibiliser, éduquer et soutenir les familles touchées par l\'autisme pour une société plus inclusive.',
-    'footer-nav': 'Navigation',
-    'footer-contact': 'Contact',
-    'footer-location': 'Tunis, Tunisie',
-    'footer-rights': 'Tous droits réservés.',
-    'footer-made': 'Fait avec ❤️ pour les familles tunisiennes',
-    'back': '← Retour',
-    'read-in-ar': 'العربية',
-    'read-in-fr': 'Français',
-    'min-read': 'min de lecture',
-    'tag-Comprendre': 'Comprendre',
-    'tag-Dépistage': 'Dépistage',
-    'tag-Droits': 'Droits',
-    'tag-Sensoriel': 'Sensoriel',
-    'tag-Pédagogie': 'Pédagogie',
-    'tag-Émotions': 'Émotions',
-    'tag-Partenariat': 'Partenariat',
-  },
-  ar: {
-    'badge': 'منصة شاملة · تونس',
-    'hero-title': 'كل طفل يستحق أن يُفهم',
-    'hero-sub': 'موارد تعليمية ومقاطع فيديو ومساعد ذكاء اصطناعي لدعم آباء ومعلمي الأطفال التوحديين.',
-    'cta-inform': 'اكتشف',
-    'cta-chat': 'التحدث إلى المساعد',
-    'stat-articles': 'مقالات تعليمية',
-    'stat-videos': 'فيديوهات ملهمة',
-    'stat-ai': 'مساعد متاح 24/7',
-    'stat-bilingual': 'ثنائي اللغة',
-    'featured-label': 'المقال المميز',
-    'view-all': 'عرض الكل',
-    'featured-tag': 'مقال مميز · للفهم',
-    'featured-title': 'التوحد: اختلاف في معالجة المعلومات',
-    'featured-desc': 'التوحد ليس مرضاً عقلياً — بل هو اختلاف في الوظائف العصبية. اكتشف كيف ينظر طفلك إلى العالم وكيف تدعمه بلطف.',
-    'read-article': 'اقرأ المقال',
-    '5min': 'قراءة 5 دقائق',
-    'recent-articles': 'المقالات الأخيرة',
-    'nav-home': 'الرئيسية',
-    'nav-inform': 'أتعلم',
-    'nav-educate': 'أنا معلم',
-    'nav-videos': 'الفيديوهات',
-    'nav-game': 'فضاء اللعب',
-    'nav-chat': 'المساعد الذكي',
-    'inform-title': 'التعرف على التوحد',
-    'inform-sub': 'مقالات توعوية للجمهور العام',
-    'educate-title': 'موارد للمربين',
-    'educate-sub': 'نصائح عملية واستراتيجيات تعليمية مكيفة',
-    'videos-title': 'فيديوهات ملهمة',
-    'videos-sub': 'شهادات وشروحات وأدلة عملية بالفيديو',
-    'game-title': 'فضاء الترفيه والتعلم',
-    'game-sub': 'ألعاب تفاعلية مصممة للأطفال التوحديين',
-    'game-why-title': 'لماذا هذه اللعبة؟',
-    'game-why-text': 'كثيراً ما يواجه الأطفال التوحديون صعوبة في التعرف على مشاعرهم وتسميتها، مما قد يؤدي إلى نوبات غضب أو إحباط صامت. لعبة <strong>اعرف المشاعر</strong> تدرّب الطفل على التعرف على تعابير الوجه بطريقة ممتعة ومتكررة وبدون ضغط. التكرار البصري والتغذية الراجعة الفورية يساعدان الدماغ على بناء ارتباطات عاطفية دائمة.',
-    'benefit-cog': 'تحفيز معرفي',
-    'benefit-emotion': 'التعرف على المشاعر',
-    'benefit-repeat': 'التعلم بالتكرار',
-    'benefit-focus': 'الانتباه والتركيز',
-    'game-name': '🎭 اعرف المشاعر',
-    'game-inst': 'انظر إلى الإيموجي واختر المشاعر الصحيحة!',
-    'score-correct': 'صحيح',
-    'score-question': 'السؤال',
-    'score-total': 'المجموع',
-    'game-q': 'ما هذا الشعور؟',
-    'gc-title': 'أحسنت!',
-    'restart': 'العب مجدداً',
-    'filter-all': 'الكل',
-    'chat-title': 'مساعد أوتي-أورا',
-    'chat-sub': 'اطرح أسئلتك باللغة الفرنسية أو العربية',
-    'chat-welcome': 'مرحباً! أنا مساعد أوتي-أورا. أنا هنا للإجابة على أسئلتك حول التوحد — بالفرنسية أو العربية. كيف يمكنني مساعدتك اليوم؟',
-    'now': 'الآن',
-    'sugg-1': 'ما هو اضطراب طيف التوحد؟',
-    'sugg-2': 'أزمات حسية',
-    'sugg-3': 'علامات مبكرة',
-    'chat-placeholder': 'اكتب رسالتك...',
-    'send': 'إرسال',
-    'what-we-do': 'ماذا نفعل',
-    'what-1-title': 'توعية',
-    'what-1-desc': 'مقالات ثنائية اللغة FR/AR حول طيف التوحد والحقوق والموارد في تونس.',
-    'what-2-title': 'دعم المعلمين',
-    'what-2-desc': 'استراتيجيات تعليمية مُعتمدة لدمج كل طفل بلطف وإيجابية.',
-    'what-3-title': 'مساعد ذكي',
-    'what-3-desc': 'روبوت محادثة متاح 24 ساعة للإجابة على أسئلة الآباء والمختصين.',
-    'what-4-title': 'ألعاب علاجية',
-    'what-4-desc': 'أنشطة تفاعلية تساعد الأطفال على التعرف على مشاعرهم وإدارتها.',
-    'what-5-title': 'فيديوهات وشهادات',
-    'what-5-desc': 'محتوى مرئي ملهم — شهادات من عائلات تونسية وأدلة عملية.',
-    'footer-mission': 'مهمتنا هي التوعية وتثقيف ودعم الأسر المتضررة من التوحد من أجل مجتمع أكثر شمولاً.',
-    'footer-nav': 'التنقل',
-    'footer-contact': 'اتصل بنا',
-    'footer-location': 'تونس العاصمة، تونس',
-    'footer-rights': 'جميع الحقوق محفوظة.',
-    'footer-made': 'صُنع بـ ❤️ للعائلات التونسية',
-    'back': '→ رجوع',
-    'read-in-ar': 'العربية',
-    'read-in-fr': 'Français',
-    'min-read': 'دقائق قراءة',
-    'tag-Comprendre': 'الفهم',
-    'tag-Dépistage': 'التشخيص',
-    'tag-Droits': 'حقوق',
-    'tag-Sensoriel': 'حسي',
-    'tag-Pédagogie': 'بيداغوجيا',
-    'tag-Émotions': 'مشاعر',
-    'tag-Partenariat': 'شراكة',
-  }
-};
+  <!-- ===== GAME PAGE ===== -->
+  <div id="page-game" class="page">
+    <div class="page-hero">
+      <h1 data-i18n="game-title">Espace Détente & Apprentissage</h1>
+      <p data-i18n="game-sub">Des jeux interactifs conçus pour les enfants autistes</p>
+    </div>
+    <div class="game-section">
+      <!-- WHY THIS GAME -->
+      <div class="game-why">
+        <div class="game-why-icon">🎮</div>
+        <div>
+          <h2 data-i18n="game-why-title">Pourquoi ce jeu ?</h2>
+          <p data-i18n="game-why-text">Les enfants autistes ont souvent du mal à identifier et nommer leurs émotions, ce
+            qui peut provoquer des crises ou une frustration silencieuse. Le jeu <strong>Reconnais l'émotion</strong>
+            entraîne la reconnaissance des expressions faciales de manière amusante, répétitive et sans pression. La
+            répétition visuelle et le feedback immédiat (correct / incorrect) aident le cerveau à construire des
+            associations émotionnelles durables, favorisant une meilleure communication et une meilleure gestion des
+            émotions au quotidien.</p>
+          <div class="game-benefits">
+            <div class="benefit-pill bp-blue">🧠 <span data-i18n="benefit-cog">Stimulation cognitive</span></div>
+            <div class="benefit-pill bp-green">😊 <span data-i18n="benefit-emotion">Reconnaissance émotionnelle</span>
+            </div>
+            <div class="benefit-pill bp-yellow">🔁 <span data-i18n="benefit-repeat">Apprentissage par répétition</span>
+            </div>
+            <div class="benefit-pill bp-red">🎯 <span data-i18n="benefit-focus">Attention et concentration</span></div>
+          </div>
+        </div>
+      </div>
 
-let currentLang = 'fr';
+      <!-- EMOTION MATCH GAME -->
+      <div class="game-container" id="game-main">
+        <div class="game-header">
+          <div class="game-title" data-i18n="game-name">🎭 Reconnais l'émotion</div>
+          <div class="game-subtitle" data-i18n="game-inst">Regarde l'emoji et choisis la bonne émotion !</div>
+        </div>
+        <div class="game-score-row">
+          <div class="score-item">
+            <div class="score-num" id="score-correct" style="color:var(--green)">0</div>
+            <div class="score-label" data-i18n="score-correct">Correct</div>
+          </div>
+          <div class="score-item">
+            <div class="score-num" id="score-q">1</div>
+            <div class="score-label" data-i18n="score-question">Question</div>
+          </div>
+          <div class="score-item">
+            <div class="score-num" id="score-total">10</div>
+            <div class="score-label" data-i18n="score-total">Total</div>
+          </div>
+        </div>
+        <div class="emoji-display" id="game-emoji">😊</div>
+        <div class="game-question" data-i18n="game-q">Quelle est cette émotion ?</div>
+        <div class="answers-grid" id="answers-grid"></div>
+        <div class="game-feedback" id="game-feedback"></div>
+        <div class="progress-bar-wrap">
+          <div class="progress-bar-fill" id="progress-bar" style="width:10%"></div>
+        </div>
+      </div>
 
-function applyTranslations() {
-  document.querySelectorAll('[data-i18n]').forEach(el => {
-    const key = el.getAttribute('data-i18n');
-    if (t[currentLang][key]) el.innerHTML = t[currentLang][key];
-  });
-  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
-    const key = el.getAttribute('data-i18n-placeholder');
-    if (t[currentLang][key]) el.placeholder = t[currentLang][key];
-  });
-  document.body.lang = currentLang;
-  document.body.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
-  document.getElementById('lang-btn').textContent = currentLang === 'fr' ? 'AR' : 'FR';
-  renderHomeArticles();
-  renderInformArticles();
-  renderEducateArticles();
-  renderVideos();
-}
+      <!-- GAME COMPLETE -->
+      <div class="game-container game-complete" id="game-complete">
+        <div class="gc-emoji" id="gc-emoji">🎉</div>
+        <h2 data-i18n="gc-title">Bravo !</h2>
+        <div class="gc-score" id="gc-score-display"></div>
+        <p id="gc-message" style="color:var(--muted);"></p>
+        <button class="restart-btn" onclick="restartGame()" data-i18n="restart">Rejouer</button>
+      </div>
+    </div>
+  </div>
 
-function toggleLang() {
-  currentLang = currentLang === 'fr' ? 'ar' : 'fr';
-  applyTranslations();
-}
+  <!-- ===== CHAT PAGE ===== -->
+  <div id="page-chat" class="page">
+    <div class="chat-wrap">
+      <div class="chat-header">
+        <h1 data-i18n="chat-title">Assistant Auti-Aura</h1>
+        <p data-i18n="chat-sub">Posez vos questions en français ou en arabe</p>
+      </div>
+      <div class="chat-box" id="chat-box">
+        <div class="chat-msg bot">
+          <div class="chat-bubble" data-i18n="chat-welcome">Bonjour ! Je suis l'assistant Auti-Aura. Je suis là pour
+            répondre à vos questions sur l'autisme — en français ou en arabe. Comment puis-je vous aider aujourd'hui ?
+          </div>
+          <div class="chat-meta" data-i18n="now">Maintenant</div>
+        </div>
+      </div>
+      <div class="chat-suggestions">
+        <button class="suggestion-btn" onclick="sendSuggestion(this)" data-i18n="sugg-1">Qu'est-ce que le TSA ?</button>
+        <button class="suggestion-btn" onclick="sendSuggestion(this)" data-i18n="sugg-2">Crises sensorielles</button>
+        <button class="suggestion-btn" onclick="sendSuggestion(this)" data-i18n="sugg-3">Signes précoces</button>
+      </div>
+      <div class="chat-input-row">
+        <input class="chat-input" id="chat-input" type="text" placeholder="Écrivez votre message..."
+          data-i18n-placeholder="chat-placeholder" />
+        <button class="chat-send" onclick="sendChatMessage()" data-i18n="send">Envoyer</button>
+      </div>
+    </div>
+  </div>
 
-let currentTheme = 'dark';
-function toggleTheme() {
-  currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
-  document.body.setAttribute('data-theme', currentTheme);
-  document.getElementById('theme-btn').textContent = currentTheme === 'dark' ? '☀️' : '🌙';
-}
+  <!-- ===== ARTICLE DETAIL PAGE ===== -->
+  <div id="page-article" class="page">
+    <div class="article-detail" id="article-content"></div>
+  </div>
 
-// ===== PAGE ROUTING =====
-function showPage(id) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('page-' + id).classList.add('active');
-  // Highlight the correct nav button
-  const navMap = { home:0, inform:1, educate:2, videos:3, game:4, chat:5 };
-  const btns = document.querySelectorAll('.navbar-links .nav-btn');
-  if (navMap[id] !== undefined && btns[navMap[id]]) btns[navMap[id]].classList.add('active');
-  document.getElementById('main-footer').style.display = (id === 'article' || id === 'chat') ? 'none' : '';
-  // Toggle FAB visibility
-  document.getElementById('fab-ai').style.display = id === 'chat' ? 'none' : '';
-  window.scrollTo(0, 0);
-}
+  <!-- ===== FOOTER (on all pages except article detail) ===== -->
+  <footer class="footer" id="main-footer">
+    <div class="footer-accent-bar"></div>
 
-// ===== DATA =====
-const articlesInform = [
-  { id:'autism-info', tag:'Comprendre', tagClass:'tag-blue', icon:'🧠', title:{fr:"L'autisme, une différence de traitement de l'information", ar:"التوحد، اختلاف في معالجة المعلومات"}, desc:{fr:"Les « lunettes » à travers lesquelles l'enfant voit le monde.", ar:"النظارات التي يرى من خلالها الطفل العالم."}, time:{fr:'5', ar:'5'} },
-  { id:'history', tag:'Comprendre', tagClass:'tag-blue', icon:'📖', title:{fr:"Histoire et évolution du concept d'autisme", ar:"تاريخ وتطور مفهوم التوحد"}, desc:{fr:"Du terme « maladie » au Trouble du Spectre de l'Autisme.", ar:"من مصطلح 'المرض' إلى اضطراب طيف التوحد."}, time:{fr:'4', ar:'4'} },
-  { id:'sensory', tag:'Sensoriel', tagClass:'tag-yellow', icon:'👂', title:{fr:"L'hypersensibilité sensorielle expliquée", ar:"شرح فرط الحساسية الحسية"}, desc:{fr:"Réactions intenses aux sons, textures et lumières.", ar:"ردود فعل قوية على الأصوات والملمس والأضواء."}, time:{fr:'4', ar:'4'} },
-  { id:'talents', tag:'Comprendre', tagClass:'tag-blue', icon:'⭐', title:{fr:"Les forces et talents souvent ignorés", ar:"نقاط القوة والمواهب التي غالبا ما يتم تجاهلها"}, desc:{fr:"Mémoire exceptionnelle, concentration intense : des atouts à valoriser.", ar:"ذاكرة استثنائية وتركيز عالٍ: مميزات تستحق التقدير."}, time:{fr:'3', ar:'3'} },
-  { id:'rights', tag:'Droits', tagClass:'tag-green', icon:'⚖️', title:{fr:"Le droit à l'éducation : un cadre mondial", ar:"الحق في التعليم: إطار عالمي"}, desc:{fr:"Déclaration universelle et constitution tunisienne.", ar:"الإعلان العالمي والدستور التونسي."}, time:{fr:'5', ar:'5'} },
-  { id:'signs', tag:'Dépistage', tagClass:'tag-red', icon:'🔍', title:{fr:"Les signes qui doivent alerter", ar:"العلامات التي يجب الانتباه إليها"}, desc:{fr:"Retard du pointage, absence de réponse au prénom, écholalie.", ar:"تأخر الإشارة، غياب الاستجابة للاسم، المصادة."}, time:{fr:'6', ar:'6'} },
-  { id:'myths', tag:'Comprendre', tagClass:'tag-blue', icon:'💡', title:{fr:"Mythes et réalités sur l'autisme", ar:"خرافات وحقائق حول التوحد"}, desc:{fr:"Démêler le vrai du faux concernant les stéréotypes sur le TSA.", ar:"التمييز بين الحقيقة والخرافة حول المفاهيم الشائعة."}, time:{fr:'4', ar:'4'} },
-  { id:'admin', tag:'Droits', tagClass:'tag-green', icon:'📋', title:{fr:"Démarches administratives en Tunisie", ar:"الإجراءات الإدارية في تونس"}, desc:{fr:"Comment obtenir la carte d'handicap et les aides sociales.", ar:"كيفية الحصول على بطاقة الإعاقة والمساعدات الاجتماعية."}, time:{fr:'7', ar:'7'} },
-];
+    <!-- WHAT WE DO -->
+    <div style="max-width:1100px;margin:0 auto 3rem;">
+      <h3 style="font-size:1.2rem;font-weight:800;margin-bottom:1.5rem;" data-i18n="what-we-do">Ce que nous faisons</h3>
+      <div class="footer-what-we-do">
+        <div class="what-card">
+          <div class="what-icon">📚</div>
+          <h5 data-i18n="what-1-title">Sensibilisation</h5>
+          <p data-i18n="what-1-desc">Articles bilingues FR/AR sur le spectre autistique, les droits et les ressources en
+            Tunisie.</p>
+        </div>
+        <div class="what-card">
+          <div class="what-icon">👩‍🏫</div>
+          <h5 data-i18n="what-2-title">Soutien aux éducateurs</h5>
+          <p data-i18n="what-2-desc">Stratégies pédagogiques validées pour inclure chaque enfant avec bienveillance.</p>
+        </div>
+        <div class="what-card">
+          <div class="what-icon">🤖</div>
+          <h5 data-i18n="what-3-title">Assistant IA</h5>
+          <p data-i18n="what-3-desc">Un chatbot disponible 24h/24 pour répondre aux questions des parents et
+            professionnels.</p>
+        </div>
+        <div class="what-card">
+          <div class="what-icon">🎮</div>
+          <h5 data-i18n="what-4-title">Jeux thérapeutiques</h5>
+          <p data-i18n="what-4-desc">Des activités interactives qui aident les enfants à reconnaître et gérer leurs
+            émotions.</p>
+        </div>
+        <div class="what-card">
+          <div class="what-icon">🎬</div>
+          <h5 data-i18n="what-5-title">Vidéos & témoignages</h5>
+          <p data-i18n="what-5-desc">Des contenus vidéo inspirants — témoignages de familles tunisiennes et guides
+            pratiques.</p>
+        </div>
+      </div>
+    </div>
 
-const articlesEducate = [
-  { id:'pedagogy', tag:'Pédagogie', tagClass:'tag-blue', icon:'📝', title:{fr:"Adapter ses consignes et son langage", ar:"تكييف التعليمات واللغة"}, desc:{fr:"Consignes courtes, une à la fois, avec support visuel permanent.", ar:"تعليمات قصيرة، واحدة في كل مرة، مع دعم بصري دائم."}, time:{fr:'5', ar:'5'} },
-  { id:'emotions', tag:'Émotions', tagClass:'tag-red', icon:'❤️', title:{fr:"Gérer les émotions et les crises", ar:"إدارة العواطف والأزمات"}, desc:{fr:"Le baromètre des émotions, le coin calme et les stratégies de désescalade.", ar:"مقياس المشاعر، الزاوية الهادئة واستراتيجيات التهدئة."}, time:{fr:'4', ar:'4'} },
-  { id:'partnership', tag:'Partenariat', tagClass:'tag-green', icon:'🤝', title:{fr:"Collaborer avec la famille et les spécialistes", ar:"التعاون مع الأسرة والمختصين"}, desc:{fr:"Le cahier de communication, la coordination avec les thérapeutes.", ar:"دفتر التواصل والتنسيق مع المعالجين."}, time:{fr:'5', ar:'5'} },
-  { id:'play-learning', tag:'Pédagogie', tagClass:'tag-blue', icon:'🎲', title:{fr:"L'apprentissage par le jeu", ar:"التعلم عن طريق اللعب"}, desc:{fr:"Comment utiliser les intérêts spécifiques de l'enfant pour stimuler l'apprentissage.", ar:"كيف تستخدم اهتمامات الطفل الخاصة لتحفيز التعلم."}, time:{fr:'3', ar:'3'} },
-];
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand-name">
+          <span>A</span><span>U</span><span>T</span><span>I</span><span>'</span><span>A</span><span>U</span><span>R</span><span>A</span>
+        </div>
+        <p class="footer-desc" data-i18n="footer-mission">Notre mission est de sensibiliser, éduquer et soutenir les
+          familles touchées par l'autisme pour une société plus inclusive.</p>
+        <div class="social-row">
+          <!-- Facebook -->
+          <a class="social-btn" href="https://www.facebook.com/profile.php?id=61587332244018" target="_blank"
+            rel="noopener" title="Facebook Auti-Aura">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+            </svg>
+          </a>
+          <!-- Instagram -->
+          <a class="social-btn" href="https://www.instagram.com/auti_aura/" target="_blank" rel="noopener"
+            title="Instagram Auti-Aura">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+            </svg>
+          </a>
+        </div>
+      </div>
 
-const videos = [
-  { ytId:'TG6riOWCsA0', icon:'🎬', tag:'Sensibilisation', title:{fr:"Comprendre l'autisme en 3 minutes", ar:"فهم التوحد في 3 دقائق"}, desc:{fr:"Une présentation simple et claire du TSA pour les parents.", ar:"عرض بسيط وواضح لاضطراب طيف التوحد للآباء."} },
-  { ytId:'hcC2BU_0NGg', icon:'💬', tag:'Communication', title:{fr:"La communication alternative (CAA)", ar:"التواصل البديل والمعزز"}, desc:{fr:"Pictogrammes, tablettes et gestes pour aider l'enfant.", ar:"رموز صورية وأجهزة لوحية وإيماءات لمساعدة الطفل."} },
-  { ytId:'sqcrAJzIpZU', icon:'👨‍👩‍👧', tag:'Témoignages', title:{fr:"Parcours d'un enfant autiste à l'école inclusive", ar:"مسيرة طفل توحدي في المدرسة الجامعة"}, desc:{fr:"Une famille tunisienne partage son expérience.", ar:"عائلة تونسية تشارك تجربتها."} },
-  { ytId:'b9_n1kVciY4', icon:'🔬', tag:'Thérapies', title:{fr:"Les thérapies comportementales : ABA et TEACCH", ar:"العلاجات السلوكية: ABA وTEACCH"}, desc:{fr:"Présentation des approches thérapeutiques les plus utilisées.", ar:"عرض لأكثر المناهج العلاجية استخداماً مع أطفال التوحد."} },
-];
+      <div class="footer-col">
+        <h4 data-i18n="footer-nav">Navigation</h4>
+        <ul class="footer-links">
+          <li><button onclick="showPage('home')" data-i18n="nav-home">Accueil</button></li>
+          <li><button onclick="showPage('inform')" data-i18n="nav-inform">Je m'informe</button></li>
+          <li><button onclick="showPage('educate')" data-i18n="nav-educate">Je suis Enseignant</button></li>
+          <li><button onclick="showPage('videos')" data-i18n="nav-videos">Vidéos</button></li>
+          <li><button onclick="showPage('game')" data-i18n="nav-game">Espace Jeux</button></li>
+          <li><button onclick="showPage('chat')" data-i18n="nav-chat">Assistant IA</button></li>
+        </ul>
+      </div>
 
-// ===== RENDER ARTICLES =====
-const tagTranslations = {
-  'Comprendre': 'الفهم', 'Sensoriel': 'حسي', 'Dépistage': 'التشخيص',
-  'Droits': 'حقوق', 'Pédagogie': 'بيداغوجيا', 'Émotions': 'مشاعر',
-  'Partenariat': 'شراكة', 'Sensibilisation': 'توعية', 'Communication': 'تواصل',
-  'Famille': 'الأسرة', 'Inclusion': 'إدماج', 'Observation': 'ملاحظة',
-  'Témoignages': 'شهادات', 'Thérapies': 'علاجات', 'Éducation': 'تعليم', 'Formation': 'تدريب',
-};
-function makeArticleCard(a) {
-  const lang = currentLang;
-  const tagLabel = lang === 'ar' ? (tagTranslations[a.tag] || a.tag) : a.tag;
-  return `<div class="article-card" onclick="showArticle('${a.id}')">
+      <div class="footer-col">
+        <h4 data-i18n="footer-contact">Contact</h4>
+        <ul class="footer-contact">
+          <li>
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+            </svg>
+            auti.aura.supcom@gmail.com
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
+            </svg>
+            <span data-i18n="footer-location">Tunis, Tunisie</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 Auti-Aura. <span data-i18n="footer-rights">Tous droits réservés.</span></span>
+      <span data-i18n="footer-made">Fait avec ❤️ pour les familles tunisiennes</span>
+    </div>
+  </footer>
+
+  <!-- FLOATING AI BUTTON -->
+  <button class="fab-ai" id="fab-ai" onclick="showPage('chat')" title="Assistant IA">🤖</button>
+
+  <script>
+    // ===== TRANSLATIONS =====
+    const t = {
+      fr: {
+        'badge': 'Plateforme inclusive · Tunisie',
+        'hero-title': 'Chaque enfant mérite d\'être compris',
+        'hero-sub': 'Ressources éducatives, vidéos et assistant IA pour accompagner les parents et éducateurs d\'enfants autistes.',
+        'cta-inform': 'S\'informer',
+        'cta-chat': 'Parler à l\'assistant',
+        'stat-articles': 'Articles éducatifs',
+        'stat-videos': 'Vidéos inspirantes',
+        'stat-ai': 'Assistant 24/7',
+        'stat-bilingual': 'Bilingue',
+        'featured-label': 'Article à la une',
+        'view-all': 'Voir tout',
+        'featured-tag': 'Article vedette · Comprendre',
+        'featured-title': 'L\'autisme : une différence de traitement de l\'information',
+        'featured-desc': 'L\'autisme n\'est pas une maladie mentale — c\'est un fonctionnement neurologique différent. Découvrez comment votre enfant perçoit le monde et comment l\'accompagner avec bienveillance.',
+        'read-article': 'Lire l\'article',
+        '5min': '5 min de lecture',
+        'recent-articles': 'Articles récents',
+        'nav-home': 'Accueil',
+        'nav-inform': 'Je m\'informe',
+        'nav-educate': 'Je suis Enseignant',
+        'nav-videos': 'Vidéos',
+        'nav-game': 'Espace Jeux',
+        'nav-chat': 'Assistant IA',
+        'inform-title': 'S\'informer sur l\'autisme',
+        'inform-sub': 'Articles de sensibilisation pour le grand public',
+        'educate-title': 'Ressources pour éducateurs',
+        'educate-sub': 'Conseils pratiques et stratégies pédagogiques adaptées',
+        'videos-title': 'Vidéos inspirantes',
+        'videos-sub': 'Témoignages, explications et guides pratiques en vidéo',
+        'game-title': 'Espace Détente & Apprentissage',
+        'game-sub': 'Des jeux interactifs conçus pour les enfants autistes',
+        'game-why-title': 'Pourquoi ce jeu ?',
+        'game-why-text': 'Les enfants autistes ont souvent du mal à identifier et nommer leurs émotions, ce qui peut provoquer des crises ou une frustration silencieuse. Le jeu <strong>Reconnais l\'émotion</strong> entraîne la reconnaissance des expressions faciales de manière amusante, répétitive et sans pression. La répétition visuelle et le feedback immédiat aident le cerveau à construire des associations émotionnelles durables.',
+        'benefit-cog': 'Stimulation cognitive',
+        'benefit-emotion': 'Reconnaissance émotionnelle',
+        'benefit-repeat': 'Apprentissage par répétition',
+        'benefit-focus': 'Attention et concentration',
+        'game-name': '🎭 Reconnais l\'émotion',
+        'game-inst': 'Regarde l\'emoji et choisis la bonne émotion !',
+        'score-correct': 'Correct',
+        'score-question': 'Question',
+        'score-total': 'Total',
+        'game-q': 'Quelle est cette émotion ?',
+        'gc-title': 'Bravo !',
+        'restart': 'Rejouer',
+        'filter-all': 'Tous',
+        'chat-title': 'Assistant Auti-Aura',
+        'chat-sub': 'Posez vos questions en français ou en arabe',
+        'chat-welcome': 'Bonjour ! Je suis l\'assistant Auti-Aura. Je suis là pour répondre à vos questions sur l\'autisme — en français ou en arabe. Comment puis-je vous aider aujourd\'hui ?',
+        'now': 'Maintenant',
+        'sugg-1': 'Qu\'est-ce que le TSA ?',
+        'sugg-2': 'Crises sensorielles',
+        'sugg-3': 'Signes précoces',
+        'chat-placeholder': 'Écrivez votre message...',
+        'send': 'Envoyer',
+        'what-we-do': 'Ce que nous faisons',
+        'what-1-title': 'Sensibilisation',
+        'what-1-desc': 'Articles bilingues FR/AR sur le spectre autistique, les droits et les ressources en Tunisie.',
+        'what-2-title': 'Soutien aux éducateurs',
+        'what-2-desc': 'Stratégies pédagogiques validées pour inclure chaque enfant avec bienveillance.',
+        'what-3-title': 'Assistant IA',
+        'what-3-desc': 'Un chatbot disponible 24h/24 pour répondre aux questions des parents et professionnels.',
+        'what-4-title': 'Jeux thérapeutiques',
+        'what-4-desc': 'Des activités interactives qui aident les enfants à reconnaître et gérer leurs émotions.',
+        'what-5-title': 'Vidéos & témoignages',
+        'what-5-desc': 'Des contenus vidéo inspirants — témoignages de familles tunisiennes et guides pratiques.',
+        'footer-mission': 'Notre mission est de sensibiliser, éduquer et soutenir les familles touchées par l\'autisme pour une société plus inclusive.',
+        'footer-nav': 'Navigation',
+        'footer-contact': 'Contact',
+        'footer-location': 'Tunis, Tunisie',
+        'footer-rights': 'Tous droits réservés.',
+        'footer-made': 'Fait avec ❤️ pour les familles tunisiennes',
+        'back': '← Retour',
+        'read-in-ar': 'العربية',
+        'read-in-fr': 'Français',
+        'min-read': 'min de lecture',
+        'tag-Comprendre': 'Comprendre',
+        'tag-Dépistage': 'Dépistage',
+        'tag-Droits': 'Droits',
+        'tag-Sensoriel': 'Sensoriel',
+        'tag-Pédagogie': 'Pédagogie',
+        'tag-Émotions': 'Émotions',
+        'tag-Partenariat': 'Partenariat',
+      },
+      ar: {
+        'badge': 'منصة شاملة · تونس',
+        'hero-title': 'كل طفل يستحق أن يُفهم',
+        'hero-sub': 'موارد تعليمية ومقاطع فيديو ومساعد ذكاء اصطناعي لدعم آباء ومعلمي الأطفال التوحديين.',
+        'cta-inform': 'اكتشف',
+        'cta-chat': 'التحدث إلى المساعد',
+        'stat-articles': 'مقالات تعليمية',
+        'stat-videos': 'فيديوهات ملهمة',
+        'stat-ai': 'مساعد متاح 24/7',
+        'stat-bilingual': 'ثنائي اللغة',
+        'featured-label': 'المقال المميز',
+        'view-all': 'عرض الكل',
+        'featured-tag': 'مقال مميز · للفهم',
+        'featured-title': 'التوحد: اختلاف في معالجة المعلومات',
+        'featured-desc': 'التوحد ليس مرضاً عقلياً — بل هو اختلاف في الوظائف العصبية. اكتشف كيف ينظر طفلك إلى العالم وكيف تدعمه بلطف.',
+        'read-article': 'اقرأ المقال',
+        '5min': 'قراءة 5 دقائق',
+        'recent-articles': 'المقالات الأخيرة',
+        'nav-home': 'الرئيسية',
+        'nav-inform': 'أتعلم',
+        'nav-educate': 'أنا معلم',
+        'nav-videos': 'الفيديوهات',
+        'nav-game': 'فضاء اللعب',
+        'nav-chat': 'المساعد الذكي',
+        'inform-title': 'التعرف على التوحد',
+        'inform-sub': 'مقالات توعوية للجمهور العام',
+        'educate-title': 'موارد للمربين',
+        'educate-sub': 'نصائح عملية واستراتيجيات تعليمية مكيفة',
+        'videos-title': 'فيديوهات ملهمة',
+        'videos-sub': 'شهادات وشروحات وأدلة عملية بالفيديو',
+        'game-title': 'فضاء الترفيه والتعلم',
+        'game-sub': 'ألعاب تفاعلية مصممة للأطفال التوحديين',
+        'game-why-title': 'لماذا هذه اللعبة؟',
+        'game-why-text': 'كثيراً ما يواجه الأطفال التوحديون صعوبة في التعرف على مشاعرهم وتسميتها، مما قد يؤدي إلى نوبات غضب أو إحباط صامت. لعبة <strong>اعرف المشاعر</strong> تدرّب الطفل على التعرف على تعابير الوجه بطريقة ممتعة ومتكررة وبدون ضغط. التكرار البصري والتغذية الراجعة الفورية يساعدان الدماغ على بناء ارتباطات عاطفية دائمة.',
+        'benefit-cog': 'تحفيز معرفي',
+        'benefit-emotion': 'التعرف على المشاعر',
+        'benefit-repeat': 'التعلم بالتكرار',
+        'benefit-focus': 'الانتباه والتركيز',
+        'game-name': '🎭 اعرف المشاعر',
+        'game-inst': 'انظر إلى الإيموجي واختر المشاعر الصحيحة!',
+        'score-correct': 'صحيح',
+        'score-question': 'السؤال',
+        'score-total': 'المجموع',
+        'game-q': 'ما هذا الشعور؟',
+        'gc-title': 'أحسنت!',
+        'restart': 'العب مجدداً',
+        'filter-all': 'الكل',
+        'chat-title': 'مساعد أوتي-أورا',
+        'chat-sub': 'اطرح أسئلتك باللغة الفرنسية أو العربية',
+        'chat-welcome': 'مرحباً! أنا مساعد أوتي-أورا. أنا هنا للإجابة على أسئلتك حول التوحد — بالفرنسية أو العربية. كيف يمكنني مساعدتك اليوم؟',
+        'now': 'الآن',
+        'sugg-1': 'ما هو اضطراب طيف التوحد؟',
+        'sugg-2': 'أزمات حسية',
+        'sugg-3': 'علامات مبكرة',
+        'chat-placeholder': 'اكتب رسالتك...',
+        'send': 'إرسال',
+        'what-we-do': 'ماذا نفعل',
+        'what-1-title': 'توعية',
+        'what-1-desc': 'مقالات ثنائية اللغة FR/AR حول طيف التوحد والحقوق والموارد في تونس.',
+        'what-2-title': 'دعم المعلمين',
+        'what-2-desc': 'استراتيجيات تعليمية مُعتمدة لدمج كل طفل بلطف وإيجابية.',
+        'what-3-title': 'مساعد ذكي',
+        'what-3-desc': 'روبوت محادثة متاح 24 ساعة للإجابة على أسئلة الآباء والمختصين.',
+        'what-4-title': 'ألعاب علاجية',
+        'what-4-desc': 'أنشطة تفاعلية تساعد الأطفال على التعرف على مشاعرهم وإدارتها.',
+        'what-5-title': 'فيديوهات وشهادات',
+        'what-5-desc': 'محتوى مرئي ملهم — شهادات من عائلات تونسية وأدلة عملية.',
+        'footer-mission': 'مهمتنا هي التوعية وتثقيف ودعم الأسر المتضررة من التوحد من أجل مجتمع أكثر شمولاً.',
+        'footer-nav': 'التنقل',
+        'footer-contact': 'اتصل بنا',
+        'footer-location': 'تونس العاصمة، تونس',
+        'footer-rights': 'جميع الحقوق محفوظة.',
+        'footer-made': 'صُنع بـ ❤️ للعائلات التونسية',
+        'back': '→ رجوع',
+        'read-in-ar': 'العربية',
+        'read-in-fr': 'Français',
+        'min-read': 'دقائق قراءة',
+        'tag-Comprendre': 'الفهم',
+        'tag-Dépistage': 'التشخيص',
+        'tag-Droits': 'حقوق',
+        'tag-Sensoriel': 'حسي',
+        'tag-Pédagogie': 'بيداغوجيا',
+        'tag-Émotions': 'مشاعر',
+        'tag-Partenariat': 'شراكة',
+      }
+    };
+
+    let currentLang = 'fr';
+
+    function applyTranslations() {
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (t[currentLang][key]) el.innerHTML = t[currentLang][key];
+      });
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        if (t[currentLang][key]) el.placeholder = t[currentLang][key];
+      });
+      document.body.lang = currentLang;
+      document.body.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+      document.getElementById('lang-btn').textContent = currentLang === 'fr' ? 'AR' : 'FR';
+      renderHomeArticles();
+      renderInformArticles();
+      renderEducateArticles();
+      renderVideos();
+    }
+
+    function toggleLang() {
+      currentLang = currentLang === 'fr' ? 'ar' : 'fr';
+      applyTranslations();
+    }
+
+    let currentTheme = 'dark';
+    function toggleTheme() {
+      currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      document.body.setAttribute('data-theme', currentTheme);
+      document.getElementById('theme-btn').textContent = currentTheme === 'dark' ? '☀️' : '🌙';
+    }
+
+    // ===== PAGE ROUTING =====
+    function showPage(id) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('page-' + id).classList.add('active');
+      // Highlight the correct nav button
+      const navMap = { home: 0, inform: 1, educate: 2, videos: 3, game: 4, chat: 5 };
+      const btns = document.querySelectorAll('.navbar-links .nav-btn');
+      if (navMap[id] !== undefined && btns[navMap[id]]) btns[navMap[id]].classList.add('active');
+      document.getElementById('main-footer').style.display = (id === 'article' || id === 'chat') ? 'none' : '';
+      // Toggle FAB visibility
+      document.getElementById('fab-ai').style.display = id === 'chat' ? 'none' : '';
+      window.scrollTo(0, 0);
+    }
+
+    // ===== DATA =====
+    const articlesInform = [
+      { id: 'autism-info', tag: 'Comprendre', tagClass: 'tag-blue', icon: '🧠', title: { fr: "L'autisme, une différence de traitement de l'information", ar: "التوحد، اختلاف في معالجة المعلومات" }, desc: { fr: "Les « lunettes » à travers lesquelles l'enfant voit le monde.", ar: "النظارات التي يرى من خلالها الطفل العالم." }, time: { fr: '5', ar: '5' } },
+      { id: 'history', tag: 'Comprendre', tagClass: 'tag-blue', icon: '📖', title: { fr: "Histoire et évolution du concept d'autisme", ar: "تاريخ وتطور مفهوم التوحد" }, desc: { fr: "Du terme « maladie » au Trouble du Spectre de l'Autisme.", ar: "من مصطلح 'المرض' إلى اضطراب طيف التوحد." }, time: { fr: '4', ar: '4' } },
+      { id: 'sensory', tag: 'Sensoriel', tagClass: 'tag-yellow', icon: '👂', title: { fr: "L'hypersensibilité sensorielle expliquée", ar: "شرح فرط الحساسية الحسية" }, desc: { fr: "Réactions intenses aux sons, textures et lumières.", ar: "ردود فعل قوية على الأصوات والملمس والأضواء." }, time: { fr: '4', ar: '4' } },
+      { id: 'talents', tag: 'Comprendre', tagClass: 'tag-blue', icon: '⭐', title: { fr: "Les forces et talents souvent ignorés", ar: "نقاط القوة والمواهب التي غالبا ما يتم تجاهلها" }, desc: { fr: "Mémoire exceptionnelle, concentration intense : des atouts à valoriser.", ar: "ذاكرة استثنائية وتركيز عالٍ: مميزات تستحق التقدير." }, time: { fr: '3', ar: '3' } },
+      { id: 'rights', tag: 'Droits', tagClass: 'tag-green', icon: '⚖️', title: { fr: "Le droit à l'éducation : un cadre mondial", ar: "الحق في التعليم: إطار عالمي" }, desc: { fr: "Déclaration universelle et constitution tunisienne.", ar: "الإعلان العالمي والدستور التونسي." }, time: { fr: '5', ar: '5' } },
+      { id: 'signs', tag: 'Dépistage', tagClass: 'tag-red', icon: '🔍', title: { fr: "Les signes qui doivent alerter", ar: "العلامات التي يجب الانتباه إليها" }, desc: { fr: "Retard du pointage, absence de réponse au prénom, écholalie.", ar: "تأخر الإشارة، غياب الاستجابة للاسم، المصادة." }, time: { fr: '6', ar: '6' } },
+      { id: 'myths', tag: 'Comprendre', tagClass: 'tag-blue', icon: '💡', title: { fr: "Mythes et réalités sur l'autisme", ar: "خرافات وحقائق حول التوحد" }, desc: { fr: "Démêler le vrai du faux concernant les stéréotypes sur le TSA.", ar: "التمييز بين الحقيقة والخرافة حول المفاهيم الشائعة." }, time: { fr: '4', ar: '4' } },
+      { id: 'admin', tag: 'Droits', tagClass: 'tag-green', icon: '📋', title: { fr: "Démarches administratives en Tunisie", ar: "الإجراءات الإدارية في تونس" }, desc: { fr: "Comment obtenir la carte d'handicap et les aides sociales.", ar: "كيفية الحصول على بطاقة الإعاقة والمساعدات الاجتماعية." }, time: { fr: '7', ar: '7' } },
+    ];
+
+    const articlesEducate = [
+      { id: 'pedagogy', tag: 'Pédagogie', tagClass: 'tag-blue', icon: '📝', title: { fr: "Adapter ses consignes et son langage", ar: "تكييف التعليمات واللغة" }, desc: { fr: "Consignes courtes, une à la fois, avec support visuel permanent.", ar: "تعليمات قصيرة، واحدة في كل مرة، مع دعم بصري دائم." }, time: { fr: '5', ar: '5' } },
+      { id: 'emotions', tag: 'Émotions', tagClass: 'tag-red', icon: '❤️', title: { fr: "Gérer les émotions et les crises", ar: "إدارة العواطف والأزمات" }, desc: { fr: "Le baromètre des émotions, le coin calme et les stratégies de désescalade.", ar: "مقياس المشاعر، الزاوية الهادئة واستراتيجيات التهدئة." }, time: { fr: '4', ar: '4' } },
+      { id: 'partnership', tag: 'Partenariat', tagClass: 'tag-green', icon: '🤝', title: { fr: "Collaborer avec la famille et les spécialistes", ar: "التعاون مع الأسرة والمختصين" }, desc: { fr: "Le cahier de communication, la coordination avec les thérapeutes.", ar: "دفتر التواصل والتنسيق مع المعالجين." }, time: { fr: '5', ar: '5' } },
+      { id: 'play-learning', tag: 'Pédagogie', tagClass: 'tag-blue', icon: '🎲', title: { fr: "L'apprentissage par le jeu", ar: "التعلم عن طريق اللعب" }, desc: { fr: "Comment utiliser les intérêts spécifiques de l'enfant pour stimuler l'apprentissage.", ar: "كيف تستخدم اهتمامات الطفل الخاصة لتحفيز التعلم." }, time: { fr: '3', ar: '3' } },
+    ];
+
+    const videos = [
+      { ytId: 'TG6riOWCsA0', icon: '🎬', tag: 'Sensibilisation', title: { fr: "Comprendre l'autisme en 3 minutes", ar: "فهم التوحد في 3 دقائق" }, desc: { fr: "Une présentation simple et claire du TSA pour les parents.", ar: "عرض بسيط وواضح لاضطراب طيف التوحد للآباء." } },
+      { ytId: 'hcC2BU_0NGg', icon: '💬', tag: 'Communication', title: { fr: "La communication alternative (CAA)", ar: "التواصل البديل والمعزز" }, desc: { fr: "Pictogrammes, tablettes et gestes pour aider l'enfant.", ar: "رموز صورية وأجهزة لوحية وإيماءات لمساعدة الطفل." } },
+      { ytId: 'sqcrAJzIpZU', icon: '👨‍👩‍👧', tag: 'Témoignages', title: { fr: "Parcours d'un enfant autiste à l'école inclusive", ar: "مسيرة طفل توحدي في المدرسة الجامعة" }, desc: { fr: "Une famille tunisienne partage son expérience.", ar: "عائلة تونسية تشارك تجربتها." } },
+      { ytId: 'b9_n1kVciY4', icon: '🔬', tag: 'Thérapies', title: { fr: "Les thérapies comportementales : ABA et TEACCH", ar: "العلاجات السلوكية: ABA وTEACCH" }, desc: { fr: "Présentation des approches thérapeutiques les plus utilisées.", ar: "عرض لأكثر المناهج العلاجية استخداماً مع أطفال التوحد." } },
+    ];
+
+    // ===== RENDER ARTICLES =====
+    const tagTranslations = {
+      'Comprendre': 'الفهم', 'Sensoriel': 'حسي', 'Dépistage': 'التشخيص',
+      'Droits': 'حقوق', 'Pédagogie': 'بيداغوجيا', 'Émotions': 'مشاعر',
+      'Partenariat': 'شراكة', 'Sensibilisation': 'توعية', 'Communication': 'تواصل',
+      'Famille': 'الأسرة', 'Inclusion': 'إدماج', 'Observation': 'ملاحظة',
+      'Témoignages': 'شهادات', 'Thérapies': 'علاجات', 'Éducation': 'تعليم', 'Formation': 'تدريب',
+    };
+    function makeArticleCard(a) {
+      const lang = currentLang;
+      const tagLabel = lang === 'ar' ? (tagTranslations[a.tag] || a.tag) : a.tag;
+      return `<div class="article-card" onclick="showArticle('${a.id}')">
     <div class="article-tag ${a.tagClass}">${tagLabel}</div>
     <h3>${a.title[lang]}</h3>
     <p>${a.desc[lang]}</p>
@@ -1067,22 +2079,22 @@ function makeArticleCard(a) {
       <span style="color:var(--blue);font-size:0.8rem;font-weight:700;">${lang === 'fr' ? 'Lire →' : '← اقرأ'}</span>
     </div>
   </div>`;
-}
+    }
 
-function renderHomeArticles() {
-  document.getElementById('home-articles').innerHTML = articlesInform.slice(1, 4).map(makeArticleCard).join('');
-}
-function renderInformArticles(filter='all') {
-  const arr = filter === 'all' ? articlesInform : articlesInform.filter(a => a.tag === filter);
-  document.getElementById('inform-articles').innerHTML = arr.map(makeArticleCard).join('');
-}
-function renderEducateArticles(filter='all') {
-  const arr = filter === 'all' ? articlesEducate : articlesEducate.filter(a => a.tag === filter);
-  document.getElementById('educate-articles').innerHTML = arr.map(makeArticleCard).join('');
-}
-function renderVideos() {
-  const lang = currentLang;
-  document.getElementById('videos-grid').innerHTML = videos.map(v => `
+    function renderHomeArticles() {
+      document.getElementById('home-articles').innerHTML = articlesInform.slice(1, 4).map(makeArticleCard).join('');
+    }
+    function renderInformArticles(filter = 'all') {
+      const arr = filter === 'all' ? articlesInform : articlesInform.filter(a => a.tag === filter);
+      document.getElementById('inform-articles').innerHTML = arr.map(makeArticleCard).join('');
+    }
+    function renderEducateArticles(filter = 'all') {
+      const arr = filter === 'all' ? articlesEducate : articlesEducate.filter(a => a.tag === filter);
+      document.getElementById('educate-articles').innerHTML = arr.map(makeArticleCard).join('');
+    }
+    function renderVideos() {
+      const lang = currentLang;
+      document.getElementById('videos-grid').innerHTML = videos.map(v => `
     <div class="video-card" onclick="openVideo('${v.ytId}')">
       <div class="video-thumb" style="background:url('https://img.youtube.com/vi/${v.ytId}/hqdefault.jpg') center/cover no-repeat;">
         <div class="play-btn">▶</div>
@@ -1093,37 +2105,37 @@ function renderVideos() {
         <p>${v.desc[lang]}</p>
       </div>
     </div>`).join('');
-}
+    }
 
-// ===== VIDEO MODAL =====
-function openVideo(ytId) {
-  const overlay = document.createElement('div');
-  overlay.style.cssText = 'position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.85);display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px);';
-  overlay.onclick = e => { if (e.target === overlay) { overlay.remove(); } };
-  overlay.innerHTML = `<div style="width:90%;max-width:800px;position:relative;">
+    // ===== VIDEO MODAL =====
+    function openVideo(ytId) {
+      const overlay = document.createElement('div');
+      overlay.style.cssText = 'position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.85);display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px);';
+      overlay.onclick = e => { if (e.target === overlay) { overlay.remove(); } };
+      overlay.innerHTML = `<div style="width:90%;max-width:800px;position:relative;">
     <button onclick="this.closest('div').parentElement.remove()" style="position:absolute;top:-40px;right:0;background:none;border:none;color:#fff;font-size:2rem;cursor:pointer;">✕</button>
     <div style="position:relative;padding-bottom:56.25%;height:0;border-radius:12px;overflow:hidden;">
       <iframe src="https://www.youtube.com/embed/${ytId}?autoplay=1" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;"></iframe>
     </div>
   </div>`;
-  document.body.appendChild(overlay);
-}
+      document.body.appendChild(overlay);
+    }
 
-function filterArticles(btn, page) {
-  btn.closest('.filter-row').querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  const f = btn.dataset.filter;
-  if (page === 'inform') renderInformArticles(f);
-  else renderEducateArticles(f);
-}
+    function filterArticles(btn, page) {
+      btn.closest('.filter-row').querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.dataset.filter;
+      if (page === 'inform') renderInformArticles(f);
+      else renderEducateArticles(f);
+    }
 
-// ===== ARTICLE DETAIL =====
-const articleContent = {
-  'autism-info': {
-    fr: {
-      title: "L'autisme, une différence de traitement de l'information",
-      lead: "Comprendre le fonctionnement neurologique unique de votre enfant pour mieux l'accompagner.",
-      body: `<h3>Qu'est-ce que l'autisme ?</h3>
+    // ===== ARTICLE DETAIL =====
+    const articleContent = {
+      'autism-info': {
+        fr: {
+          title: "L'autisme, une différence de traitement de l'information",
+          lead: "Comprendre le fonctionnement neurologique unique de votre enfant pour mieux l'accompagner.",
+          body: `<h3>Qu'est-ce que l'autisme ?</h3>
       <p>L'autisme n'est pas une maladie mentale, mais un <strong>fonctionnement neurologique différent</strong>. Le cerveau de l'enfant autiste traite les informations différemment, souvent avec une attention aux détails que d'autres personnes ne remarquent pas.</p>
       <p>Imaginez regarder le monde à travers des « lunettes » différentes : chaque son, chaque texture, chaque interaction sociale est perçue d'une manière unique. Ce n'est pas un déficit, c'est une différence.</p>
       <h3>Vrai ou Faux ?</h3>
@@ -1132,11 +2144,11 @@ const articleContent = {
       <h3>Conseils pratiques</h3>
       <p><strong>Évitez les jugements hâtifs :</strong> Les comportements ne sont pas de l'entêtement — c'est une façon différente de traduire les sensations et les informations.</p>
       <p><strong>Utilisez des supports visuels :</strong> Les tableaux, images et pictogrammes aident l'enfant à organiser et comprendre les tâches du quotidien.</p>`
-    },
-    ar: {
-      title: "التوحد، اختلاف في معالجة المعلومات",
-      lead: "فهم الطريقة العصبية الفريدة لطفلك لمرافقته بشكل أفضل.",
-      body: `<h3>ما هو التوحد؟</h3>
+        },
+        ar: {
+          title: "التوحد، اختلاف في معالجة المعلومات",
+          lead: "فهم الطريقة العصبية الفريدة لطفلك لمرافقته بشكل أفضل.",
+          body: `<h3>ما هو التوحد؟</h3>
       <p>التوحد ليس مرضاً نفسياً، بل هو <strong>اختلاف في طريقة عمل الدماغ</strong>. يعالج دماغ الطفل التوحدي المعلومات بطريقة مختلفة، مع انتباه استثنائي للتفاصيل الدقيقة.</p>
       <p>تخيل أنك ترى العالم من خلال "نظارات" مختلفة: كل صوت، وكل ملمس، وكل تفاعل اجتماعي يُدرَك بطريقة فريدة. هذا ليس نقصاً، بل هو اختلاف.</p>
       <h3>صحيح أم خطأ؟</h3>
@@ -1145,248 +2157,249 @@ const articleContent = {
       <h3>نصائح عملية</h3>
       <p><strong>تجنب الأحكام المتسرعة:</strong> السلوكيات ليست عناداً — إنها طريقة مختلفة لترجمة الأحاسيس والمعلومات.</p>
       <p><strong>استخدم الدعائم البصرية:</strong> الجداول والصور والرموز الصورية تساعد الطفل على تنظيم المهام اليومية وفهمها.</p>`
-    }
-  },
-  'history': {
-    fr: { title: "Histoire et évolution du concept d'autisme", lead: "Du terme « maladie » au Trouble du Spectre de l'Autisme.", body: `<h3>Les débuts</h3><p>Le terme autisme a été introduit en 1911 par Eugen Bleuler pour décrire un repli sur soi observé dans la schizophrénie. C'est Leo Kanner en 1943 qui l'a utilisé pour la première fois pour désigner un syndrome distinct chez l'enfant.</p><h3>L'évolution du diagnostic</h3><p>Pendant des décennies, l'autisme a été associé à tort à des causes psychologiques (la théorie de la « mère réfrigérateur »). Les recherches modernes ont définitivement établi son origine neurologique.</p><h3>Aujourd'hui</h3><p>Le DSM-5 (2013) regroupe tous les sous-types sous le terme unique de <strong>Trouble du Spectre de l'Autisme (TSA)</strong>, reconnaissant la grande diversité des profils.` },
-    ar: { title: "تاريخ وتطور مفهوم التوحد", lead: "من مصطلح المرض إلى اضطراب طيف التوحد.", body: `<h3>البدايات</h3><p>استخدم يوجين بلولر مصطلح التوحد عام 1911. ثم وصف ليو كانر عام 1943 متلازمة مستقلة عند الأطفال.</p><h3>تطور التشخيص</h3><p>أثبتت الأبحاث الحديثة الأصل العصبي للتوحد، ونفت النظريات النفسية القديمة الخاطئة.</p><h3>اليوم</h3><p>يجمع DSM-5 (2013) جميع الأنواع تحت مسمى <strong>اضطراب طيف التوحد</strong>، مع الاعتراف بتنوع الملفات الشخصية.` }
-  },
-  'sensory': {
-    fr: { title: "L'hypersensibilité sensorielle expliquée", lead: "Réactions intenses aux sons, textures et lumières.", body: `<h3>Qu'est-ce que l'hypersensibilité ?</h3><p>Beaucoup d'enfants autistes perçoivent les stimuli sensoriels avec une intensité bien supérieure à la normale. Un son ordinaire peut être douloureux, une étiquette de vêtement insupportable.</p><h3>Les sens concernés</h3><p><strong>Auditif :</strong> bruits soudains, lieux bruyants. <strong>Tactile :</strong> certaines textures de vêtements ou d'aliments. <strong>Visuel :</strong> lumières vives ou clignotantes.</p><h3>Stratégies d'adaptation</h3><p>Casques anti-bruit, vêtements sans coutures, lumières tamisées, espaces calmes de retrait. Anticiper les environnements sensoriels difficiles.` },
-    ar: { title: "شرح فرط الحساسية الحسية", lead: "ردود فعل قوية على الأصوات والملمس والأضواء.", body: `<h3>ما هو فرط الحساسية؟</h3><p>يدرك كثير من الأطفال التوحديين المحفزات الحسية بشدة أعلى بكثير من المعتاد. صوت عادي قد يكون مؤلماً، وبطاقة ملابس قد تكون لا تُحتمل.</p><h3>الحواس المعنية</h3><p><strong>السمع:</strong> الأصوات المفاجئة، الأماكن الصاخبة. <strong>اللمس:</strong> بعض أقمشة الملابس أو الأطعمة. <strong>البصر:</strong> الأضواء الساطعة.</p><h3>استراتيجيات التكيف</h3><p>سماعات مانعة للضوضاء، ملابس بدون خياطة بارزة، إضاءة خافتة، مساحات هادئة للانسحاب.` }
-  },
-  'talents': {
-    fr: { title: "Les forces et talents souvent ignorés", lead: "Mémoire exceptionnelle, concentration intense : des atouts à valoriser.", body: `<h3>Des capacités remarquables</h3><p>De nombreux enfants autistes présentent des capacités exceptionnelles dans certains domaines : mémoire photographique, aptitudes mathématiques, musique, dessin ou codage informatique.</p><h3>La pensée en détail</h3><p>La tendance à percevoir les détails plutôt que le tout global peut être un atout précieux dans des domaines techniques ou artistiques.</p><h3>Comment valoriser ces forces</h3><p>Identifier les intérêts spécifiques de l'enfant et les utiliser comme levier d'apprentissage. Créer des opportunités d'expression et de réussite dans ces domaines.` },
-    ar: { title: "نقاط القوة والمواهب التي غالباً ما يتم تجاهلها", lead: "ذاكرة استثنائية وتركيز عالٍ: مميزات تستحق التقدير.", body: `<h3>قدرات ملحوظة</h3><p>يتمتع كثير من الأطفال التوحديين بقدرات استثنائية في مجالات معينة: ذاكرة فوتوغرافية، مهارات رياضية، موسيقى، رسم أو برمجة.</p><h3>التفكير بالتفاصيل</h3><p>الميل لإدراك التفاصيل يمكن أن يكون أصلاً قيماً في المجالات التقنية أو الفنية.</p><h3>كيفية تثمين هذه القوى</h3><p>تحديد الاهتمامات الخاصة للطفل واستخدامها كرافعة للتعلم، وخلق فرص للتعبير والنجاح.` }
-  },
-  'rights': {
-    fr: { title: "Le droit à l'éducation : un cadre mondial", lead: "Déclaration universelle et constitution tunisienne.", body: `<h3>Le cadre international</h3><p>La Convention relative aux droits des personnes handicapées (ONU, 2006) affirme le droit à une éducation inclusive. La Tunisie l'a ratifiée en 2008.</p><h3>La loi tunisienne</h3><p>La Constitution de 2022 garantit le droit à l'éducation pour tous. Des textes spécifiques encadrent l'inclusion scolaire des enfants en situation de handicap.</p><h3>En pratique</h3><p>L'enfant a droit à un Plan Personnalisé de Scolarisation (PPS), à des aménagements pédagogiques et à l'accompagnement d'un AESH si nécessaire.` },
-    ar: { title: "الحق في التعليم: إطار عالمي", lead: "الإعلان العالمي والدستور التونسي.", body: `<h3>الإطار الدولي</h3><p>تؤكد اتفاقية حقوق الأشخاص ذوي الإعاقة (الأمم المتحدة، 2006) الحق في التعليم الشامل. صادقت تونس عليها عام 2008.</p><h3>القانون التونسي</h3><p>يضمن دستور 2022 حق التعليم للجميع، مع نصوص خاصة بالإدماج المدرسي للأطفال ذوي الإعاقة.</p><h3>على أرض الواقع</h3><p>للطفل الحق في خطة تربوية شخصية وتسهيلات بيداغوجية ومرافق متخصص عند الحاجة.` }
-  },
-  'signs': {
-    fr: { title: "Les signes qui doivent alerter", lead: "Retard du pointage, absence de réponse au prénom, écholalie.", body: `<h3>Avant 12 mois</h3><p>Peu ou pas de babillage, absence de gestes communicatifs (pointer, faire coucou), pas de réponse au prénom.</p><h3>Entre 12 et 24 mois</h3><p>Pas de mots isolés à 16 mois, régression du langage ou des compétences sociales, peu d'imitation.</p><h3>Après 2 ans</h3><p>Jeu solitaire et répétitif, difficulté avec les changements de routine, réactions inhabituelles aux sons ou textures.</p><p><strong>Important :</strong> un seul signe ne suffit pas. C'est l'accumulation et la persistance qui doivent alerter. Consultez un professionnel de santé.` },
-    ar: { title: "العلامات التي يجب الانتباه إليها", lead: "تأخر الإشارة، غياب الاستجابة للاسم، المصادة.", body: `<h3>قبل 12 شهراً</h3><p>قليل أو لا يوجد مناغاة، غياب الإيماءات التواصلية، عدم الاستجابة للاسم.</p><h3>بين 12 و24 شهراً</h3><p>غياب الكلمات المفردة في 16 شهراً، تراجع اللغة أو المهارات الاجتماعية.</p><h3>بعد سنتين</h3><p>لعب انعزالي ومتكرر، صعوبة في تغيير الروتين، ردود فعل غير عادية على الأصوات.<br><strong>مهم:</strong> علامة واحدة لا تكفي. تراكم العلامات وديمومتها هو ما يستوجب استشارة متخصص.` }
-  },
-  'myths': {
-    fr: { title: "Mythes et réalités sur l'autisme", lead: "Démêler le vrai du faux concernant les stéréotypes sur le TSA.", body: `<h3>Mythe : les enfants autistes ne ressentent pas d'émotions</h3><p><strong>Réalité :</strong> Ils ressentent des émotions intenses, mais peuvent avoir du mal à les exprimer de façon conventionnelle.</p><h3>Mythe : l'autisme est causé par les vaccins</h3><p><strong>Réalité :</strong> Cette affirmation est totalement réfutée par la science. L'étude qui la défendait a été retirée pour fraude.</p><h3>Mythe : tous les autistes sont savants</h3><p><strong>Réalité :</strong> Le TSA est un spectre très large. Certains ont des capacités exceptionnelles dans un domaine, mais ce n'est pas universel.` },
-    ar: { title: "خرافات وحقائق حول التوحد", lead: "التمييز بين الحقيقة والخرافة حول المفاهيم الشائعة.", body: `<h3>خرافة: الأطفال التوحديون لا يشعرون بالمشاعر</h3><p><strong>الحقيقة:</strong> يشعرون بمشاعر قوية لكنهم قد يجدون صعوبة في التعبير عنها بالطريقة التقليدية.</p><h3>خرافة: التوحد سببه اللقاحات</h3><p><strong>الحقيقة:</strong> هذا الادعاء مدحوض علمياً تماماً. الدراسة التي روّجت له سُحبت بسبب التزوير.</p><h3>خرافة: جميع التوحديين عباقرة</h3><p><strong>الحقيقة:</strong> طيف التوحد واسع جداً. بعضهم لديه قدرات استثنائية في مجال معين لكنه ليس قاعدة عامة.` }
-  },
-  'admin': {
-    fr: { title: "Démarches administratives en Tunisie", lead: "Comment obtenir la carte d'handicap et les aides sociales.", body: `<h3>La carte d'invalidité</h3><p>Délivrée par le Ministère des Affaires Sociales, elle ouvre droit à des avantages fiscaux, des transports gratuits et des aides financières.</p><h3>Comment l'obtenir</h3><p>Dossier médical établi par un médecin spécialiste, formulaire de demande, pièces d'identité. Le dossier est déposé à la délégation régionale des affaires sociales.</p><h3>Autres aides disponibles</h3><p>Programme d'Aide aux Familles Nécessiteuses (PAFN), associations spécialisées comme l'UNFT Bardo, centres de prise en charge et de rééducation.` },
-    ar: { title: "الإجراءات الإدارية في تونس", lead: "كيفية الحصول على بطاقة الإعاقة والمساعدات الاجتماعية.", body: `<h3>بطاقة الإعاقة</h3><p>تصدرها وزارة الشؤون الاجتماعية وتمنح حق الاستفادة من امتيازات جبائية ونقل مجاني ومساعدات مالية.</p><h3>كيفية الحصول عليها</h3><p>ملف طبي من طبيب متخصص، استمارة طلب، وثائق هوية. يُودع الملف في الإدارة الجهوية للشؤون الاجتماعية.</p><h3>مساعدات أخرى متاحة</h3><p>برنامج مساعدة الأسر المعوزة، الجمعيات المتخصصة كالاتحاد الوطني للآباء التونسيين، مراكز الرعاية وإعادة التأهيل.` }
-  },
-  'pedagogy': {
-    fr: { title: "Adapter ses consignes et son langage", lead: "Consignes courtes, une à la fois, avec support visuel permanent.", body: `<h3>Simplifier les consignes</h3><p>Donnez une seule consigne à la fois, en phrases courtes et concrètes. Évitez les métaphores et le langage implicite.</p><h3>Utiliser les supports visuels</h3><p>Planning illustré de la journée, pictogrammes pour les étapes des tâches, timer visuel pour les transitions.</p><h3>Adapter l'environnement</h3><p>Place fixe éloignée des sources de bruit, affichage épuré, zone de retrait calme accessible à l'enfant quand il en a besoin.` },
-    ar: { title: "تكييف التعليمات واللغة", lead: "تعليمات قصيرة، واحدة في كل مرة، مع دعم بصري دائم.", body: `<h3>تبسيط التعليمات</h3><p>أعطِ تعليمة واحدة في كل مرة، بجمل قصيرة وملموسة. تجنب الاستعارات واللغة الضمنية.</p><h3>استخدام الدعائم البصرية</h3><p>جدول يومي مصوّر، رموز صورية لخطوات المهام، مؤقت بصري للتحولات.</p><h3>تكييف البيئة</h3><p>مقعد ثابت بعيد عن مصادر الضوضاء، عرض مبسط، زاوية هادئة متاحة للطفل عند الحاجة.` }
-  },
-  'emotions': {
-    fr: { title: "Gérer les émotions et les crises", lead: "Le baromètre des émotions, le coin calme et les stratégies de désescalade.", body: `<h3>Reconnaître les signaux d'alerte</h3><p>Avant la crise : agitation motrice, répétition de mots, retrait. Apprendre à identifier ces signaux pour intervenir tôt.</p><h3>Le coin calme</h3><p>Un espace aménagé avec des outils sensoriels (coussins, objets à malaxer, casque). L'enfant peut s'y retirer librement.</p><h3>Après la crise</h3><p>Ne pas punir. Attendre le retour au calme, puis analyser avec l'enfant ce qui s'est passé (si son niveau de langage le permet).` },
-    ar: { title: "إدارة العواطف والأزمات", lead: "مقياس المشاعر، الزاوية الهادئة واستراتيجيات التهدئة.", body: `<h3>التعرف على إشارات الإنذار</h3><p>قبل الأزمة: اضطراب حركي، تكرار كلمات، انسحاب. تعلم التعرف على هذه الإشارات للتدخل مبكراً.</p><h3>الزاوية الهادئة</h3><p>مساحة مجهزة بأدوات حسية (وسائد، أشياء للعجن، سماعات). يمكن للطفل الانسحاب إليها بحرية.</p><h3>بعد الأزمة</h3><p>لا تعاقب. انتظر العودة للهدوء، ثم حلل مع الطفل ما حدث (إن سمح مستوى لغته بذلك).` }
-  },
-  'partnership': {
-    fr: { title: "Collaborer avec la famille et les spécialistes", lead: "Le cahier de communication, la coordination avec les thérapeutes.", body: `<h3>Le cahier de communication</h3><p>Un outil essentiel entre école et famille : notes quotidiennes, observations, succès et difficultés. Il assure la continuité de l'accompagnement.</p><h3>Les réunions de coordination</h3><p>Réunir régulièrement enseignants, parents, orthophoniste, psychomotricien et éducateur spécialisé autour des objectifs de l'enfant.</p><h3>Valoriser l'expertise parentale</h3><p>Les parents connaissent leur enfant mieux que quiconque. Leur vécu est une ressource précieuse pour adapter les stratégies.` },
-    ar: { title: "التعاون مع الأسرة والمختصين", lead: "دفتر التواصل والتنسيق مع المعالجين.", body: `<h3>دفتر التواصل</h3><p>أداة أساسية بين المدرسة والأسرة: ملاحظات يومية، مشاهدات، نجاحات وصعوبات. يضمن استمرارية المرافقة.</p><h3>اجتماعات التنسيق</h3><p>جمع المعلمين والآباء وأخصائي النطق والحركة والمربي المتخصص بانتظام حول أهداف الطفل.</p><h3>تثمين خبرة الأسرة</h3><p>الآباء يعرفون طفلهم أكثر من أي شخص آخر. تجربتهم موردٌ قيّم لتكييف الاستراتيجيات.` }
-  },
-  'play-learning': {
-    fr: { title: "L'apprentissage par le jeu", lead: "Comment utiliser les intérêts spécifiques de l'enfant pour stimuler l'apprentissage.", body: `<h3>Le jeu comme vecteur d'apprentissage</h3><p>Pour les enfants autistes, le jeu structuré autour de leurs intérêts spécifiques est un puissant levier de motivation et d'apprentissage.</p><h3>Des exemples concrets</h3><p>Un enfant passionné de trains peut apprendre les maths en comptant des wagons. Un passionné de dinosaures peut développer ses compétences en lecture à travers des livres sur le sujet.</p><h3>Le jeu parallèle et coopératif</h3><p>Introduire progressivement d'autres enfants dans le jeu, en partant du jeu parallèle (jouer côte à côte) vers le jeu coopératif.` },
-    ar: { title: "التعلم عن طريق اللعب", lead: "كيف تستخدم اهتمامات الطفل الخاصة لتحفيز التعلم.", body: `<h3>اللعب كوسيلة للتعلم</h3><p>بالنسبة للأطفال التوحديين، اللعب المنظم حول اهتماماتهم الخاصة هو رافعة قوية للتحفيز والتعلم.</p><h3>أمثلة ملموسة</h3><p>طفل مولع بالقطارات يمكنه تعلم الرياضيات بعد العربات. مولع بالديناصورات يمكنه تطوير مهارات القراءة عبر الكتب المتعلقة بها.</p><h3>اللعب المتوازي والتعاوني</h3><p>إدخال أطفال آخرين تدريجياً في اللعب، من اللعب المتوازي (جنباً إلى جنب) نحو اللعب التعاوني.` }
-  }
-};
+        }
+      },
+      'history': {
+        fr: { title: "Histoire et évolution du concept d'autisme", lead: "Du terme « maladie » au Trouble du Spectre de l'Autisme.", body: `<h3>Les débuts</h3><p>Le terme autisme a été introduit en 1911 par Eugen Bleuler pour décrire un repli sur soi observé dans la schizophrénie. C'est Leo Kanner en 1943 qui l'a utilisé pour la première fois pour désigner un syndrome distinct chez l'enfant.</p><h3>L'évolution du diagnostic</h3><p>Pendant des décennies, l'autisme a été associé à tort à des causes psychologiques (la théorie de la « mère réfrigérateur »). Les recherches modernes ont définitivement établi son origine neurologique.</p><h3>Aujourd'hui</h3><p>Le DSM-5 (2013) regroupe tous les sous-types sous le terme unique de <strong>Trouble du Spectre de l'Autisme (TSA)</strong>, reconnaissant la grande diversité des profils.` },
+        ar: { title: "تاريخ وتطور مفهوم التوحد", lead: "من مصطلح المرض إلى اضطراب طيف التوحد.", body: `<h3>البدايات</h3><p>استخدم يوجين بلولر مصطلح التوحد عام 1911. ثم وصف ليو كانر عام 1943 متلازمة مستقلة عند الأطفال.</p><h3>تطور التشخيص</h3><p>أثبتت الأبحاث الحديثة الأصل العصبي للتوحد، ونفت النظريات النفسية القديمة الخاطئة.</p><h3>اليوم</h3><p>يجمع DSM-5 (2013) جميع الأنواع تحت مسمى <strong>اضطراب طيف التوحد</strong>، مع الاعتراف بتنوع الملفات الشخصية.` }
+      },
+      'sensory': {
+        fr: { title: "L'hypersensibilité sensorielle expliquée", lead: "Réactions intenses aux sons, textures et lumières.", body: `<h3>Qu'est-ce que l'hypersensibilité ?</h3><p>Beaucoup d'enfants autistes perçoivent les stimuli sensoriels avec une intensité bien supérieure à la normale. Un son ordinaire peut être douloureux, une étiquette de vêtement insupportable.</p><h3>Les sens concernés</h3><p><strong>Auditif :</strong> bruits soudains, lieux bruyants. <strong>Tactile :</strong> certaines textures de vêtements ou d'aliments. <strong>Visuel :</strong> lumières vives ou clignotantes.</p><h3>Stratégies d'adaptation</h3><p>Casques anti-bruit, vêtements sans coutures, lumières tamisées, espaces calmes de retrait. Anticiper les environnements sensoriels difficiles.` },
+        ar: { title: "شرح فرط الحساسية الحسية", lead: "ردود فعل قوية على الأصوات والملمس والأضواء.", body: `<h3>ما هو فرط الحساسية؟</h3><p>يدرك كثير من الأطفال التوحديين المحفزات الحسية بشدة أعلى بكثير من المعتاد. صوت عادي قد يكون مؤلماً، وبطاقة ملابس قد تكون لا تُحتمل.</p><h3>الحواس المعنية</h3><p><strong>السمع:</strong> الأصوات المفاجئة، الأماكن الصاخبة. <strong>اللمس:</strong> بعض أقمشة الملابس أو الأطعمة. <strong>البصر:</strong> الأضواء الساطعة.</p><h3>استراتيجيات التكيف</h3><p>سماعات مانعة للضوضاء، ملابس بدون خياطة بارزة، إضاءة خافتة، مساحات هادئة للانسحاب.` }
+      },
+      'talents': {
+        fr: { title: "Les forces et talents souvent ignorés", lead: "Mémoire exceptionnelle, concentration intense : des atouts à valoriser.", body: `<h3>Des capacités remarquables</h3><p>De nombreux enfants autistes présentent des capacités exceptionnelles dans certains domaines : mémoire photographique, aptitudes mathématiques, musique, dessin ou codage informatique.</p><h3>La pensée en détail</h3><p>La tendance à percevoir les détails plutôt que le tout global peut être un atout précieux dans des domaines techniques ou artistiques.</p><h3>Comment valoriser ces forces</h3><p>Identifier les intérêts spécifiques de l'enfant et les utiliser comme levier d'apprentissage. Créer des opportunités d'expression et de réussite dans ces domaines.` },
+        ar: { title: "نقاط القوة والمواهب التي غالباً ما يتم تجاهلها", lead: "ذاكرة استثنائية وتركيز عالٍ: مميزات تستحق التقدير.", body: `<h3>قدرات ملحوظة</h3><p>يتمتع كثير من الأطفال التوحديين بقدرات استثنائية في مجالات معينة: ذاكرة فوتوغرافية، مهارات رياضية، موسيقى، رسم أو برمجة.</p><h3>التفكير بالتفاصيل</h3><p>الميل لإدراك التفاصيل يمكن أن يكون أصلاً قيماً في المجالات التقنية أو الفنية.</p><h3>كيفية تثمين هذه القوى</h3><p>تحديد الاهتمامات الخاصة للطفل واستخدامها كرافعة للتعلم، وخلق فرص للتعبير والنجاح.` }
+      },
+      'rights': {
+        fr: { title: "Le droit à l'éducation : un cadre mondial", lead: "Déclaration universelle et constitution tunisienne.", body: `<h3>Le cadre international</h3><p>La Convention relative aux droits des personnes handicapées (ONU, 2006) affirme le droit à une éducation inclusive. La Tunisie l'a ratifiée en 2008.</p><h3>La loi tunisienne</h3><p>La Constitution de 2022 garantit le droit à l'éducation pour tous. Des textes spécifiques encadrent l'inclusion scolaire des enfants en situation de handicap.</p><h3>En pratique</h3><p>L'enfant a droit à un Plan Personnalisé de Scolarisation (PPS), à des aménagements pédagogiques et à l'accompagnement d'un AESH si nécessaire.` },
+        ar: { title: "الحق في التعليم: إطار عالمي", lead: "الإعلان العالمي والدستور التونسي.", body: `<h3>الإطار الدولي</h3><p>تؤكد اتفاقية حقوق الأشخاص ذوي الإعاقة (الأمم المتحدة، 2006) الحق في التعليم الشامل. صادقت تونس عليها عام 2008.</p><h3>القانون التونسي</h3><p>يضمن دستور 2022 حق التعليم للجميع، مع نصوص خاصة بالإدماج المدرسي للأطفال ذوي الإعاقة.</p><h3>على أرض الواقع</h3><p>للطفل الحق في خطة تربوية شخصية وتسهيلات بيداغوجية ومرافق متخصص عند الحاجة.` }
+      },
+      'signs': {
+        fr: { title: "Les signes qui doivent alerter", lead: "Retard du pointage, absence de réponse au prénom, écholalie.", body: `<h3>Avant 12 mois</h3><p>Peu ou pas de babillage, absence de gestes communicatifs (pointer, faire coucou), pas de réponse au prénom.</p><h3>Entre 12 et 24 mois</h3><p>Pas de mots isolés à 16 mois, régression du langage ou des compétences sociales, peu d'imitation.</p><h3>Après 2 ans</h3><p>Jeu solitaire et répétitif, difficulté avec les changements de routine, réactions inhabituelles aux sons ou textures.</p><p><strong>Important :</strong> un seul signe ne suffit pas. C'est l'accumulation et la persistance qui doivent alerter. Consultez un professionnel de santé.` },
+        ar: { title: "العلامات التي يجب الانتباه إليها", lead: "تأخر الإشارة، غياب الاستجابة للاسم، المصادة.", body: `<h3>قبل 12 شهراً</h3><p>قليل أو لا يوجد مناغاة، غياب الإيماءات التواصلية، عدم الاستجابة للاسم.</p><h3>بين 12 و24 شهراً</h3><p>غياب الكلمات المفردة في 16 شهراً، تراجع اللغة أو المهارات الاجتماعية.</p><h3>بعد سنتين</h3><p>لعب انعزالي ومتكرر، صعوبة في تغيير الروتين، ردود فعل غير عادية على الأصوات.<br><strong>مهم:</strong> علامة واحدة لا تكفي. تراكم العلامات وديمومتها هو ما يستوجب استشارة متخصص.` }
+      },
+      'myths': {
+        fr: { title: "Mythes et réalités sur l'autisme", lead: "Démêler le vrai du faux concernant les stéréotypes sur le TSA.", body: `<h3>Mythe : les enfants autistes ne ressentent pas d'émotions</h3><p><strong>Réalité :</strong> Ils ressentent des émotions intenses, mais peuvent avoir du mal à les exprimer de façon conventionnelle.</p><h3>Mythe : l'autisme est causé par les vaccins</h3><p><strong>Réalité :</strong> Cette affirmation est totalement réfutée par la science. L'étude qui la défendait a été retirée pour fraude.</p><h3>Mythe : tous les autistes sont savants</h3><p><strong>Réalité :</strong> Le TSA est un spectre très large. Certains ont des capacités exceptionnelles dans un domaine, mais ce n'est pas universel.` },
+        ar: { title: "خرافات وحقائق حول التوحد", lead: "التمييز بين الحقيقة والخرافة حول المفاهيم الشائعة.", body: `<h3>خرافة: الأطفال التوحديون لا يشعرون بالمشاعر</h3><p><strong>الحقيقة:</strong> يشعرون بمشاعر قوية لكنهم قد يجدون صعوبة في التعبير عنها بالطريقة التقليدية.</p><h3>خرافة: التوحد سببه اللقاحات</h3><p><strong>الحقيقة:</strong> هذا الادعاء مدحوض علمياً تماماً. الدراسة التي روّجت له سُحبت بسبب التزوير.</p><h3>خرافة: جميع التوحديين عباقرة</h3><p><strong>الحقيقة:</strong> طيف التوحد واسع جداً. بعضهم لديه قدرات استثنائية في مجال معين لكنه ليس قاعدة عامة.` }
+      },
+      'admin': {
+        fr: { title: "Démarches administratives en Tunisie", lead: "Comment obtenir la carte d'handicap et les aides sociales.", body: `<h3>La carte d'invalidité</h3><p>Délivrée par le Ministère des Affaires Sociales, elle ouvre droit à des avantages fiscaux, des transports gratuits et des aides financières.</p><h3>Comment l'obtenir</h3><p>Dossier médical établi par un médecin spécialiste, formulaire de demande, pièces d'identité. Le dossier est déposé à la délégation régionale des affaires sociales.</p><h3>Autres aides disponibles</h3><p>Programme d'Aide aux Familles Nécessiteuses (PAFN), associations spécialisées comme l'UNFT Bardo, centres de prise en charge et de rééducation.` },
+        ar: { title: "الإجراءات الإدارية في تونس", lead: "كيفية الحصول على بطاقة الإعاقة والمساعدات الاجتماعية.", body: `<h3>بطاقة الإعاقة</h3><p>تصدرها وزارة الشؤون الاجتماعية وتمنح حق الاستفادة من امتيازات جبائية ونقل مجاني ومساعدات مالية.</p><h3>كيفية الحصول عليها</h3><p>ملف طبي من طبيب متخصص، استمارة طلب، وثائق هوية. يُودع الملف في الإدارة الجهوية للشؤون الاجتماعية.</p><h3>مساعدات أخرى متاحة</h3><p>برنامج مساعدة الأسر المعوزة، الجمعيات المتخصصة كالاتحاد الوطني للآباء التونسيين، مراكز الرعاية وإعادة التأهيل.` }
+      },
+      'pedagogy': {
+        fr: { title: "Adapter ses consignes et son langage", lead: "Consignes courtes, une à la fois, avec support visuel permanent.", body: `<h3>Simplifier les consignes</h3><p>Donnez une seule consigne à la fois, en phrases courtes et concrètes. Évitez les métaphores et le langage implicite.</p><h3>Utiliser les supports visuels</h3><p>Planning illustré de la journée, pictogrammes pour les étapes des tâches, timer visuel pour les transitions.</p><h3>Adapter l'environnement</h3><p>Place fixe éloignée des sources de bruit, affichage épuré, zone de retrait calme accessible à l'enfant quand il en a besoin.` },
+        ar: { title: "تكييف التعليمات واللغة", lead: "تعليمات قصيرة، واحدة في كل مرة، مع دعم بصري دائم.", body: `<h3>تبسيط التعليمات</h3><p>أعطِ تعليمة واحدة في كل مرة، بجمل قصيرة وملموسة. تجنب الاستعارات واللغة الضمنية.</p><h3>استخدام الدعائم البصرية</h3><p>جدول يومي مصوّر، رموز صورية لخطوات المهام، مؤقت بصري للتحولات.</p><h3>تكييف البيئة</h3><p>مقعد ثابت بعيد عن مصادر الضوضاء، عرض مبسط، زاوية هادئة متاحة للطفل عند الحاجة.` }
+      },
+      'emotions': {
+        fr: { title: "Gérer les émotions et les crises", lead: "Le baromètre des émotions, le coin calme et les stratégies de désescalade.", body: `<h3>Reconnaître les signaux d'alerte</h3><p>Avant la crise : agitation motrice, répétition de mots, retrait. Apprendre à identifier ces signaux pour intervenir tôt.</p><h3>Le coin calme</h3><p>Un espace aménagé avec des outils sensoriels (coussins, objets à malaxer, casque). L'enfant peut s'y retirer librement.</p><h3>Après la crise</h3><p>Ne pas punir. Attendre le retour au calme, puis analyser avec l'enfant ce qui s'est passé (si son niveau de langage le permet).` },
+        ar: { title: "إدارة العواطف والأزمات", lead: "مقياس المشاعر، الزاوية الهادئة واستراتيجيات التهدئة.", body: `<h3>التعرف على إشارات الإنذار</h3><p>قبل الأزمة: اضطراب حركي، تكرار كلمات، انسحاب. تعلم التعرف على هذه الإشارات للتدخل مبكراً.</p><h3>الزاوية الهادئة</h3><p>مساحة مجهزة بأدوات حسية (وسائد، أشياء للعجن، سماعات). يمكن للطفل الانسحاب إليها بحرية.</p><h3>بعد الأزمة</h3><p>لا تعاقب. انتظر العودة للهدوء، ثم حلل مع الطفل ما حدث (إن سمح مستوى لغته بذلك).` }
+      },
+      'partnership': {
+        fr: { title: "Collaborer avec la famille et les spécialistes", lead: "Le cahier de communication, la coordination avec les thérapeutes.", body: `<h3>Le cahier de communication</h3><p>Un outil essentiel entre école et famille : notes quotidiennes, observations, succès et difficultés. Il assure la continuité de l'accompagnement.</p><h3>Les réunions de coordination</h3><p>Réunir régulièrement enseignants, parents, orthophoniste, psychomotricien et éducateur spécialisé autour des objectifs de l'enfant.</p><h3>Valoriser l'expertise parentale</h3><p>Les parents connaissent leur enfant mieux que quiconque. Leur vécu est une ressource précieuse pour adapter les stratégies.` },
+        ar: { title: "التعاون مع الأسرة والمختصين", lead: "دفتر التواصل والتنسيق مع المعالجين.", body: `<h3>دفتر التواصل</h3><p>أداة أساسية بين المدرسة والأسرة: ملاحظات يومية، مشاهدات، نجاحات وصعوبات. يضمن استمرارية المرافقة.</p><h3>اجتماعات التنسيق</h3><p>جمع المعلمين والآباء وأخصائي النطق والحركة والمربي المتخصص بانتظام حول أهداف الطفل.</p><h3>تثمين خبرة الأسرة</h3><p>الآباء يعرفون طفلهم أكثر من أي شخص آخر. تجربتهم موردٌ قيّم لتكييف الاستراتيجيات.` }
+      },
+      'play-learning': {
+        fr: { title: "L'apprentissage par le jeu", lead: "Comment utiliser les intérêts spécifiques de l'enfant pour stimuler l'apprentissage.", body: `<h3>Le jeu comme vecteur d'apprentissage</h3><p>Pour les enfants autistes, le jeu structuré autour de leurs intérêts spécifiques est un puissant levier de motivation et d'apprentissage.</p><h3>Des exemples concrets</h3><p>Un enfant passionné de trains peut apprendre les maths en comptant des wagons. Un passionné de dinosaures peut développer ses compétences en lecture à travers des livres sur le sujet.</p><h3>Le jeu parallèle et coopératif</h3><p>Introduire progressivement d'autres enfants dans le jeu, en partant du jeu parallèle (jouer côte à côte) vers le jeu coopératif.` },
+        ar: { title: "التعلم عن طريق اللعب", lead: "كيف تستخدم اهتمامات الطفل الخاصة لتحفيز التعلم.", body: `<h3>اللعب كوسيلة للتعلم</h3><p>بالنسبة للأطفال التوحديين، اللعب المنظم حول اهتماماتهم الخاصة هو رافعة قوية للتحفيز والتعلم.</p><h3>أمثلة ملموسة</h3><p>طفل مولع بالقطارات يمكنه تعلم الرياضيات بعد العربات. مولع بالديناصورات يمكنه تطوير مهارات القراءة عبر الكتب المتعلقة بها.</p><h3>اللعب المتوازي والتعاوني</h3><p>إدخال أطفال آخرين تدريجياً في اللعب، من اللعب المتوازي (جنباً إلى جنب) نحو اللعب التعاوني.` }
+      }
+    };
 
-function showArticle(id) {
-  const lang = currentLang;
-  const content = articleContent[id];
-  if (!content) { alert(lang === 'ar' ? 'المقال غير متوفر' : 'Article complet bientôt disponible.'); return; }
-  const c = content[lang] || content['fr'];
-  const isAr = lang === 'ar';
-  const detailEl = document.getElementById('article-content');
-  detailEl.setAttribute('dir', isAr ? 'rtl' : 'ltr');
-  detailEl.style.textAlign = isAr ? 'right' : 'left';
-  detailEl.innerHTML = `
+    function showArticle(id) {
+      const lang = currentLang;
+      const content = articleContent[id];
+      if (!content) { alert(lang === 'ar' ? 'المقال غير متوفر' : 'Article complet bientôt disponible.'); return; }
+      const c = content[lang] || content['fr'];
+      const isAr = lang === 'ar';
+      const detailEl = document.getElementById('article-content');
+      detailEl.setAttribute('dir', isAr ? 'rtl' : 'ltr');
+      detailEl.style.textAlign = isAr ? 'right' : 'left';
+      detailEl.innerHTML = `
     <button class="back-btn" onclick="showPage('inform');">${t[lang]['back']}</button>
     <div class="lang-toggle-row">
-      <button class="lang-toggle-btn ${lang==='fr'?'active':''}" onclick="currentLang='fr';applyTranslations();showArticle('${id}')">Français</button>
-      <button class="lang-toggle-btn ${lang==='ar'?'active':''}" onclick="currentLang='ar';applyTranslations();showArticle('${id}')">العربية</button>
+      <button class="lang-toggle-btn ${lang === 'fr' ? 'active' : ''}" onclick="currentLang='fr';applyTranslations();showArticle('${id}')">Français</button>
+      <button class="lang-toggle-btn ${lang === 'ar' ? 'active' : ''}" onclick="currentLang='ar';applyTranslations();showArticle('${id}')">العربية</button>
     </div>
     <h1>${c.title}</h1>
     <p class="lead">${c.lead}</p>
     ${c.body}`;
-  showPage('article');
-}
+      showPage('article');
+    }
 
-// ===== EMOTION GAME =====
-const emotions = [
-  { emoji:'😊', name:{fr:'Heureux', ar:'سعيد'}, color:'var(--green)' },
-  { emoji:'😢', name:{fr:'Triste', ar:'حزين'}, color:'var(--blue)' },
-  { emoji:'😡', name:{fr:'En colère', ar:'غاضب'}, color:'var(--red)' },
-  { emoji:'😨', name:{fr:'Effrayé', ar:'خائف'}, color:'var(--yellow)' },
-  { emoji:'😮', name:{fr:'Surpris', ar:'متفاجئ'}, color:'var(--yellow)' },
-  { emoji:'😴', name:{fr:'Fatigué', ar:'متعب'}, color:'var(--muted)' },
-  { emoji:'🤗', name:{fr:'Affectueux', ar:'محب'}, color:'var(--red)' },
-  { emoji:'😕', name:{fr:'Confus', ar:'محتار'}, color:'var(--muted)' },
-  { emoji:'🥳', name:{fr:'Enthousiaste', ar:'متحمس'}, color:'var(--yellow)' },
-  { emoji:'😌', name:{fr:'Calme', ar:'هادئ'}, color:'var(--green)' },
-];
+    // ===== EMOTION GAME =====
+    const emotions = [
+      { emoji: '😊', name: { fr: 'Heureux', ar: 'سعيد' }, color: 'var(--green)' },
+      { emoji: '😢', name: { fr: 'Triste', ar: 'حزين' }, color: 'var(--blue)' },
+      { emoji: '😡', name: { fr: 'En colère', ar: 'غاضب' }, color: 'var(--red)' },
+      { emoji: '😨', name: { fr: 'Effrayé', ar: 'خائف' }, color: 'var(--yellow)' },
+      { emoji: '😮', name: { fr: 'Surpris', ar: 'متفاجئ' }, color: 'var(--yellow)' },
+      { emoji: '😴', name: { fr: 'Fatigué', ar: 'متعب' }, color: 'var(--muted)' },
+      { emoji: '🤗', name: { fr: 'Affectueux', ar: 'محب' }, color: 'var(--red)' },
+      { emoji: '😕', name: { fr: 'Confus', ar: 'محتار' }, color: 'var(--muted)' },
+      { emoji: '🥳', name: { fr: 'Enthousiaste', ar: 'متحمس' }, color: 'var(--yellow)' },
+      { emoji: '😌', name: { fr: 'Calme', ar: 'هادئ' }, color: 'var(--green)' },
+    ];
 
-let gameState = { q: 0, correct: 0, total: 10, current: null, answered: false };
+    let gameState = { q: 0, correct: 0, total: 10, current: null, answered: false };
 
-function shuffle(arr) { return [...arr].sort(() => Math.random() - 0.5); }
+    function shuffle(arr) { return [...arr].sort(() => Math.random() - 0.5); }
 
-function startGame() {
-  const shuffled = shuffle(emotions).slice(0, gameState.total);
-  gameState.questions = shuffled;
-  gameState.q = 0;
-  gameState.correct = 0;
-  gameState.answered = false;
-  document.getElementById('game-main').style.display = 'block';
-  document.getElementById('game-complete').style.display = 'none';
-  renderQuestion();
-}
+    function startGame() {
+      const shuffled = shuffle(emotions).slice(0, gameState.total);
+      gameState.questions = shuffled;
+      gameState.q = 0;
+      gameState.correct = 0;
+      gameState.answered = false;
+      document.getElementById('game-main').style.display = 'block';
+      document.getElementById('game-complete').style.display = 'none';
+      renderQuestion();
+    }
 
-function renderQuestion() {
-  const lang = currentLang;
-  const q = gameState.questions[gameState.q];
-  gameState.current = q;
-  gameState.answered = false;
+    function renderQuestion() {
+      const lang = currentLang;
+      const q = gameState.questions[gameState.q];
+      gameState.current = q;
+      gameState.answered = false;
 
-  document.getElementById('game-emoji').textContent = q.emoji;
-  document.getElementById('game-emoji').className = 'emoji-display';
-  document.getElementById('score-correct').textContent = gameState.correct;
-  document.getElementById('score-q').textContent = gameState.q + 1;
-  document.getElementById('score-total').textContent = gameState.total;
-  document.getElementById('game-feedback').textContent = '';
-  document.getElementById('game-feedback').className = 'game-feedback';
-  document.getElementById('progress-bar').style.width = ((gameState.q / gameState.total) * 100) + '%';
+      document.getElementById('game-emoji').textContent = q.emoji;
+      document.getElementById('game-emoji').className = 'emoji-display';
+      document.getElementById('score-correct').textContent = gameState.correct;
+      document.getElementById('score-q').textContent = gameState.q + 1;
+      document.getElementById('score-total').textContent = gameState.total;
+      document.getElementById('game-feedback').textContent = '';
+      document.getElementById('game-feedback').className = 'game-feedback';
+      document.getElementById('progress-bar').style.width = ((gameState.q / gameState.total) * 100) + '%';
 
-  // Build 4 answer options: 1 correct + 3 random wrong
-  const wrong = shuffle(emotions.filter(e => e.emoji !== q.emoji)).slice(0, 3);
-  const options = shuffle([q, ...wrong]);
+      // Build 4 answer options: 1 correct + 3 random wrong
+      const wrong = shuffle(emotions.filter(e => e.emoji !== q.emoji)).slice(0, 3);
+      const options = shuffle([q, ...wrong]);
 
-  document.getElementById('answers-grid').innerHTML = options.map(opt => `
+      document.getElementById('answers-grid').innerHTML = options.map(opt => `
     <button class="answer-btn" onclick="checkAnswer('${opt.emoji}')">
       ${opt.emoji}
       <span>${opt.name[currentLang] || opt.name.fr}</span>
     </button>`).join('');
-}
-
-function checkAnswer(emoji) {
-  if (gameState.answered) return;
-  gameState.answered = true;
-  const lang = currentLang;
-  const correct = emoji === gameState.current.emoji;
-
-  document.querySelectorAll('.answer-btn').forEach(btn => {
-    btn.disabled = true;
-    if (btn.textContent.trim().startsWith(gameState.current.emoji)) {
-      btn.classList.add('correct');
-    } else if (btn.textContent.trim().startsWith(emoji)) {
-      btn.classList.add('wrong');
     }
-  });
 
-  const emojiEl = document.getElementById('game-emoji');
-  const feedback = document.getElementById('game-feedback');
+    function checkAnswer(emoji) {
+      if (gameState.answered) return;
+      gameState.answered = true;
+      const lang = currentLang;
+      const correct = emoji === gameState.current.emoji;
 
-  if (correct) {
-    gameState.correct++;
-    emojiEl.classList.add('correct');
-    feedback.textContent = lang === 'fr' ? '✓ Bravo ! C\'est correct !' : '✓ أحسنت! صحيح!';
-    feedback.className = 'game-feedback fb-correct';
-  } else {
-    emojiEl.classList.add('wrong');
-    feedback.textContent = lang === 'fr' ? `✗ C'est ${gameState.current.name.fr}` : `✗ هذا ${gameState.current.name.ar}`;
-    feedback.className = 'game-feedback fb-wrong';
-  }
+      document.querySelectorAll('.answer-btn').forEach(btn => {
+        btn.disabled = true;
+        if (btn.textContent.trim().startsWith(gameState.current.emoji)) {
+          btn.classList.add('correct');
+        } else if (btn.textContent.trim().startsWith(emoji)) {
+          btn.classList.add('wrong');
+        }
+      });
 
-  setTimeout(() => {
-    gameState.q++;
-    if (gameState.q < gameState.total) renderQuestion();
-    else showGameComplete();
-  }, 1400);
-}
+      const emojiEl = document.getElementById('game-emoji');
+      const feedback = document.getElementById('game-feedback');
 
-function showGameComplete() {
-  const lang = currentLang;
-  const pct = Math.round((gameState.correct / gameState.total) * 100);
-  document.getElementById('game-main').style.display = 'none';
-  const gc = document.getElementById('game-complete');
-  gc.style.display = 'block';
+      if (correct) {
+        gameState.correct++;
+        emojiEl.classList.add('correct');
+        feedback.textContent = lang === 'fr' ? '✓ Bravo ! C\'est correct !' : '✓ أحسنت! صحيح!';
+        feedback.className = 'game-feedback fb-correct';
+      } else {
+        emojiEl.classList.add('wrong');
+        feedback.textContent = lang === 'fr' ? `✗ C'est ${gameState.current.name.fr}` : `✗ هذا ${gameState.current.name.ar}`;
+        feedback.className = 'game-feedback fb-wrong';
+      }
 
-  let emoji = '🎉', msg = '';
-  if (pct === 100) { emoji = '🏆'; msg = lang === 'fr' ? 'Score parfait ! Tu es un expert des émotions !' : 'درجة كاملة! أنت خبير المشاعر!'; }
-  else if (pct >= 70) { emoji = '⭐'; msg = lang === 'fr' ? 'Excellent travail ! Continue comme ça !' : 'عمل ممتاز! استمر هكذا!'; }
-  else if (pct >= 50) { emoji = '👍'; msg = lang === 'fr' ? 'Bien joué ! Essaie encore pour t\'améliorer !' : 'أحسنت! حاول مرة أخرى للتحسن!'; }
-  else { emoji = '💪'; msg = lang === 'fr' ? 'Continue de t\'entraîner, tu peux y arriver !' : 'واصل التدريب، يمكنك ذلك!'; }
+      setTimeout(() => {
+        gameState.q++;
+        if (gameState.q < gameState.total) renderQuestion();
+        else showGameComplete();
+      }, 1400);
+    }
 
-  document.getElementById('gc-emoji').textContent = emoji;
-  document.getElementById('gc-score-display').innerHTML =
-    `<span class="gc-green">${gameState.correct}</span> / <span class="gc-blue">${gameState.total}</span>`;
-  document.getElementById('gc-message').textContent = msg;
-}
+    function showGameComplete() {
+      const lang = currentLang;
+      const pct = Math.round((gameState.correct / gameState.total) * 100);
+      document.getElementById('game-main').style.display = 'none';
+      const gc = document.getElementById('game-complete');
+      gc.style.display = 'block';
 
-function restartGame() { startGame(); }
+      let emoji = '🎉', msg = '';
+      if (pct === 100) { emoji = '🏆'; msg = lang === 'fr' ? 'Score parfait ! Tu es un expert des émotions !' : 'درجة كاملة! أنت خبير المشاعر!'; }
+      else if (pct >= 70) { emoji = '⭐'; msg = lang === 'fr' ? 'Excellent travail ! Continue comme ça !' : 'عمل ممتاز! استمر هكذا!'; }
+      else if (pct >= 50) { emoji = '👍'; msg = lang === 'fr' ? 'Bien joué ! Essaie encore pour t\'améliorer !' : 'أحسنت! حاول مرة أخرى للتحسن!'; }
+      else { emoji = '💪'; msg = lang === 'fr' ? 'Continue de t\'entraîner, tu peux y arriver !' : 'واصل التدريب، يمكنك ذلك!'; }
 
-// ===== CHAT (real API calls — no hardcoded responses) =====
-let chatHistory = [];
+      document.getElementById('gc-emoji').textContent = emoji;
+      document.getElementById('gc-score-display').innerHTML =
+        `<span class="gc-green">${gameState.correct}</span> / <span class="gc-blue">${gameState.total}</span>`;
+      document.getElementById('gc-message').textContent = msg;
+    }
 
-async function sendChatMessage() {
-  const input = document.getElementById('chat-input');
-  const sendBtn = document.querySelector('.chat-send');
-  const msg = input.value.trim();
-  if (!msg) return;
+    function restartGame() { startGame(); }
 
-  addChatMsg(msg, 'user');
-  chatHistory.push({ role: 'user', content: msg });
-  input.value = '';
-  sendBtn.disabled = true;
+    // ===== CHAT (real API calls — no hardcoded responses) =====
+    let chatHistory = [];
 
-  // Show typing indicator
-  const typingDiv = addChatMsg('...', 'bot');
+    async function sendChatMessage() {
+      const input = document.getElementById('chat-input');
+      const sendBtn = document.querySelector('.chat-send');
+      const msg = input.value.trim();
+      if (!msg) return;
 
-  try {
-    const res = await fetch('/api/chat', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ message: msg, history: chatHistory })
-    });
-    if (!res.ok) throw new Error('Server error');
-    const data = await res.json();
-    typingDiv.querySelector('.chat-bubble').innerHTML = data.reply.replace(/\n/g, '<br>').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-    chatHistory.push({ role: 'assistant', content: data.reply });
-  } catch (e) {
-    typingDiv.querySelector('.chat-bubble').textContent = currentLang === 'ar'
-      ? 'عذراً، حدث خطأ في الاتصال. يرجى المحاولة لاحقاً.'
-      : 'Erreur de connexion au serveur. Veuillez réessayer.';
-  }
+      addChatMsg(msg, 'user');
+      chatHistory.push({ role: 'user', content: msg });
+      input.value = '';
+      sendBtn.disabled = true;
 
-  sendBtn.disabled = false;
-  document.getElementById('chat-box').scrollTop = document.getElementById('chat-box').scrollHeight;
-}
+      // Show typing indicator
+      const typingDiv = addChatMsg('...', 'bot');
 
-function sendSuggestion(btn) {
-  document.getElementById('chat-input').value = btn.textContent;
-  sendChatMessage();
-}
+      try {
+        const res = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: msg, history: chatHistory })
+        });
+        if (!res.ok) throw new Error('Server error');
+        const data = await res.json();
+        typingDiv.querySelector('.chat-bubble').innerHTML = data.reply.replace(/\n/g, '<br>').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+        chatHistory.push({ role: 'assistant', content: data.reply });
+      } catch (e) {
+        typingDiv.querySelector('.chat-bubble').textContent = currentLang === 'ar'
+          ? 'عذراً، حدث خطأ في الاتصال. يرجى المحاولة لاحقاً.'
+          : 'Erreur de connexion au serveur. Veuillez réessayer.';
+      }
 
-function addChatMsg(text, type) {
-  const box = document.getElementById('chat-box');
-  const div = document.createElement('div');
-  div.className = `chat-msg ${type}`;
-  div.innerHTML = `<div class="chat-bubble">${text}</div>`;
-  box.appendChild(div);
-  box.scrollTop = box.scrollHeight;
-  return div;
-}
+      sendBtn.disabled = false;
+      document.getElementById('chat-box').scrollTop = document.getElementById('chat-box').scrollHeight;
+    }
 
-document.getElementById('chat-input').addEventListener('keydown', e => { if (e.key === 'Enter') sendChatMessage(); });
+    function sendSuggestion(btn) {
+      document.getElementById('chat-input').value = btn.textContent;
+      sendChatMessage();
+    }
 
-// ===== INIT =====
-renderHomeArticles();
-renderInformArticles();
-renderEducateArticles();
-renderVideos();
-startGame();
-applyTranslations();
-</script>
+    function addChatMsg(text, type) {
+      const box = document.getElementById('chat-box');
+      const div = document.createElement('div');
+      div.className = `chat-msg ${type}`;
+      div.innerHTML = `<div class="chat-bubble">${text}</div>`;
+      box.appendChild(div);
+      box.scrollTop = box.scrollHeight;
+      return div;
+    }
+
+    document.getElementById('chat-input').addEventListener('keydown', e => { if (e.key === 'Enter') sendChatMessage(); });
+
+    // ===== INIT =====
+    renderHomeArticles();
+    renderInformArticles();
+    renderEducateArticles();
+    renderVideos();
+    startGame();
+    applyTranslations();
+  </script>
 </body>
+
 </html>
