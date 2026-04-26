@@ -1,9 +1,10 @@
 export default function CategoryBadge({ category, isAr }: { category: string, isAr?: boolean }) {
-  // Use distinct, darker colors (-900) for better contrast in light mode.
+  // Use distinct, darker colors for strong contrast in both light and dark modes.
   const colorMap: Record<string, string> = {
     "Comprendre": "bg-blue-100 text-blue-900",
     "Sensoriel": "bg-yellow-100 text-yellow-900",
     "Dépistage": "bg-red-100 text-red-900",
+    "Diagnostic": "bg-red-100 text-red-900",
     "Communication": "bg-green-100 text-green-900",
     "Famille": "bg-purple-100 text-purple-900",
     "Pédagogie": "bg-indigo-100 text-indigo-900",
@@ -27,6 +28,7 @@ export default function CategoryBadge({ category, isAr }: { category: string, is
     "Comprendre": "الفهم",
     "Sensoriel": "حسي",
     "Dépistage": "التشخيص",
+    "Diagnostic": "التشخيص",
     "Communication": "التواصل",
     "Famille": "الأسرة",
     "Pédagogie": "بيداغوجيا",
@@ -50,7 +52,10 @@ export default function CategoryBadge({ category, isAr }: { category: string, is
   const displayCat = isAr && arMap[category] ? arMap[category] : category;
   
   return (
-    <span className={`inline-block px-3 py-1 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider ${classes}`}>
+    <span
+      className={`inline-block px-3 py-1 rounded-full text-[10px] sm:text-xs font-black uppercase tracking-wider ${classes}`}
+      style={{ fontWeight: 800 }}
+    >
       {displayCat}
     </span>
   );

@@ -150,7 +150,7 @@
     display: flex; align-items: center; gap: 12px;
   }
   .section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-  .view-all { font-size: 0.82rem; color: var(--blue); font-weight: 700; cursor: pointer; white-space: nowrap; }
+  .view-all { font-size: 0.82rem; color: var(--blue); font-weight: 700; cursor: pointer; white-space: nowrap; background: transparent; border: none; padding: 0; font-family: inherit; }
   .view-all:hover { text-decoration: underline; }
 
   .featured-card {
@@ -161,10 +161,11 @@
     gap: 2rem; align-items: center;
   }
   .featured-tag {
-    display: inline-block; background: rgba(21,101,192,0.25); color: #90caf9;
-    font-size: 0.75rem; font-weight: 700; padding: 3px 10px; border-radius: 100px;
-    margin-bottom: 0.75rem;
+    display: inline-block; background: rgba(21,101,192,0.35); color: #bfdbfe;
+    font-size: 0.75rem; font-weight: 800; padding: 4px 12px; border-radius: 100px;
+    margin-bottom: 0.75rem; border: 1px solid rgba(147,197,253,0.3);
   }
+  body[data-theme="light"] .featured-tag { background: #dbeafe; color: #1e40af; border-color: #93c5fd; }
   .featured-card h2 { font-size: 1.45rem; font-weight: 800; margin-bottom: 0.75rem; line-height: 1.3; }
   .featured-card p { color: var(--muted); font-size: 0.92rem; margin-bottom: 1.25rem; }
   .read-btn {
@@ -200,6 +201,10 @@
   .tag-yellow { background: rgba(244,161,0,0.2); color: #ffc947; }
   .tag-green { background: rgba(45,198,83,0.2); color: #69e88a; }
   .tag-blue { background: rgba(21,101,192,0.2); color: #90caf9; }
+  body[data-theme="light"] .tag-red { background: rgba(230,57,70,0.15); color: #b91c1c; }
+  body[data-theme="light"] .tag-yellow { background: rgba(244,161,0,0.15); color: #92400e; }
+  body[data-theme="light"] .tag-green { background: rgba(45,198,83,0.15); color: #166534; }
+  body[data-theme="light"] .tag-blue { background: rgba(21,101,192,0.15); color: #1e40af; }
   .article-card h3 { font-size: 1rem; font-weight: 700; line-height: 1.35; margin-bottom: 0.5rem; }
   .article-card p { color: var(--muted); font-size: 0.85rem; flex: 1; }
   .article-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; }
@@ -588,10 +593,10 @@
     <p data-i18n="inform-sub">Articles de sensibilisation pour le grand public</p>
     <div class="filter-row">
       <button class="filter-btn active" data-filter="all" onclick="filterArticles(this, 'inform')" data-i18n="filter-all">Tous</button>
-      <button class="filter-btn" data-filter="Comprendre" onclick="filterArticles(this, 'inform')">Comprendre</button>
-      <button class="filter-btn" data-filter="Dépistage" onclick="filterArticles(this, 'inform')">Dépistage</button>
-      <button class="filter-btn" data-filter="Droits" onclick="filterArticles(this, 'inform')">Droits</button>
-      <button class="filter-btn" data-filter="Sensoriel" onclick="filterArticles(this, 'inform')">Sensoriel</button>
+      <button class="filter-btn" data-filter="Comprendre" onclick="filterArticles(this, 'inform')" data-i18n="tag-Comprendre">Comprendre</button>
+      <button class="filter-btn" data-filter="Dépistage" onclick="filterArticles(this, 'inform')" data-i18n="tag-Dépistage">Dépistage</button>
+      <button class="filter-btn" data-filter="Droits" onclick="filterArticles(this, 'inform')" data-i18n="tag-Droits">Droits</button>
+      <button class="filter-btn" data-filter="Sensoriel" onclick="filterArticles(this, 'inform')" data-i18n="tag-Sensoriel">Sensoriel</button>
     </div>
   </div>
   <div class="articles-section"><div class="articles-grid" id="inform-articles"></div></div>
@@ -604,9 +609,9 @@
     <p data-i18n="educate-sub">Conseils pratiques et stratégies pédagogiques adaptées</p>
     <div class="filter-row">
       <button class="filter-btn active" data-filter="all" onclick="filterArticles(this, 'educate')" data-i18n="filter-all">Tous</button>
-      <button class="filter-btn" data-filter="Pédagogie" onclick="filterArticles(this, 'educate')">Pédagogie</button>
-      <button class="filter-btn" data-filter="Émotions" onclick="filterArticles(this, 'educate')">Émotions</button>
-      <button class="filter-btn" data-filter="Partenariat" onclick="filterArticles(this, 'educate')">Partenariat</button>
+      <button class="filter-btn" data-filter="Pédagogie" onclick="filterArticles(this, 'educate')" data-i18n="tag-Pédagogie">Pédagogie</button>
+      <button class="filter-btn" data-filter="Émotions" onclick="filterArticles(this, 'educate')" data-i18n="tag-Émotions">Émotions</button>
+      <button class="filter-btn" data-filter="Partenariat" onclick="filterArticles(this, 'educate')" data-i18n="tag-Partenariat">Partenariat</button>
     </div>
   </div>
   <div class="articles-section"><div class="articles-grid" id="educate-articles"></div></div>
@@ -874,6 +879,13 @@ const t = {
     'read-in-ar': 'العربية',
     'read-in-fr': 'Français',
     'min-read': 'min de lecture',
+    'tag-Comprendre': 'Comprendre',
+    'tag-Dépistage': 'Dépistage',
+    'tag-Droits': 'Droits',
+    'tag-Sensoriel': 'Sensoriel',
+    'tag-Pédagogie': 'Pédagogie',
+    'tag-Émotions': 'Émotions',
+    'tag-Partenariat': 'Partenariat',
   },
   ar: {
     'badge': 'منصة شاملة · تونس',
@@ -952,6 +964,13 @@ const t = {
     'read-in-ar': 'العربية',
     'read-in-fr': 'Français',
     'min-read': 'دقائق قراءة',
+    'tag-Comprendre': 'الفهم',
+    'tag-Dépistage': 'التشخيص',
+    'tag-Droits': 'حقوق',
+    'tag-Sensoriel': 'حسي',
+    'tag-Pédagogie': 'بيداغوجيا',
+    'tag-Émotions': 'مشاعر',
+    'tag-Partenariat': 'شراكة',
   }
 };
 
@@ -1029,10 +1048,18 @@ const videos = [
 ];
 
 // ===== RENDER ARTICLES =====
+const tagTranslations = {
+  'Comprendre': 'الفهم', 'Sensoriel': 'حسي', 'Dépistage': 'التشخيص',
+  'Droits': 'حقوق', 'Pédagogie': 'بيداغوجيا', 'Émotions': 'مشاعر',
+  'Partenariat': 'شراكة', 'Sensibilisation': 'توعية', 'Communication': 'تواصل',
+  'Famille': 'الأسرة', 'Inclusion': 'إدماج', 'Observation': 'ملاحظة',
+  'Témoignages': 'شهادات', 'Thérapies': 'علاجات', 'Éducation': 'تعليم', 'Formation': 'تدريب',
+};
 function makeArticleCard(a) {
   const lang = currentLang;
+  const tagLabel = lang === 'ar' ? (tagTranslations[a.tag] || a.tag) : a.tag;
   return `<div class="article-card" onclick="showArticle('${a.id}')">
-    <div class="article-tag ${a.tagClass}">${a.tag}</div>
+    <div class="article-tag ${a.tagClass}">${tagLabel}</div>
     <h3>${a.title[lang]}</h3>
     <p>${a.desc[lang]}</p>
     <div class="article-footer">
@@ -1061,7 +1088,7 @@ function renderVideos() {
         <div class="play-btn">▶</div>
       </div>
       <div class="video-info">
-        <div class="article-tag tag-blue" style="margin-bottom:0.5rem;">${v.tag}</div>
+        <div class="article-tag tag-blue" style="margin-bottom:0.5rem;">${lang === 'ar' ? (tagTranslations[v.tag] || v.tag) : v.tag}</div>
         <h3>${v.title[lang]}</h3>
         <p>${v.desc[lang]}</p>
       </div>
@@ -1119,18 +1146,66 @@ const articleContent = {
       <p><strong>تجنب الأحكام المتسرعة:</strong> السلوكيات ليست عناداً — إنها طريقة مختلفة لترجمة الأحاسيس والمعلومات.</p>
       <p><strong>استخدم الدعائم البصرية:</strong> الجداول والصور والرموز الصورية تساعد الطفل على تنظيم المهام اليومية وفهمها.</p>`
     }
+  },
+  'history': {
+    fr: { title: "Histoire et évolution du concept d'autisme", lead: "Du terme « maladie » au Trouble du Spectre de l'Autisme.", body: `<h3>Les débuts</h3><p>Le terme autisme a été introduit en 1911 par Eugen Bleuler pour décrire un repli sur soi observé dans la schizophrénie. C'est Leo Kanner en 1943 qui l'a utilisé pour la première fois pour désigner un syndrome distinct chez l'enfant.</p><h3>L'évolution du diagnostic</h3><p>Pendant des décennies, l'autisme a été associé à tort à des causes psychologiques (la théorie de la « mère réfrigérateur »). Les recherches modernes ont définitivement établi son origine neurologique.</p><h3>Aujourd'hui</h3><p>Le DSM-5 (2013) regroupe tous les sous-types sous le terme unique de <strong>Trouble du Spectre de l'Autisme (TSA)</strong>, reconnaissant la grande diversité des profils.` },
+    ar: { title: "تاريخ وتطور مفهوم التوحد", lead: "من مصطلح المرض إلى اضطراب طيف التوحد.", body: `<h3>البدايات</h3><p>استخدم يوجين بلولر مصطلح التوحد عام 1911. ثم وصف ليو كانر عام 1943 متلازمة مستقلة عند الأطفال.</p><h3>تطور التشخيص</h3><p>أثبتت الأبحاث الحديثة الأصل العصبي للتوحد، ونفت النظريات النفسية القديمة الخاطئة.</p><h3>اليوم</h3><p>يجمع DSM-5 (2013) جميع الأنواع تحت مسمى <strong>اضطراب طيف التوحد</strong>، مع الاعتراف بتنوع الملفات الشخصية.` }
+  },
+  'sensory': {
+    fr: { title: "L'hypersensibilité sensorielle expliquée", lead: "Réactions intenses aux sons, textures et lumières.", body: `<h3>Qu'est-ce que l'hypersensibilité ?</h3><p>Beaucoup d'enfants autistes perçoivent les stimuli sensoriels avec une intensité bien supérieure à la normale. Un son ordinaire peut être douloureux, une étiquette de vêtement insupportable.</p><h3>Les sens concernés</h3><p><strong>Auditif :</strong> bruits soudains, lieux bruyants. <strong>Tactile :</strong> certaines textures de vêtements ou d'aliments. <strong>Visuel :</strong> lumières vives ou clignotantes.</p><h3>Stratégies d'adaptation</h3><p>Casques anti-bruit, vêtements sans coutures, lumières tamisées, espaces calmes de retrait. Anticiper les environnements sensoriels difficiles.` },
+    ar: { title: "شرح فرط الحساسية الحسية", lead: "ردود فعل قوية على الأصوات والملمس والأضواء.", body: `<h3>ما هو فرط الحساسية؟</h3><p>يدرك كثير من الأطفال التوحديين المحفزات الحسية بشدة أعلى بكثير من المعتاد. صوت عادي قد يكون مؤلماً، وبطاقة ملابس قد تكون لا تُحتمل.</p><h3>الحواس المعنية</h3><p><strong>السمع:</strong> الأصوات المفاجئة، الأماكن الصاخبة. <strong>اللمس:</strong> بعض أقمشة الملابس أو الأطعمة. <strong>البصر:</strong> الأضواء الساطعة.</p><h3>استراتيجيات التكيف</h3><p>سماعات مانعة للضوضاء، ملابس بدون خياطة بارزة، إضاءة خافتة، مساحات هادئة للانسحاب.` }
+  },
+  'talents': {
+    fr: { title: "Les forces et talents souvent ignorés", lead: "Mémoire exceptionnelle, concentration intense : des atouts à valoriser.", body: `<h3>Des capacités remarquables</h3><p>De nombreux enfants autistes présentent des capacités exceptionnelles dans certains domaines : mémoire photographique, aptitudes mathématiques, musique, dessin ou codage informatique.</p><h3>La pensée en détail</h3><p>La tendance à percevoir les détails plutôt que le tout global peut être un atout précieux dans des domaines techniques ou artistiques.</p><h3>Comment valoriser ces forces</h3><p>Identifier les intérêts spécifiques de l'enfant et les utiliser comme levier d'apprentissage. Créer des opportunités d'expression et de réussite dans ces domaines.` },
+    ar: { title: "نقاط القوة والمواهب التي غالباً ما يتم تجاهلها", lead: "ذاكرة استثنائية وتركيز عالٍ: مميزات تستحق التقدير.", body: `<h3>قدرات ملحوظة</h3><p>يتمتع كثير من الأطفال التوحديين بقدرات استثنائية في مجالات معينة: ذاكرة فوتوغرافية، مهارات رياضية، موسيقى، رسم أو برمجة.</p><h3>التفكير بالتفاصيل</h3><p>الميل لإدراك التفاصيل يمكن أن يكون أصلاً قيماً في المجالات التقنية أو الفنية.</p><h3>كيفية تثمين هذه القوى</h3><p>تحديد الاهتمامات الخاصة للطفل واستخدامها كرافعة للتعلم، وخلق فرص للتعبير والنجاح.` }
+  },
+  'rights': {
+    fr: { title: "Le droit à l'éducation : un cadre mondial", lead: "Déclaration universelle et constitution tunisienne.", body: `<h3>Le cadre international</h3><p>La Convention relative aux droits des personnes handicapées (ONU, 2006) affirme le droit à une éducation inclusive. La Tunisie l'a ratifiée en 2008.</p><h3>La loi tunisienne</h3><p>La Constitution de 2022 garantit le droit à l'éducation pour tous. Des textes spécifiques encadrent l'inclusion scolaire des enfants en situation de handicap.</p><h3>En pratique</h3><p>L'enfant a droit à un Plan Personnalisé de Scolarisation (PPS), à des aménagements pédagogiques et à l'accompagnement d'un AESH si nécessaire.` },
+    ar: { title: "الحق في التعليم: إطار عالمي", lead: "الإعلان العالمي والدستور التونسي.", body: `<h3>الإطار الدولي</h3><p>تؤكد اتفاقية حقوق الأشخاص ذوي الإعاقة (الأمم المتحدة، 2006) الحق في التعليم الشامل. صادقت تونس عليها عام 2008.</p><h3>القانون التونسي</h3><p>يضمن دستور 2022 حق التعليم للجميع، مع نصوص خاصة بالإدماج المدرسي للأطفال ذوي الإعاقة.</p><h3>على أرض الواقع</h3><p>للطفل الحق في خطة تربوية شخصية وتسهيلات بيداغوجية ومرافق متخصص عند الحاجة.` }
+  },
+  'signs': {
+    fr: { title: "Les signes qui doivent alerter", lead: "Retard du pointage, absence de réponse au prénom, écholalie.", body: `<h3>Avant 12 mois</h3><p>Peu ou pas de babillage, absence de gestes communicatifs (pointer, faire coucou), pas de réponse au prénom.</p><h3>Entre 12 et 24 mois</h3><p>Pas de mots isolés à 16 mois, régression du langage ou des compétences sociales, peu d'imitation.</p><h3>Après 2 ans</h3><p>Jeu solitaire et répétitif, difficulté avec les changements de routine, réactions inhabituelles aux sons ou textures.</p><p><strong>Important :</strong> un seul signe ne suffit pas. C'est l'accumulation et la persistance qui doivent alerter. Consultez un professionnel de santé.` },
+    ar: { title: "العلامات التي يجب الانتباه إليها", lead: "تأخر الإشارة، غياب الاستجابة للاسم، المصادة.", body: `<h3>قبل 12 شهراً</h3><p>قليل أو لا يوجد مناغاة، غياب الإيماءات التواصلية، عدم الاستجابة للاسم.</p><h3>بين 12 و24 شهراً</h3><p>غياب الكلمات المفردة في 16 شهراً، تراجع اللغة أو المهارات الاجتماعية.</p><h3>بعد سنتين</h3><p>لعب انعزالي ومتكرر، صعوبة في تغيير الروتين، ردود فعل غير عادية على الأصوات.<br><strong>مهم:</strong> علامة واحدة لا تكفي. تراكم العلامات وديمومتها هو ما يستوجب استشارة متخصص.` }
+  },
+  'myths': {
+    fr: { title: "Mythes et réalités sur l'autisme", lead: "Démêler le vrai du faux concernant les stéréotypes sur le TSA.", body: `<h3>Mythe : les enfants autistes ne ressentent pas d'émotions</h3><p><strong>Réalité :</strong> Ils ressentent des émotions intenses, mais peuvent avoir du mal à les exprimer de façon conventionnelle.</p><h3>Mythe : l'autisme est causé par les vaccins</h3><p><strong>Réalité :</strong> Cette affirmation est totalement réfutée par la science. L'étude qui la défendait a été retirée pour fraude.</p><h3>Mythe : tous les autistes sont savants</h3><p><strong>Réalité :</strong> Le TSA est un spectre très large. Certains ont des capacités exceptionnelles dans un domaine, mais ce n'est pas universel.` },
+    ar: { title: "خرافات وحقائق حول التوحد", lead: "التمييز بين الحقيقة والخرافة حول المفاهيم الشائعة.", body: `<h3>خرافة: الأطفال التوحديون لا يشعرون بالمشاعر</h3><p><strong>الحقيقة:</strong> يشعرون بمشاعر قوية لكنهم قد يجدون صعوبة في التعبير عنها بالطريقة التقليدية.</p><h3>خرافة: التوحد سببه اللقاحات</h3><p><strong>الحقيقة:</strong> هذا الادعاء مدحوض علمياً تماماً. الدراسة التي روّجت له سُحبت بسبب التزوير.</p><h3>خرافة: جميع التوحديين عباقرة</h3><p><strong>الحقيقة:</strong> طيف التوحد واسع جداً. بعضهم لديه قدرات استثنائية في مجال معين لكنه ليس قاعدة عامة.` }
+  },
+  'admin': {
+    fr: { title: "Démarches administratives en Tunisie", lead: "Comment obtenir la carte d'handicap et les aides sociales.", body: `<h3>La carte d'invalidité</h3><p>Délivrée par le Ministère des Affaires Sociales, elle ouvre droit à des avantages fiscaux, des transports gratuits et des aides financières.</p><h3>Comment l'obtenir</h3><p>Dossier médical établi par un médecin spécialiste, formulaire de demande, pièces d'identité. Le dossier est déposé à la délégation régionale des affaires sociales.</p><h3>Autres aides disponibles</h3><p>Programme d'Aide aux Familles Nécessiteuses (PAFN), associations spécialisées comme l'UNFT Bardo, centres de prise en charge et de rééducation.` },
+    ar: { title: "الإجراءات الإدارية في تونس", lead: "كيفية الحصول على بطاقة الإعاقة والمساعدات الاجتماعية.", body: `<h3>بطاقة الإعاقة</h3><p>تصدرها وزارة الشؤون الاجتماعية وتمنح حق الاستفادة من امتيازات جبائية ونقل مجاني ومساعدات مالية.</p><h3>كيفية الحصول عليها</h3><p>ملف طبي من طبيب متخصص، استمارة طلب، وثائق هوية. يُودع الملف في الإدارة الجهوية للشؤون الاجتماعية.</p><h3>مساعدات أخرى متاحة</h3><p>برنامج مساعدة الأسر المعوزة، الجمعيات المتخصصة كالاتحاد الوطني للآباء التونسيين، مراكز الرعاية وإعادة التأهيل.` }
+  },
+  'pedagogy': {
+    fr: { title: "Adapter ses consignes et son langage", lead: "Consignes courtes, une à la fois, avec support visuel permanent.", body: `<h3>Simplifier les consignes</h3><p>Donnez une seule consigne à la fois, en phrases courtes et concrètes. Évitez les métaphores et le langage implicite.</p><h3>Utiliser les supports visuels</h3><p>Planning illustré de la journée, pictogrammes pour les étapes des tâches, timer visuel pour les transitions.</p><h3>Adapter l'environnement</h3><p>Place fixe éloignée des sources de bruit, affichage épuré, zone de retrait calme accessible à l'enfant quand il en a besoin.` },
+    ar: { title: "تكييف التعليمات واللغة", lead: "تعليمات قصيرة، واحدة في كل مرة، مع دعم بصري دائم.", body: `<h3>تبسيط التعليمات</h3><p>أعطِ تعليمة واحدة في كل مرة، بجمل قصيرة وملموسة. تجنب الاستعارات واللغة الضمنية.</p><h3>استخدام الدعائم البصرية</h3><p>جدول يومي مصوّر، رموز صورية لخطوات المهام، مؤقت بصري للتحولات.</p><h3>تكييف البيئة</h3><p>مقعد ثابت بعيد عن مصادر الضوضاء، عرض مبسط، زاوية هادئة متاحة للطفل عند الحاجة.` }
+  },
+  'emotions': {
+    fr: { title: "Gérer les émotions et les crises", lead: "Le baromètre des émotions, le coin calme et les stratégies de désescalade.", body: `<h3>Reconnaître les signaux d'alerte</h3><p>Avant la crise : agitation motrice, répétition de mots, retrait. Apprendre à identifier ces signaux pour intervenir tôt.</p><h3>Le coin calme</h3><p>Un espace aménagé avec des outils sensoriels (coussins, objets à malaxer, casque). L'enfant peut s'y retirer librement.</p><h3>Après la crise</h3><p>Ne pas punir. Attendre le retour au calme, puis analyser avec l'enfant ce qui s'est passé (si son niveau de langage le permet).` },
+    ar: { title: "إدارة العواطف والأزمات", lead: "مقياس المشاعر، الزاوية الهادئة واستراتيجيات التهدئة.", body: `<h3>التعرف على إشارات الإنذار</h3><p>قبل الأزمة: اضطراب حركي، تكرار كلمات، انسحاب. تعلم التعرف على هذه الإشارات للتدخل مبكراً.</p><h3>الزاوية الهادئة</h3><p>مساحة مجهزة بأدوات حسية (وسائد، أشياء للعجن، سماعات). يمكن للطفل الانسحاب إليها بحرية.</p><h3>بعد الأزمة</h3><p>لا تعاقب. انتظر العودة للهدوء، ثم حلل مع الطفل ما حدث (إن سمح مستوى لغته بذلك).` }
+  },
+  'partnership': {
+    fr: { title: "Collaborer avec la famille et les spécialistes", lead: "Le cahier de communication, la coordination avec les thérapeutes.", body: `<h3>Le cahier de communication</h3><p>Un outil essentiel entre école et famille : notes quotidiennes, observations, succès et difficultés. Il assure la continuité de l'accompagnement.</p><h3>Les réunions de coordination</h3><p>Réunir régulièrement enseignants, parents, orthophoniste, psychomotricien et éducateur spécialisé autour des objectifs de l'enfant.</p><h3>Valoriser l'expertise parentale</h3><p>Les parents connaissent leur enfant mieux que quiconque. Leur vécu est une ressource précieuse pour adapter les stratégies.` },
+    ar: { title: "التعاون مع الأسرة والمختصين", lead: "دفتر التواصل والتنسيق مع المعالجين.", body: `<h3>دفتر التواصل</h3><p>أداة أساسية بين المدرسة والأسرة: ملاحظات يومية، مشاهدات، نجاحات وصعوبات. يضمن استمرارية المرافقة.</p><h3>اجتماعات التنسيق</h3><p>جمع المعلمين والآباء وأخصائي النطق والحركة والمربي المتخصص بانتظام حول أهداف الطفل.</p><h3>تثمين خبرة الأسرة</h3><p>الآباء يعرفون طفلهم أكثر من أي شخص آخر. تجربتهم موردٌ قيّم لتكييف الاستراتيجيات.` }
+  },
+  'play-learning': {
+    fr: { title: "L'apprentissage par le jeu", lead: "Comment utiliser les intérêts spécifiques de l'enfant pour stimuler l'apprentissage.", body: `<h3>Le jeu comme vecteur d'apprentissage</h3><p>Pour les enfants autistes, le jeu structuré autour de leurs intérêts spécifiques est un puissant levier de motivation et d'apprentissage.</p><h3>Des exemples concrets</h3><p>Un enfant passionné de trains peut apprendre les maths en comptant des wagons. Un passionné de dinosaures peut développer ses compétences en lecture à travers des livres sur le sujet.</p><h3>Le jeu parallèle et coopératif</h3><p>Introduire progressivement d'autres enfants dans le jeu, en partant du jeu parallèle (jouer côte à côte) vers le jeu coopératif.` },
+    ar: { title: "التعلم عن طريق اللعب", lead: "كيف تستخدم اهتمامات الطفل الخاصة لتحفيز التعلم.", body: `<h3>اللعب كوسيلة للتعلم</h3><p>بالنسبة للأطفال التوحديين، اللعب المنظم حول اهتماماتهم الخاصة هو رافعة قوية للتحفيز والتعلم.</p><h3>أمثلة ملموسة</h3><p>طفل مولع بالقطارات يمكنه تعلم الرياضيات بعد العربات. مولع بالديناصورات يمكنه تطوير مهارات القراءة عبر الكتب المتعلقة بها.</p><h3>اللعب المتوازي والتعاوني</h3><p>إدخال أطفال آخرين تدريجياً في اللعب، من اللعب المتوازي (جنباً إلى جنب) نحو اللعب التعاوني.` }
   }
 };
 
 function showArticle(id) {
   const lang = currentLang;
   const content = articleContent[id];
-  if (!content) return;
+  if (!content) { alert(lang === 'ar' ? 'المقال غير متوفر' : 'Article complet bientôt disponible.'); return; }
   const c = content[lang] || content['fr'];
-  document.getElementById('article-content').innerHTML = `
-    <button class="back-btn" onclick="history.back(); showPage('inform');">${t[lang]['back']}</button>
+  const isAr = lang === 'ar';
+  const detailEl = document.getElementById('article-content');
+  detailEl.setAttribute('dir', isAr ? 'rtl' : 'ltr');
+  detailEl.style.textAlign = isAr ? 'right' : 'left';
+  detailEl.innerHTML = `
+    <button class="back-btn" onclick="showPage('inform');">${t[lang]['back']}</button>
     <div class="lang-toggle-row">
-      <button class="lang-toggle-btn ${lang==='fr'?'active':''}" onclick="currentLang='fr';showArticle('${id}')">Français</button>
+      <button class="lang-toggle-btn ${lang==='fr'?'active':''}" onclick="currentLang='fr';applyTranslations();showArticle('${id}')">Français</button>
       <button class="lang-toggle-btn ${lang==='ar'?'active':''}" onclick="currentLang='ar';applyTranslations();showArticle('${id}')">العربية</button>
     </div>
     <h1>${c.title}</h1>
@@ -1190,7 +1265,7 @@ function renderQuestion() {
   document.getElementById('answers-grid').innerHTML = options.map(opt => `
     <button class="answer-btn" onclick="checkAnswer('${opt.emoji}')">
       ${opt.emoji}
-      <span>${opt.name[lang]}</span>
+      <span>${opt.name[currentLang] || opt.name.fr}</span>
     </button>`).join('');
 }
 

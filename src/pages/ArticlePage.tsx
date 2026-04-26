@@ -86,7 +86,11 @@ export default function ArticlePage() {
             {isAr ? article.title_ar : article.title}
           </h1>
         </div>
-        <div className="px-8 py-8 prose">
+        <div
+          className="px-8 py-8 prose"
+          dir={isAr ? "rtl" : "ltr"}
+          style={{ textAlign: isAr ? "right" : "left" }}
+        >
           <ReactMarkdown>{isAr ? article.content_ar : article.content}</ReactMarkdown>
         </div>
       </div>

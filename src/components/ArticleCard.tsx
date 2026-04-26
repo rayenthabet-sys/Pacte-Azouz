@@ -6,9 +6,11 @@ import CategoryBadge from "@/components/CategoryBadge";
 export default function ArticleCard({
   article,
   index = 0,
+  isAr = false,
 }: {
   article: Article;
   index?: number;
+  isAr?: boolean;
 }) {
   return (
     <Link
@@ -21,12 +23,12 @@ export default function ArticleCard({
         <div className="w-9 h-9 rounded-xl bg-blue-50 flex items-center justify-center text-blue-500">
           <BookOpen size={18} />
         </div>
-        <CategoryBadge category={article.category} />
+        <CategoryBadge category={article.category} isAr={isAr} />
       </div>
 
       {/* Title */}
       <h2 className="font-extrabold text-lg text-slate-800 leading-snug mb-3 group-hover:text-blue-600 transition-colors">
-        {article.title}
+        {isAr && article.title_ar ? article.title_ar : article.title}
       </h2>
 
       {/* Excerpt */}
@@ -36,7 +38,7 @@ export default function ArticleCard({
 
       {/* Link */}
       <div className="flex items-center gap-2 text-sm font-bold text-blue-600">
-        Lire l'article
+        {isAr ? "اقرأ المقال" : "Lire l'article"}
         <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
       </div>
     </Link>
